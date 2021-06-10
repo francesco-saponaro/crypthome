@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_title %}
+    home page
+{% endblock %}
+
 {% block hero_section %}
     <section class="hero-section">
         <img src="/media/pexels-karolina-grabowska-5980889.jpg" alt="crypto-main-img">
@@ -9,4 +13,86 @@
 {% endblock %}
 
 {% block content %}
+    <div class="container-fluid mt-5">
+        <!-- Table large screens -->
+        <table class="table table-borderless d-none d-sm-table">
+            <thead class="bg-dark bg-gradient text-light text-center">
+                <tr>
+                    <th scope="col "></th>
+                    <th scope="col">#</th>
+                    <th scope="col" class="text-start">Name</th>
+                    <th scope="col"></th>
+                    <th scope="col" class="text-end">Price (£)</th>
+                    <th scope="col" class="text-end"">24h %</th>
+                    <th scope="col" class="text-end"">Market Cap</th>
+                </tr>
+            </thead>
+            <tbody class="text-center text-light">
+                {% if data %}
+                    {% for i in data %}
+                        <tr>
+                            <td class="align-middle"><i class="far fa-star favourites"></i></td>
+                            <td class="align-middle">{{ i.market_cap_rank }}</td>
+                            <td class="align-middle text-start">
+                                <img src={{i.image}} height="30"> 
+                                {{ i.name }} 
+                                <span class="text-uppercase fw-bold symbol">{{ i.symbol }}</span>
+                            </td>
+                            <td class="align-middle"><a href="" class="btn btn-success">Buy</a></td>
+                            <td class="align-middle text-end">{{ i.current_price }}</td>
+                            <td class="align-middle text-end">{{ i.price_change_percentage_24h }}</td>
+                            <td class="align-middle text-end">{{ i.market_cap }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <h3>Ooops...Something went wrong</h3>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <!-- Table small screens -->
+        <table class="table table-borderless d-sm-none">
+            <tbody class="text-center text-light">
+                {% if data %}
+                    {% for i in data %}
+                        <tr>
+                            <td class="align-middle"><img src={{i.image}} height="30"></td>
+                            <td class="text-start">{{ i.name }}
+                                <br><span class="bg-dark btn-sm">{{ i.market_cap_rank }}</span>
+                                <span class="text-uppercase fw-bold x-small">{{ i.symbol }}  {{ i.price_change_percentage_24h|stringformat:".4s"}}%</span>
+                            </td>
+                            <td class="align-middle">
+                                <a href="" class="btn btn-success">Buy</a>
+                            </td>
+                            <td class="align-middle text-end">£{{ i.current_price }}
+                                <br><span class="x-small">MCap {{ i.market_cap }}</span>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <h3>Ooops...Something went wrong</h3>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block postloadjs %}
+    <script>
+        //Get all form's favourite buttons
+        let favourites = document.querySelectorAll('.favourites');
+
+        //Change Icon class and input value on click
+        favourites.forEach(favourite => {
+            favourite.addEventListener('click', e => {
+                if (e.target.classList.contains('far')) {
+                    e.target.classList.remove('far');
+                    e.target.classList.add('fas', 'text-warning');
+                } else {
+                    e.target.classList.remove('fas', 'text-warning');
+                    e.target.classList.add('far');
+                }
+            });
+        });
+    </script>
 {% endblock %}

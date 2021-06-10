@@ -39,11 +39,11 @@
         {% block extra_js %}
         {% endblock %}
 
-        <title>Crypthome {% block extra_title %}{% endblock %}</title>
+        <title>Crypthome | {% block extra_title %}{% endblock %}</title>
     </head>
     <body>
         <!-- Navbar -->
-        <header class="container-fluid fixed-top">
+        <header class="container-fluid">
             <div id="topnav" class="row bg-dark bg-gradient py-lg-2">
                 <!-- Logo -->
                 <div class="col-5 col-sm-7 col-md-5 my-auto py-1 text-center text-lg-left">
@@ -131,16 +131,18 @@
                     </div>
                 </div>
             </div>
-            <div class="row bg-black text-center">
-                <div class="col-12 col-xl-9 flex">
-                    <h5 class="press-start text-white">Free delivery on merch orders over ${{ free_delivery_threshold }}!</h5> 
+            {% block page_header %}
+                <div class="row bg-black text-center">
+                    <div class="col-12 col-xl-9 flex">
+                        <h5 class="press-start text-white">Free delivery on merch orders over ${{ free_delivery_threshold }}!</h5> 
+                    </div>
+                    <div class="col-12 col-xl-3 flex">
+                        <h5>
+                            <a href="" class="collection-button btn rounded-0 text-uppercase">View Collection</a>
+                        </h5>
+                    </div>            
                 </div>
-                <div class="col-12 col-xl-3 flex">
-                    <h5>
-                        <a href="" class="collection-button btn rounded-0 text-uppercase">View Collection</a>
-                    </h5>
-                </div>            
-            </div>
+            {% endblock %}
         </header>
 
         {% if messages %}
@@ -148,9 +150,6 @@
         {% endif %}
 
         {% block hero_section %}
-        {% endblock %}
-
-        {% block page_header %}
         {% endblock %}
 
         {% block content %}

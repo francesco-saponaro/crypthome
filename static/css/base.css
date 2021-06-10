@@ -7,6 +7,26 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+h5 {
+    margin-bottom: 0;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-black {
+    background-color: black;
+}
+
+.press-start {
+    font-family: 'Press Start 2P', cursive;
+    margin:1rem 0;
+}
+
+/* hero section */
 .hero-section img {
     position:absolute;
     top:72px;
@@ -25,7 +45,7 @@ body {
     background:rgba(0,0,0,0.7);
 }
 
-/* from Bulma */
+/* icon class from Bulma */
 .icon {
     align-items: center;
     display: inline-flex;
@@ -34,6 +54,7 @@ body {
     width: 1.5rem;
 }
 
+/* navbar */
 .main-logo-link {
     width: fit-content
 }
@@ -67,6 +88,10 @@ ul {
     box-shadow:none
 }
 
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
 input {
     color: rgba(255,255,255,.5)!important;
 }
@@ -82,6 +107,20 @@ input {
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: rgba(255,255,255,.5)!important;;
+}
+
+.collection-button {
+    background-color:#eaee12;
+    margin:1rem 0;
+}
+
+.collection-button:hover {
+    background-image: -webkit-linear-gradient(right, #09793b, #00d4ff);
+    box-shadow: 0px 10px 15px rgba(46, 229, 157, 0.4);
+}
+
+.collection-button:focus {
+    box-shadow: none;
 }
 
 /* media queries */
@@ -102,5 +141,80 @@ input {
 
     .header-container {
         padding-top:164px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .press-start {
+        margin:1rem 0 0 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .navbar-toggler {
+        float:right;
+    }
+}
+
+@media (max-width: 768px) {
+    .dropdown {
+        padding-right:10px;
+    }
+
+    .hero-section img {
+        top:59px;
+    }
+
+    .overlay {
+        top:59px;
+    }
+}
+
+@media (max-width: 576px) {
+    .dropdown {
+        padding-right:15px;
+    }
+
+    .hero-section img {
+        top:48px;
+    }
+
+    .overlay {
+        top:48px;
+    }
+}
+
+@media (max-width: 500px) {
+    .list-inline-item:not(:last-child) {
+        margin-right: 0;
+    }
+
+    .logo-font {
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 450px) {
+    .navbar-toggler {
+        padding:1px 6px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 414px) {
+    .logo-font {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 376px) {
+    .logo-font {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 350px) {
+    .logo-font {
+        font-size: 15px;
     }
 }

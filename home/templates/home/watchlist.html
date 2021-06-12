@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}
+    My watchlist
+{% endblock %}
+
+{% block page_header %}
+    <div class="row watchlist-title py-2 ps-3">
+        <div class="col-12">
+            <h4 class="text-white text-uppercase mb-0">My Watchlist</h4>
+        </div>            
+    </div>
+{% endblock %}
+
+{% block hero_section %}
+    <section class="hero-section">
+        <img src="/media/pexels-karolina-grabowska-5980889.jpg" alt="crypto-main-img">
+        <div class="overlay"></div>
+    </section>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid mt-3">
+        <!-- Table large screens -->
+        <table class="table table-borderless d-none d-sm-table">
+            <thead class="text-light text-center">
+                <tr>
+                    <th scope="col "></th>
+                    <th scope="col">#</th>
+                    <th scope="col" class="text-start">Name</th>
+                    <th scope="col"></th>
+                    <th scope="col" class="text-end">Price (£)</th>
+                    <th scope="col" class="text-end"">24h %</th>
+                    <th scope="col" class="text-end"">Market Cap (£)</th>
+                </tr>
+            </thead>
+            <tbody class="text-center text-light">
+            </tbody>
+        </table>
+
+        <!-- Table small screens -->
+        <table class="table table-borderless d-sm-none">
+            <tbody class="text-center text-light small-table">
+            </tbody>
+        </table>
+
+        <!-- Add favourites button -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a class="text-light link"><i class="fas fa-plus-square fa-lg"></i> Add Favourites</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

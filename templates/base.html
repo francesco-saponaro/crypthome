@@ -44,7 +44,7 @@
     <body>
         <!-- Navbar -->
         <header class="container-fluid">
-            <div id="topnav" class="row bg-dark bg-gradient py-lg-2">
+            <div id="topnav" class="row bg-gradient py-lg-2">
                 <!-- Logo -->
                 <div class="col-5 col-sm-7 col-md-5 my-auto py-1 text-center text-lg-left">
                     <a href="{% url 'home' %}" class="nav-link main-logo-link">
@@ -57,7 +57,7 @@
                     <ul class="list-inline list-unstyled text-center my-0">
                         <li class="list-inline-item">
                             <a class="nav-link" href="">
-                                <div class="text-center text-light">
+                                <div class="text-center">
                                     <div><i class="fas fa-tshirt"></i></div>
                                     <p class="my-0 d-none d-md-block">Crypthomerch</p>
                                 </div>
@@ -66,15 +66,15 @@
                         {% if request.user.is_authenticated%}
                             <li class="list-inline-item d-none d-xl-inline-block">
                                 <a class="nav-link" href="">
-                                    <div class="text-center text-light">
+                                    <div class="text-center">
                                         <div><i class="fas fa-chart-pie"></i></div>
                                         <p class="my-0 d-none d-md-block">Portfolio</p>
                                     </div>
                                 </a>
                             </li>
                             <li class="list-inline-item d-none d-xl-inline-block">
-                                <a class="nav-link" href="">
-                                    <div class="text-center text-light">
+                                <a class="nav-link" href="{% url 'watchlist' %}">
+                                    <div class="text-center {% if request.resolver_match.kwargs.navbar == 'watchlist' %}active{% endif %}">
                                         <div><i class="fas fa-star"></i></div>
                                         <p class="my-0 d-none d-md-block">Watchlist</p>
                                     </div>
@@ -94,7 +94,7 @@
                                     {% if request.user.is_superuser%}
                                         <a href="" class="dropdown-item"><i class="fas fa-cog"></i> Product Management</a>
                                     {% endif %}
-                                    <a href="" class="dropdown-item"><i class="fas fa-star"></i> Watchlist</a>
+                                    <a href="{% url 'watchlist' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'watchlist' %}dropdown-active{% endif %}"><i class="fas fa-star"></i> Watchlist</a>
                                     <a href="" class="dropdown-item"><i class="fas fa-chart-pie"></i> Portfolio</a>
                                     <a href="{% url 'account_logout' %}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Log Out</a>
                                 {% else %}
@@ -107,7 +107,7 @@
                 </div>
     
                 <!-- Search bar collapsible -->
-                <div class="container-fluid col-1 my-auto py-1 text-center text-light">
+                <div class="col-1 my-auto py-1 text-center text-light">
                     <button class="navbar-toggler text-light border border-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="icon">
                             <i class="fas fa-search"></i>
@@ -131,19 +131,18 @@
                     </div>
                 </div>
             </div>
-            {% block page_header %}
+        </header>
+
+        {% block page_header %}
+            <!-- Call to action -->
+            <div class="container-fluid">
                 <div class="row bg-black text-center">
-                    <div class="col-12 col-xl-9 flex">
-                        <h5 class="press-start text-white">Free delivery on merch orders over ${{ free_delivery_threshold }}!</h5> 
-                    </div>
-                    <div class="col-12 col-xl-3 flex">
-                        <h5>
-                            <a href="" class="collection-button btn rounded-0 text-uppercase">View Collection</a>
-                        </h5>
+                    <div class="col-12 cta">
+                        <h4 class="text-white text-uppercase">Free delivery on merch orders over ${{ free_delivery_threshold }}!</h4> <a href="" class="btn rounded-0 text-uppercase">View Collection</a>
                     </div>            
                 </div>
-            {% endblock %}
-        </header>
+            </div>
+        {% endblock %}
 
         {% if messages %}
             <div class="message-container"></div>

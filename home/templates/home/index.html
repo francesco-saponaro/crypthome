@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block hero_section %}
+    <!-- Background image -->
     <section class="hero-section">
         <img src="/media/pexels-karolina-grabowska-5980889.jpg" alt="crypto-main-img">
         <div class="overlay"></div>
@@ -13,10 +14,10 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-3">
         <!-- Table large screens -->
         <table class="table table-borderless d-none d-sm-table">
-            <thead class="bg-dark bg-gradient text-light text-center">
+            <thead class="text-light text-center">
                 <tr>
                     <th scope="col "></th>
                     <th scope="col">#</th>
@@ -24,7 +25,7 @@
                     <th scope="col"></th>
                     <th scope="col" class="text-end">Price (£)</th>
                     <th scope="col" class="text-end"">24h %</th>
-                    <th scope="col" class="text-end"">Market Cap</th>
+                    <th scope="col" class="text-end"">Market Cap (£)</th>
                 </tr>
             </thead>
             <tbody class="text-center text-light">
@@ -34,11 +35,15 @@
                             <td class="align-middle"><i class="far fa-star favourites"></i></td>
                             <td class="align-middle">{{ i.market_cap_rank }}</td>
                             <td class="align-middle text-start">
-                                <img src={{i.image}} height="30"> 
-                                {{ i.name }} 
-                                <span class="text-uppercase fw-bold symbol">{{ i.symbol }}</span>
+                                <a href="" class="text-light link">
+                                    <img src={{i.image}} height="30"> 
+                                    {{ i.name }}
+                                    <span class="text-uppercase fw-bold symbol">{{ i.symbol }}</span>
+                                </a>
                             </td>
-                            <td class="align-middle"><a href="" class="btn btn-success">Buy</a></td>
+                            <td class="align-middle">
+                                <a href="" class="btn rounded-0 text-uppercase">Buy</a>
+                            </td>
                             <td class="align-middle text-end">{{ i.current_price }}</td>
                             <td class="align-middle text-end">{{ i.price_change_percentage_24h }}</td>
                             <td class="align-middle text-end">{{ i.market_cap }}</td>
@@ -52,7 +57,7 @@
 
         <!-- Table small screens -->
         <table class="table table-borderless d-sm-none">
-            <tbody class="text-center text-light">
+            <tbody class="text-center text-light small-table">
                 {% if data %}
                     {% for i in data %}
                         <tr>
@@ -62,10 +67,10 @@
                                 <span class="text-uppercase fw-bold x-small">{{ i.symbol }}  {{ i.price_change_percentage_24h|stringformat:".4s"}}%</span>
                             </td>
                             <td class="align-middle">
-                                <a href="" class="btn btn-success">Buy</a>
+                                <a href="" class="btn rounded-0 text-uppercase">Buy</a>
                             </td>
                             <td class="align-middle text-end">£{{ i.current_price }}
-                                <br><span class="x-small">MCap {{ i.market_cap }}</span>
+                                <br><span class="x-small">MCap £{{ i.market_cap }}</span>
                             </td>
                         </tr>
                     {% endfor %}

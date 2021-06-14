@@ -195,6 +195,14 @@ td .btn:focus {
     border: 1px solid #212529;
 }
 
+.higher {
+    color: #12df2b;
+}
+
+.lower {
+    color: red;
+}
+
 /* watchlist page */
 .watchlist-title {
     background-color: #07011c;

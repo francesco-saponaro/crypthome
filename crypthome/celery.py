@@ -5,6 +5,7 @@ from celery import Celery
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crypthome.settings')
 
+# Create instance of Celery class, takes directory of celery.py file
 app = Celery('crypthome')
 
 # Using a string here means the worker doesn't have to serialize
@@ -13,6 +14,7 @@ app = Celery('crypthome')
 #   should have a `CELERY_` prefix.
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
+# Schedule the task periodic execution (beat).
 app.conf.beat_schedule = {
     'run_every_minute': {
         'task': 'home.tasks.get_crypto_data',

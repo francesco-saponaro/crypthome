@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block hero_section %}
+    <!-- Background image -->
     <section class="hero-section">
         <img src="/media/pexels-karolina-grabowska-5980889.jpg" alt="crypto-main-img">
         <div class="overlay"></div>
@@ -13,40 +14,231 @@
 {% endblock %}
 
 {% block content %}
-    {% if data.name == token.name %}
-    <div class="container-fluid token-pg-container mt-3">
-        <div class="row">
-            <div class="col-10 flex justify-content-start">
-                <img src={{data.image}} class="token-pg-image">
-                <p class="text-uppercase mb-0 token-pg-title me-4">{{ data.name }} ({{ data.symbol }})</p>
-                <span class="token-pg-icon"><i class="far fa-star favourites"></i></span>
-            </div>
-            <div class="col-2 flex justify-content-end">
-                <p class="mb-0 token-pg-rank">#{{ data.market_cap_rank }}</p>
-            </div>
-        </div>
+    <!-- If there is data coming from the API, Iterate through it and if the API's token id matches the database token id in the URL, display it's data-->
+    {% if data %}
+        {% for i in data %}
+            {% if i.id == token.id %}
+                <div class="container-fluid token-pg-container mt-3">
+                    <div class="row">
+                        <div class="col-10 flex justify-content-start">
+                            <img src={{i.image}} class="token-pg-image">
+                            <p class="text-uppercase mb-0 token-pg-title me-4">{{ i.name }} ({{ i.symbol }})</p>
+                            <span class="token-pg-icon"><i class="far fa-star favourites"></i></span>
+                        </div>
+                        <div class="col-2 flex justify-content-end">
+                            <p class="mb-0 token-pg-rank">#{{ i.market_cap_rank }}</p>
+                        </div>
+                    </div>
 
-        <hr class="bg-light border-2 border-top border-light">
+                    <hr class="bg-light border-2 border-top border-light">
 
-        <div class="row">
-            <div class="col-12 flex justify-content-between">
-                <p class="mb-0"><span class="token-pg-h">Price</span> <br> <span class="token-pg-data">£{{ data.cuurent_price }}</span></p>
-                <p class="mb-0"><span class="token-pg-h">Market Cap</span> <br> <span class="token-pg-data">£{{ data.market_cap }}</span></p>
-                <p class="mb-0 text-end"><span class="token-pg-h">24%</span> <br> <span class="token-pg-data">{{ data.price_change_percentage_24h|floatformat:2 }}%</span></p>
-            </div>
-        </div>
-    </div>
+                    <div class="row">
+                        <div class="col-12 flex justify-content-between">
+                            <p class="mb-0">
+                                <span class="token-pg-h text-light">Price</span> 
+                                <br> 
+                                <span class="token-pg-data">£{{ i.current_price }}</span>
+                            </p>
+                            <p class="mb-0">
+                                <span class="token-pg-h text-light">Market Cap</span> 
+                                <br> 
+                                <span class="token-pg-data">£{{ i.market_cap }}</span>
+                            </p>
+                            <p class="mb-0 text-end">
+                                <span class="token-pg-h text-light">24%</span> 
+                                <br> 
+                                <span class="token-pg-data">{{ i.price_change_percentage_24h|floatformat:2 }}%</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <!-- Buy button trigger modal -->
+                        <button type="button" class="btn rounded-0 text-uppercase token-pg-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{ token.name }}">
+                            Buy {{ token.name }}
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop{{ token.name }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content crypto-modal">
+                                    <div class="modal-header text-light">
+                                        <h5 class="modal-title text-uppercase" id="staticBackdropLabel">Buy {{ token.name }}</h5>
+                                        <button type="button" class="btn-close bg-secondary" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <!-- Token data -->
+                                        <div class="row pb-3 modal-row text-center">
+                                            <div class="col-6">
+                                                <p class="modal-data-h">Price</p>
+                                                <p class="modal-data mb-0">£{{ i.current_price }}</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="modal-data-h">24h %</p>
+                                                <p class="modal-data mb-0">{{ i.price_change_percentage_24h|floatformat:2 }}%</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Monetary inputs -->
+                                        <div class="row pt-3">
+                                            <div class="col-12 pb-3 text-start">
+                                                <label for="token-amount" class="pb-1 modal-data-h">Amount {{ token.name }}</label>
+                                                <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="token-amount" name="token-amount" placeholder="Amount {{ token.name }}">
+                                            </div>
+                                            <div class="col-12 text-start">
+                                                <label for="gbp-amount" class="pb-1 modal-data-h">Total (GBP)</label>
+                                                <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="gbp-amount" name="gbp-amount" placeholder="Total (GBP)">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <!-- Cancel and buy buttons -->
+                                        <button type="button" class="btn cancel-sell-btn" data-bs-dismiss="modal">
+                                            Cancel
+                                        </button>
+                                        <button type="button" class="btn">
+                                            Buy
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+    {% else %}
+        <h3>Ooops...Something went wrong</h3>
     {% endif %}
 
-    <div class="container-fluid token-pg-container mt-3">
-        <div class="row mt-3">
-            <a href="" class="btn rounded-0 text-uppercase token-pg-btn">Buy {{ token.name }}</a>
-        </div>
-    </div>
 {% endblock %}
 
+<!-- Unlike the index html that has a separate external js file, in this page I had to use an internal script in order to use Django template in the filter function -->
 {% block postloadjs %}
     {{ block.super }}
-     <script type="text/javascript" src="{% static 'home/js/websocket-token-pg.js' %}"></script>
+    <script type="text/javascript">
+        /* Create new instance of Websocket class and pass it the URL defined in routing.py */
+        let socket = new WebSocket(`wss://${window.location.host}/ws/home/`);
+
+        /* Add data coming from the consumer to a variable */
+        socket.onmessage = function(event) {
+            let tokens = JSON.parse(event.data);
+            console.log(tokens);
+
+            /* Filter through the consumer data to only extract the token matching the URL id */
+            let newDataTokenPg = tokens.filter(token => token.id == "{{ token.id }}");
+            console.log(newDataTokenPg);
+            
+            /* Append extracted token to the appropriate container */
+            document.querySelector(".token-pg-container").innerHTML = `
+                <div class="row">
+                    <div class="col-10 flex justify-content-start">
+                        <img src=${newDataTokenPg[0].image} class="token-pg-image">
+                        <p class="text-uppercase mb-0 token-pg-title me-4">${newDataTokenPg[0].name} (${newDataTokenPg[0].symbol})</p>
+                        <span class="token-pg-icon"><i class="far fa-star favourites"></i></span>
+                    </div>
+                    <div class="col-2 flex justify-content-end">
+                        <p class="mb-0 token-pg-rank">#${newDataTokenPg[0].rank}</p>
+                    </div>
+                </div>
+
+                <hr class="bg-light border-2 border-top border-light">
+
+                <div class="row">
+                    <div class="col-12 flex justify-content-between">
+                        <p class="mb-0">
+                            <span class="token-pg-h">Price</span> 
+                            <br> 
+                            <span class="token-pg-data ${newDataTokenPg[0].direction === "higher" ? "higher" : newDataTokenPg[0].direction === "lower" ? "lower" : "same"}">£${newDataTokenPg[0].price}</span>
+                        </p>
+                        <p class="mb-0">
+                            <span class="token-pg-h">Market Cap</span> 
+                            <br> 
+                            <span class="token-pg-data">£${newDataTokenPg[0].market_cap}</span>
+                        </p>
+                        <p class="mb-0 text-end">
+                            <span class="token-pg-h">24%</span> 
+                            <br> 
+                            <span class="token-pg-data">${newDataTokenPg[0].price_change.toFixed(2)}%</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <!-- Buy button trigger modal -->
+                    <button type="button" class="btn rounded-0 text-uppercase token-pg-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop${newDataTokenPg[0].name}">
+                        Buy ${newDataTokenPg[0].name}
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop${newDataTokenPg[0].name}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content crypto-modal">
+                                <div class="modal-header text-light">
+                                    <h5 class="modal-title text-uppercase" id="staticBackdropLabel">Buy ${newDataTokenPg[0].name}</h5>
+                                    <button type="button" class="btn-close bg-secondary" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <!-- Token data -->
+                                    <div class="row pb-3 modal-row text-center">
+                                        <div class="col-6">
+                                            <p class="modal-data-h">Price</p>
+                                            <p class="modal-data mb-0">£${newDataTokenPg[0].price}</p>
+                                        </div>
+                                        <div class="col-6">
+                                            <p class="modal-data-h">24h %</p>
+                                            <p class="modal-data mb-0">${newDataTokenPg[0].price_change.toFixed(2)}%</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Monetary inputs -->
+                                    <div class="row pt-3">
+                                        <div class="col-12 pb-3 text-start">
+                                            <label for="token-amount" class="pb-1 modal-data-h">Amount ${newDataTokenPg[0].name}</label>
+                                            <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="token-amount" name="token-amount" placeholder="Amount ${newDataTokenPg[0].name}">
+                                        </div>
+                                        <div class="col-12 text-start">
+                                            <label for="gbp-amount" class="pb-1 modal-data-h">Total (GBP)</label>
+                                            <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="gbp-amount" name="gbp-amount" placeholder="Total (GBP)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <!-- Cancel and buy buttons -->
+                                    <button type="button" class="btn cancel-sell-btn" data-bs-dismiss="modal">
+                                        Cancel
+                                    </button>
+                                    <button type="button" class="btn">
+                                        Buy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            //Get all table's favourite buttons
+            let favourites = document.querySelectorAll('.favourites');
+
+            //Change Icon class and input value on click
+            favourites.forEach(favourite => {
+                favourite.addEventListener('click', e => {
+                    if (e.target.classList.contains('far')) {
+                        e.target.classList.remove('far');
+                        e.target.classList.add('fas', 'text-warning');
+                    } else {
+                        e.target.classList.remove('fas', 'text-warning');
+                        e.target.classList.add('far');
+                    }
+                });
+            });
+        }
+    </script>
     <script type="text/javascript" src="{% static 'home/js/watchlist.js' %}"></script>
 {% endblock %}

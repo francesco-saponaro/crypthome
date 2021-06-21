@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}
+    Buy {{ db_token }}
+{% endblock %}
+
+{% block page_header %}
+    <div class="row section-title py-2 ps-3">
+        <div class="col-12">
+            <h3 class="text-white text-uppercase mb-0 section-title-h">Buy {{ db_token }}</h3>
+        </div>            
+    </div>
+{% endblock %}
+
+{% block hero_section %}
+    {% include "includes/background-img.html" %}
+{% endblock %}
+
+{% block content %}
+    <!-- If there is data coming from the API, Iterate through it and if the API's token id matches the database token id in the URL, display it's data -->
+    {% if api_data %}
+        {% for api_token in api_data %}
+            {% if api_token.id == db_token.id %}
+                <div class="container-fluid buy-crypto-container mt-3">
+                    <!-- Token data -->
+                    <div class="row pb-3 buy-token-row text-center">
+                        <div class="col-6">
+                            <p class="buy-data-h mb-1">Price</p>
+                            <p class="buy-data mb-0">£{{ api_token.current_price }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p class="buy-data-h mb-1">24h %</p>
+                            <p class="buy-data mb-0">{{ api_token.price_change_percentage_24h|floatformat:2 }}%</p>
+                        </div>
+                    </div>
+
+                    <!-- Monetary inputs -->
+                    <div class="row pt-3">
+                        <div class="col-12 pb-3 text-start">
+                            <label for="token-amount" class="pb-1 buy-data-h">Amount {{ api_token.name }}</label>
+                            <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="token-amount" name="token-amount" placeholder="Amount {{ token.name }}">
+                        </div>
+                        <div class="col-12 text-start">
+                            <label for="gbp-amount" class="pb-1 buy-data-h">Total (GBP)</label>
+                            <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="gbp-amount" name="gbp-amount" placeholder="Total (GBP)">
+                        </div>
+                    </div>
+
+                    <!-- Buy buttons -->
+                    <div class="row pt-4">
+                        <div class="col-12">
+                            <button type="button" class="btn rounded-0 text-uppercase w-100 token-pg-btn">
+                                Buy {{ api_token.name }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h3 class="text-center mt-5 text-uppercase">
+                    Ooops...
+                    <br>
+                    Data is not available
+                </h3>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+<!-- Unlike the index html that has a separate external js file, in this page I had to use an internal script in order to use Django template in the filter function -->
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+        /* Create new instance of Websocket class and pass it the URL defined in routing.py */
+        let socket = new WebSocket(`wss://${window.location.host}/ws/home/`);
+
+        /* Add data coming from the consumer to a variable */
+        socket.onmessage = function(event) {
+            let ws_tokens = JSON.parse(event.data);
+            console.log(ws_tokens);
+
+            /* Filter through the consumer data to only extract the token matching the URL id */
+            let newDataBuyTokenPg = ws_tokens.filter(ws_token => ws_token.id == "{{ db_token.id }}");
+            console.log(newDataBuyTokenPg);
+            
+            /* Append extracted token to the appropriate container */
+            document.querySelector(".buy-token-row").innerHTML = `
+                <div class="col-6">
+                    <p class="buy-data-h mb-1">Price</p>
+                    <p class="buy-data mb-0 ${newDataBuyTokenPg[0].direction === "higher" ? "higher" : newDataBuyTokenPg[0].direction === "lower" ? "lower" : "same"}">£${newDataBuyTokenPg[0].price}</p>
+                </div>
+                <div class="col-6">
+                    <p class="buy-data-h mb-1">24h %</p>
+                    <p class="buy-data mb-0">${newDataBuyTokenPg[0].price_change.toFixed(2)}%</p>
+                </div>
+            `;
+        }
+    </script>
+{% endblock %}

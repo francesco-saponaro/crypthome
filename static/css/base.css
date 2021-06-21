@@ -88,9 +88,17 @@ ul {
 
 .nav-link {
     color:#f8f9fa;
+    font-size: 18px;
+    padding: 10px;
 }
 
 .nav-link:hover {
+    background: -webkit-linear-gradient(right, #09793b, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-link:focus {
     background: -webkit-linear-gradient(right, #09793b, #00d4ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -104,10 +112,6 @@ ul {
     color:#212529;
 }
 
-.form-control:focus {
-    box-shadow:none
-}
-
 .navbar-toggler:focus {
     box-shadow: none;
 }
@@ -119,6 +123,11 @@ ul {
 .dropdown-active {
     background-color:#ffc107;
     color:#212529;
+}
+
+/* search bar */
+.form-control:focus {
+    box-shadow:none
 }
 
 input {
@@ -165,6 +174,12 @@ input {
     box-shadow: none;
 }
 
+/* section title */
+.section-title {
+    background-color: #07011c;
+    border-top: 1px solid #212529;
+}
+
 /* cryptos table */
 thead tr {
     border: 1px solid #212529;
@@ -209,11 +224,6 @@ td .btn:focus {
 }
 
 /* watchlist page */
-.watchlist-title {
-    background-color: #07011c;
-    border-top: 1px solid #212529;
-}
-
 .add-fav:hover {
     background: -webkit-linear-gradient(right, #09793b, #00d4ff);
     -webkit-background-clip: text;
@@ -227,35 +237,39 @@ td .btn:focus {
 }
 
 .token-pg-image {
-    width: 60px;
+    width: 55px;
     margin-right:24px;
 }
 
 .token-pg-title {
-    font-size: 60px;
+    font-size: 55px;
+}
+
+.token-pg-symbol {
+    font-size: 50px;
 }
 
 .token-pg-icon {
-    font-size: 40px;
+    font-size: 35px;
 }
 
 .token-pg-rank {
-    font-size: 50px;
+    font-size: 45px;
 }
 
 .token-pg-data {
-    font-size: 50px;
+    font-size: 45px;
 }
 
 .token-pg-h {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .token-pg-btn {
     background-color: black;
     color:#12df2b;
     border: 1px solid #12df2b;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .token-pg-btn:hover {
@@ -268,33 +282,23 @@ td .btn:focus {
     box-shadow: none;
 } 
 
-/* Buy crypto modal */
-.crypto-modal {
-    background-color:#07011c ;
+/* Buy crypto page */
+.buy-crypto-container {
+    background-color:#07011c;
+    width:80%;
+    padding:20px;
 }
 
-.modal-row {
+.buy-token-row {
     border-bottom: 1px solid #dee2e6;
 }
 
-.modal-data-h {
+.buy-data-h {
     color:slategrey;
 }
 
-.modal-data {
-    font-size: 18px;
-}
-
-.cancel-sell-btn {
-    background-color: black !important;
-    color:red !important;
-    border: 1px solid red !important;
-}
-
-.cancel-sell-btn:hover {
-    background-color: red !important;
-    color:black !important;
-    border: 1px solid black !important;
+.buy-data {
+    font-size: 25px;
 }
 
 /* media queries */
@@ -330,11 +334,11 @@ td .btn:focus {
 
 @media (max-width: 1100px) {
     .token-pg-data {
-        font-size: 45px;
+        font-size: 40px;
     }
 
     .token-pg-h {
-        font-size: 25px;
+        font-size: 20px;
     }
 }
 
@@ -354,6 +358,10 @@ td .btn:focus {
 
     .token-pg-title {
         font-size: 50px;
+    }
+
+    .token-pg-symbol {
+        font-size: 46px;
     }
 
     .token-pg-icon {
@@ -378,8 +386,28 @@ td .btn:focus {
         font-size:21px;
     }
 
+    .token-pg-image {
+        width: 47px;
+    }
+
+    .token-pg-title {
+        font-size: 47px;
+    }
+
+    .token-pg-symbol {
+        font-size: 43px;
+    }
+
+    .token-pg-icon {
+        font-size: 27px;
+    }
+
+    .token-pg-rank {
+        font-size: 32px;
+    }
+
     .token-pg-data {
-        font-size: 40px;
+        font-size: 35px;
     }
 
     .token-pg-h {
@@ -418,16 +446,16 @@ td .btn:focus {
         font-size: 45px;
     }
 
+    .token-pg-symbol {
+        font-size: 40px;
+    }
+
     .token-pg-icon {
         font-size: 25px;
     }
 
     .token-pg-rank {
         font-size: 30px;
-    }
-
-    .token-pg-data {
-        font-size: 35px;
     }
 }
 
@@ -474,6 +502,10 @@ td .btn:focus {
     .token-pg-title {
         font-size: 38px;
     }
+
+    .token-pg-symbol {
+        font-size: 33px;
+    }
 }
 
 @media (max-width: 650px) {
@@ -491,6 +523,10 @@ td .btn:focus {
 
     .token-pg-title {
         font-size: 32px;
+    }
+
+    .token-pg-symbol {
+        font-size: 28px;
     }
 
     .token-pg-icon {
@@ -552,6 +588,10 @@ td .btn:focus {
         font-size: 30px;
     }
 
+    .token-pg-symbol {
+        font-size: 26px;
+    }
+
     .token-pg-icon {
         font-size: 15px;
     }
@@ -605,6 +645,10 @@ td .btn:focus {
         font-size: 25px;
     }
 
+    .token-pg-symbol {
+        font-size: 21px;
+    }
+
     .token-pg-data {
         font-size: 20px;
     }
@@ -634,12 +678,20 @@ td .btn:focus {
         font-size:9px;
     }
 
+    .section-title-h {
+        font-size:15px;
+    }
+
     .token-pg-image {
         width: 19px;
     }
 
     .token-pg-title {
         font-size: 19px;
+    }
+
+    .token-pg-symbol {
+        font-size: 15px;
     }
 
     .token-pg-rank {
@@ -653,6 +705,18 @@ td .btn:focus {
     .token-pg-h {
         font-size: 10px;
     }
+
+    .token-pg-btn {
+        font-size: 15px;
+    }
+
+    .buy-data-h {
+        font-size: 13px;
+    }
+
+    .buy-data {
+        font-size: 15px;
+    }
 }
 
 @media (max-width: 365px) {
@@ -665,11 +729,15 @@ td .btn:focus {
     }
 
     .token-pg-image {
-        width: 17px;
+        width: 20px;
     }
 
     .token-pg-title {
-        font-size: 17px;
+        font-size: 20px;
+    }
+
+    .token-pg-symbol {
+        font-size: 16px;
     }
 
     .token-pg-icon {
@@ -691,11 +759,15 @@ td .btn:focus {
     }
 
     .token-pg-image {
-        width: 20px;
+        width: 17px;
     }
 
     .token-pg-title {
-        font-size: 20px;
+        font-size: 17px;
+    }
+
+    .token-pg-symbol {
+        font-size: 14px;
     }
 
     .token-pg-icon {

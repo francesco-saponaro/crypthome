@@ -6,18 +6,15 @@
 {% endblock %}
 
 {% block page_header %}
-    <div class="row watchlist-title py-2 ps-3">
+    <div class="row section-title py-2 ps-3">
         <div class="col-12">
-            <h4 class="text-white text-uppercase mb-0">My Watchlist</h4>
+            <h3 class="text-white text-uppercase mb-0 section-title-h">My Watchlist</h3>
         </div>            
     </div>
 {% endblock %}
 
 {% block hero_section %}
-    <section class="hero-section">
-        <img src="/media/pexels-karolina-grabowska-5980889.jpg" alt="crypto-main-img">
-        <div class="overlay"></div>
-    </section>
+    {% include "includes/background-img.html" %}
 {% endblock %}
 
 {% block content %}

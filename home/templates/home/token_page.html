@@ -5,16 +5,16 @@
     {{ db_token }}
 {% endblock %}
 
-{% block hero_section %}
-    {% include "includes/background-img.html" %}
+{% block page_header %}
 {% endblock %}
 
 {% block content %}
     <!-- If there is data coming from the API, Iterate through it and if the API's token id matches the database token id in the URL, display it's data -->
-    {% if api_data %}
-        {% for api_token in api_data %}
-            {% if api_token.id == db_token.id %}
-                <div class="container-fluid token-pg-container mt-3">
+    <div class="container-fluid token-pg-container pt-3">
+        {% if api_data %}
+            {% for api_token in api_data %}
+                {% if api_token.id == db_token.id %}
+                    <!-- Header row -->
                     <div class="row">
                         <div class="col-10 flex justify-content-start">
                             <img src={{api_token.image}} class="token-pg-image">
@@ -26,46 +26,120 @@
                         </div>
                     </div>
 
+                    <!-- Divider -->
                     <hr class="bg-light border-2 border-top border-light">
 
+                    <!-- Main Data row -->
                     <div class="row">
                         <div class="col-12 flex justify-content-between">
                             <p class="mb-0">
-                                <span class="token-pg-h text-light">Price</span> 
+                                <span class="token-pg-h">Price</span> 
                                 <br> 
                                 <span class="token-pg-data">£{{ api_token.current_price }}</span>
                             </p>
                             <p class="mb-0">
-                                <span class="token-pg-h text-light">Market Cap</span> 
+                                <span class="token-pg-h">Market Cap</span> 
                                 <br> 
                                 <span class="token-pg-data">£{{ api_token.market_cap }}</span>
                             </p>
                             <p class="mb-0 text-end">
-                                <span class="token-pg-h text-light">24h%</span> 
+                                <span class="token-pg-h">24h%</span> 
                                 <br> 
                                 <span class="token-pg-data">{{ api_token.price_change_percentage_24h|floatformat:2 }}%</span>
                             </p>
                         </div>
                     </div>
 
+                    <!-- Divider -->
+                    <hr class="bg-light border-2 border-top border-light">
+
+                    <!-- Token links row -->
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="token-pg-h mb-1">Useful links</p>
+                            <ul class="list-inline list-unstyled float-none flex justify-content-between text-center my-0">
+                                <li class="list-inline-item pe-2">
+                                    <a class="token-pg-link text-light" href="{{ coins_api_data.links.homepage.0 }}">{{ api_token.name }} Homepage</a>
+                                </li>
+                                <li class="list-inline-item pe-2">
+                                    <a class="token-pg-link text-light" href="{{ coins_api_data.links.blockchain_site.0 }}">{{ api_token.name }} Blockchain site</a>
+                                </li>
+                                <li class="list-inline-item pe-2">
+                                    <a class="token-pg-link text-light" href="{{ coins_api_data.links.subreddit_url }}">{{ api_token.name }} Subreddit</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a class="token-pg-link text-light" href="{{ coins_api_data.links.repos_url.github.0 }}">{{ api_token.name }} Github repo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Description and additional data row -->
+                    <div class="row token-desc-row pb-3">
+                        <div class="col-12 col-md-6 col-xxl-8">
+                            <!-- First part of description text -->
+                            <p class="token-pg-desc">{{ coins_api_desc }}
+                                <span id="dots">...</span>
+                                <!-- Second part of description text, hidden by default -->
+                                <span id="more-text">{{ coins_api_desc_second }}</span>
+                            </p>
+                            <!-- Toggler button to show/hide second part of description -->
+                            <p onclick="toggleText()" id="text-button" class="text-light text-uppercase">
+                                Show More <i class="fas fa-caret-down"></i>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-6 col-xxl-4">
+                            <div class="row first-additional-data-row pb-5">
+                                <div class="col-6 text-center">
+                                    <p class="token-pg-small-h slategrey text-center">Total Supply ({{ coins_api_data.symbol|upper }})</p>
+                                    <p class="token-pg-small-data">{{ coins_api_data.market_data.total_supply }}</p>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <p class="token-pg-small-h slategrey text-center">Circulating Supply ({{ coins_api_data.symbol|upper }})</p>
+                                    <p class="token-pg-small-data">{{ coins_api_data.market_data.circulating_supply }}</p>
+                                </div>
+                            </div>
+                            <div class="row pb-5">
+                                <div class="col-6 text-center">
+                                    <p class="token-pg-small-h slategrey text-center">All Time High</p>
+                                    <p class="token-pg-small-data">£{{ coins_api_data.market_data.ath.gbp }}</p>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <p class="token-pg-small-h slategrey text-center">ATH Change Percentage</p>
+                                    <p class="token-pg-small-data">{{ coins_api_data.market_data.ath_change_percentage.gbp }}%</p>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="col-6 text-center">
+                                    <p class="token-pg-small-h slategrey text-center">Price Change 30d %</p>
+                                    <p class="token-pg-small-data">{{ coins_api_data.market_data.price_change_percentage_30d_in_currency.gbp }}%</p>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <p class="token-pg-small-h slategrey text-center">Price Change 60d %</p>
+                                    <p class="token-pg-small-data">{{ coins_api_data.market_data.price_change_percentage_60d_in_currency.gbp }}%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Buy button -->
-                    <div class="row mt-3">
+                    <div class="row pb-3">
                         <a href="{% url 'buy_token' api_token.id %}" class="btn rounded-0 text-uppercase token-pg-btn">Buy {{ api_token.name }}</a>
                     </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <h3 class="text-center mt-5 text-uppercase">
+                        Ooops...
+                        <br>
+                        Data is not available
+                    </h3>
                 </div>
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-                <h3 class="text-center mt-5 text-uppercase">
-                    Ooops...
-                    <br>
-                    Data is not available
-                </h3>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
 {% endblock %}
 
 <!-- Unlike the index html that has a separate external js file, in this page I had to use an internal script in order to use Django template in the filter function -->
@@ -86,6 +160,7 @@
             
             /* Append extracted token to the appropriate container */
             document.querySelector(".token-pg-container").innerHTML = `
+                <!-- Header row -->
                 <div class="row">
                     <div class="col-10 flex justify-content-start">
                         <img src=${newDataTokenPg[0].image} class="token-pg-image">
@@ -97,8 +172,10 @@
                     </div>
                 </div>
 
+                <!-- Divider -->
                 <hr class="bg-light border-2 border-top border-light">
 
+                <!-- Main Data row -->
                 <div class="row">
                     <div class="col-12 flex justify-content-between">
                         <p class="mb-0">
@@ -119,8 +196,8 @@
                     </div>
                 </div>
 
+                <!-- Buy button -->
                 <div class="row mt-3">
-                    <!-- Buy button -->
                     <a href="/buy_token/${newDataTokenPg[0].id}/" class="btn rounded-0 text-uppercase token-pg-btn">Buy ${newDataTokenPg[0].name}</a
                 </div>
             `;
@@ -142,5 +219,8 @@
             });
         }
     </script>
+    <!-- Script to toggle watchlist icon class -->
     <script type="text/javascript" src="{% static 'home/js/watchlist.js' %}"></script>
+    <!-- Script to toggle second part of description text -->
+    <script type="text/javascript" src="{% static 'home/js/showMore.js' %}"></script>
 {% endblock %}

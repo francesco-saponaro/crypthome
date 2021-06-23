@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block page_header %}
-    <div class="row section-title py-2 ps-3">
+    <div class="row section-title py-2 ps-4">
         <div class="col-12">
             <h3 class="text-white text-uppercase mb-0 section-title-h">Buy {{ db_token }}</h3>
         </div>            
@@ -22,7 +22,7 @@
     {% if api_data %}
         {% for api_token in api_data %}
             {% if api_token.id == db_token.id %}
-                <div class="container-fluid buy-crypto-container mt-3">
+                <div class="container-fluid buy-crypto-container mt-5">
                     <!-- Token data -->
                     <div class="row pb-3 buy-token-row text-center">
                         <div class="col-6">
@@ -38,8 +38,8 @@
                     <!-- Monetary inputs -->
                     <div class="row pt-3">
                         <div class="col-12 pb-3 text-start">
-                            <label for="token-amount" class="pb-1 buy-data-h">Amount {{ api_token.name }}</label>
-                            <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="token-amount" name="token-amount" placeholder="Amount {{ token.name }}">
+                            <label for="token-amount" class="pb-1 buy-data-h">Enter {{ api_token.name }} amount</label>
+                            <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="token-amount" name="token-amount" placeholder="{{ api_token.name }} amount">
                         </div>
                         <div class="col-12 text-start">
                             <label for="gbp-amount" class="pb-1 buy-data-h">Total (GBP)</label>

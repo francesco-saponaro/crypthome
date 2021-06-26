@@ -8,6 +8,12 @@ body {
     background-color: #07011c;
 }
 
+/* general styles */
+.press-start {
+    font-family: 'Press Start 2P', cursive;
+    margin:1rem 0;
+}
+
 .x-small {
     font-size: x-small;
 }
@@ -22,9 +28,8 @@ body {
     background-color: black;
 }
 
-.press-start {
-    font-family: 'Press Start 2P', cursive;
-    margin:1rem 0;
+.slategrey {
+    color:slategrey
 }
 
 .link {
@@ -32,8 +37,13 @@ body {
     text-decoration: none;
 }
 
-.slategrey {
-    color:slategrey
+/* icon class from Bulma */
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
 /* hero section */
@@ -57,15 +67,6 @@ body {
     z-index: -9
 }
 
-/* icon class from Bulma */
-.icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
-}
-
 /* navbar */
 #topnav {
     background-color: #050114;
@@ -80,21 +81,24 @@ body {
     background: -webkit-linear-gradient(right, #09793b, #00d4ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size:60px;
+    font-size:50px;
 }
 
 .sub-title {
-    font-size:25px;
+    font-size:21px;
 }
 
-ul {
+header ul {
     float:right;
 }
 
 .nav-link {
     color:#f8f9fa;
-    font-size: 18px;
     padding: 10px;
+}
+
+.home-nav-link {
+    font-size: 18px;
 }
 
 .nav-link:hover {
@@ -155,9 +159,8 @@ input {
 /* call to action */
 .cta {
     display: flex;
-    align-items: center;
     justify-content: center;
-    margin:1rem 0;
+    align-items: center;
 }
 
 .cta h4 {
@@ -200,13 +203,13 @@ tbody tr:hover {
     background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
 }
 
-td .btn, .modal-footer .btn {
+td .btn {
     background-color: black;
     color:#12df2b;
     border: 1px solid #12df2b;
 }
 
-td .btn:hover, .modal-footer .btn:hover {
+td .btn:hover {
     background-color: #12df2b;
     color:black;
     border: 1px solid black;
@@ -328,10 +331,6 @@ td .btn:focus {
     border-bottom: 1px solid #dee2e6;
 }
 
-.buy-data-h {
-    color:slategrey;
-}
-
 .buy-data {
     font-size: 25px;
 }
@@ -352,25 +351,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 
-@media (min-width: 1200px) {
-    .container {
-        max-width:80%;
-    }
-}
-
 @media (min-width: 992px) {
-    .fixed-top-desktop-only {
-        position:fixed;
-        top:0;
-        right:0;
-        left:0;
-        z-index:1030;
-    }
-
-    .header-container {
-        padding-top:164px;
-    }
-
     td .btn {
         width:100%;
     }
@@ -403,14 +384,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 @media (max-width: 1000px) {
-    .logo-font {
-        font-size:55px;
-    }
-
-    .sub-title {
-        font-size:23px;
-    }
-
     .token-pg-image {
         width: 50px;
         margin-right:18px;
@@ -520,10 +493,6 @@ input[type=number]::-webkit-outer-spin-button {
         font-size:42px;
     }
 
-    .dropdown {
-        padding-right:10px;
-    }
-
     .hero-section img {
         top:59px;
     }
@@ -559,6 +528,16 @@ input[type=number]::-webkit-outer-spin-button {
 
     .token-pg-small-h {
         margin-bottom: 5px;
+    }
+}
+
+@media (max-width: 767px) {
+    .main-dropdown {
+        padding-right:15px;
+    }
+
+    .merch-dropdown {
+        padding-right:10px;
     }
 }
 
@@ -631,8 +610,9 @@ input[type=number]::-webkit-outer-spin-button {
         font-size:35px;
     }
 
-    .dropdown {
-        padding-right:15px;
+    .navbar-toggler {
+        padding:1px 6px;
+        font-size: 12px;
     }
 
     .hero-section img {
@@ -720,10 +700,6 @@ input[type=number]::-webkit-outer-spin-button {
         font-size:12px;
     }
 
-    .merch-link {
-        padding-right: 5px;
-    }
-
     .token-pg-image {
         width: 25px;
         margin-right:10px;
@@ -747,17 +723,19 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 @media (max-width: 450px) {
-    .navbar-toggler {
-        padding:1px 6px;
-        font-size: 1em;
-    }
-
      .logo-font {
         font-size: 27px;
     }
 
     .sub-title {
         font-size:11px;
+    }
+}
+
+@media (max-width: 430px) {
+    .navbar-toggler {
+        padding:1px 6px;
+        font-size: 10px;
     }
 }
 

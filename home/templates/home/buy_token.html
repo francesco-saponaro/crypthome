@@ -5,7 +5,10 @@
     Buy {{ db_token }}
 {% endblock %}
 
-{% block page_header %}
+{% block cta %}
+{% endblock %}
+
+{% block sub_header %}
     <div class="row section-title py-2 ps-4">
         <div class="col-12">
             <h3 class="text-white text-uppercase mb-0 section-title-h">Buy {{ db_token }}</h3>
@@ -26,11 +29,11 @@
                     <!-- Token data -->
                     <div class="row pb-3 buy-token-row text-center">
                         <div class="col-6">
-                            <p class="buy-data-h mb-1">Price</p>
+                            <p class="slategrey mb-1">Price</p>
                             <p class="buy-data mb-0">£{{ api_token.current_price }}</p>
                         </div>
                         <div class="col-6">
-                            <p class="buy-data-h mb-1">24h %</p>
+                            <p class="slategrey mb-1">24h %</p>
                             <p class="buy-data mb-0">{{ api_token.price_change_percentage_24h|floatformat:2 }}%</p>
                         </div>
                     </div>
@@ -38,11 +41,11 @@
                     <!-- Monetary inputs -->
                     <div class="row pt-3">
                         <div class="col-12 pb-3 text-start">
-                            <label for="token-amount" class="pb-1 buy-data-h">Enter {{ api_token.name }} amount</label>
+                            <label for="token-amount" class="pb-1 slategrey">Enter {{ api_token.name }} amount</label>
                             <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="token-amount" name="token-amount" placeholder="{{ api_token.name }} amount">
                         </div>
                         <div class="col-12 text-start">
-                            <label for="gbp-amount" class="pb-1 buy-data-h">Total (GBP)</label>
+                            <label for="gbp-amount" class="pb-1 slategrey">Total (GBP)</label>
                             <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="gbp-amount" name="gbp-amount" placeholder="Total (GBP)">
                         </div>
                     </div>
@@ -90,11 +93,11 @@
             /* Append extracted token to the appropriate container */
             document.querySelector(".buy-token-row").innerHTML = `
                 <div class="col-6">
-                    <p class="buy-data-h mb-1">Price</p>
+                    <p class="slategrey mb-1">Price</p>
                     <p class="buy-data mb-0 ${newDataBuyTokenPg[0].direction === "higher" ? "higher" : newDataBuyTokenPg[0].direction === "lower" ? "lower" : "same"}">£${newDataBuyTokenPg[0].price}</p>
                 </div>
                 <div class="col-6">
-                    <p class="buy-data-h mb-1">24h %</p>
+                    <p class="slategrey mb-1">24h %</p>
                     <p class="buy-data mb-0">${newDataBuyTokenPg[0].price_change.toFixed(2)}%</p>
                 </div>
             `;

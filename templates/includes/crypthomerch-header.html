@@ -1,0 +1,100 @@
+<!-- Merch Navbar -->
+<header class="container-fluid">
+    <div id="topnav" class="row bg-gradient py-lg-2">
+        <!-- Merch Logo -->
+        <div class="col-5 col-sm-7 col-md-5 my-auto py-1 text-start">
+            <a href="{% url 'crypthomerch' %}" class="nav-link merch-nav-link main-logo-link">
+                <h1 class="merch-logo my-0"><span class="merch-logo-main">Crypthome</span><span class="merch-logo-ext">rch</span></h1>
+            </a>
+        </div>
+
+        <!-- Merch Nav links -->
+        <div class="col-6 col-sm-4 col-md-6 my-auto py-1">
+            <ul class="list-inline list-unstyled text-center my-0 flex">
+                <!-- Cryphthome -->
+                <li class="list-inline-item">
+                    <a class="nav-link merch-nav-link" href="{% url 'home' %}">
+                        <div class="text-center">
+                            <div><i class="fab fa-bitcoin fa-lg"></i></div>
+                            <p class="my-0 d-none d-md-block">Crypthome</p>
+                        </div>
+                    </a>
+                </li>
+            
+                <!-- Nav dropdown -->
+                <li class="list-inline-item dropdown">
+                    <!-- Dropdown toggler -->
+                    <a class="text-black nav-link merch-nav-link" href="#" id="user-options" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="text-center text-light">
+                            <div><i class="fas fa-user fa-lg"></i></div>
+                            <p class="my-0 d-none d-md-block">My Account</p>
+                        </div>
+                    </a>
+                    <!-- Dropdown menu -->
+                    <div class="dropdown-menu border-0 bg-dark bg-gradient" aria-labelledby="user-options">
+                        {% if request.user.is_authenticated%}
+                            <!-- Product management -->
+                            {% if request.user.is_superuser%}
+                                <a href="" class="dropdown-item"><i class="fas fa-cog"></i> Product Management</a>
+                            {% endif %}
+                            <!-- Watchlist  -->
+                            <a href="{% url 'watchlist' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'watchlist' %}dropdown-active{% endif %}"><i class="fas fa-star"></i> Watchlist</a>
+                            <!-- Portfolio -->
+                            <a href="" class="dropdown-item"><i class="fas fa-chart-pie"></i> Portfolio</a>
+                            <!-- Log out -->
+                            <a href="{% url 'account_logout' %}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                        {% else %}
+                            <!-- Register -->
+                            <a href="{% url 'account_signup' %}" class="dropdown-item"><i class="fas fa-user-plus"></i> Register</a>
+                            <!-- Log in -->
+                            <a href="{% url 'account_login' %}" class="dropdown-item"><i class="fas fa-sign-in-alt"></i> Log In</a>
+                        {% endif %}
+                    </div>
+                </li>
+
+                <!-- Shopping bag link -->
+                <li class="list-inline-item merch-dropdown">
+                    <a class="{% if grand_total %}text-info font-weight-bold active{% else %}text-black{% endif %} nav-link merch-nav-link" href="">
+                        <div class="text-center">
+                            <div><i class="fas fa-shopping-bag fa-lg"></i></div>
+                            <p class="my-0">
+                                {% if grand_total %}
+                                    ${{ grand_total|floatformat:2 }}
+                                {% else %}
+                                    $0.00
+                                {% endif %}
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Search bar collapsible -->
+        <!-- Search button -->
+        <div class="col-1 my-auto py-1 text-center text-light">
+            <button class="navbar-toggler text-light border border-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="icon">
+                    <i class="fas fa-search"></i>
+                </span>
+            </button>
+        </div>
+        <!-- Search form input -->
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div>
+                <form method="POST" action="">
+                    <div class="input-group w-100">
+                        <input class="form-control border-0 rounded-0 bg-secondary" type="text" name="q" placeholder="Search Merch">
+                        <div class="input-group-append">
+                            <button class="form-control btn border-0 rounded-0 bg-secondary text-white-50" type="submit">
+                                <span class="icon">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </form>  
+            </div>
+        </div>
+    </div>
+</header>

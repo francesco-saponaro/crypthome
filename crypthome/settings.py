@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'channels',
     'home',
+    'crypthomerch',
 ]
 
 MIDDLEWARE = [
@@ -105,7 +106,7 @@ ASGI_APPLICATION = 'crypthome.asgi.application'
 
 # Define celery broker URL, which in this case is Redis.
 # A broker is needed to pass Django tasks to the Celery workers.
-# When the broker gets a task from the Django app, it puts it in a 
+# When the broker gets a task from the Django app, it puts it in a
 # cue, then it starts sending this tasks to the workers
 CELERY_BROKER_URL = 'redis://localhost:6379'
 

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'crypthomerch/css/crypthomerch.css' %}">
+{% endblock %}
+
+{% block extra_title %}
+    crypthomerch
+{% endblock %}
+
+{% block header %}
+    {% include "includes/crypthomerch-header.html" %}
+{% endblock %}
+
+{% block cta %}
+    <!-- Call to action -->
+    <div class="container-fluid">
+        <div class="row bg-black text-center">
+            <div class="col-12 cta my-3">
+                <h4 class="text-white text-uppercase">Free delivery on merch orders over ${{ free_delivery_threshold }}!</h4>
+            </div>            
+        </div>
+    </div>
+{% endblock %}
+
+{% block sub_header %}
+    {% include "includes/products-menu-subheader.html" %}
+{% endblock %}

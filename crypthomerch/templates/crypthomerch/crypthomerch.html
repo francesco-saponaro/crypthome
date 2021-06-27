@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block header %}
+    <!-- Crypthomerch header -->
     {% include "includes/crypthomerch-header.html" %}
 {% endblock %}
 
@@ -18,12 +19,53 @@
     <div class="container-fluid">
         <div class="row bg-black text-center">
             <div class="col-12 cta my-3">
-                <h4 class="text-white text-uppercase">Free delivery on merch orders over ${{ free_delivery_threshold }}!</h4>
+                <h4 class="text-white text-uppercase">Free delivery on merch orders over £{{ free_delivery_threshold }}!</h4>
             </div>            
         </div>
     </div>
 {% endblock %}
 
 {% block sub_header %}
-    {% include "includes/products-menu-subheader.html" %}
+    <!-- Crypthomerch accordion -->
+    {% include "includes/products-menu-accordion.html" %}
+{% endblock %}
+
+{% block hero_section %}
+    <!-- Hero images for slideshow-->
+    <section class="merch-hero pb-5">
+        <!-- First image -->
+        <div class="slideshow fade">
+            <img class="merch-hero-img" src="/media/eth-tshirt.jpg" alt="crypto-main-img">
+        </div>
+
+        <!-- Second image -->
+        <div class="slideshow fade">
+            <img class="merch-hero-img" src="/media/bitcoin-hodl-tshirt.jpg" alt="crypto-main-img">
+        </div>
+
+        <!-- Third image -->
+        <div class="slideshow fade">
+            <img class="merch-hero-img" src="/media/planb-tshirt.png" alt="crypto-main-img">
+        </div>
+
+        <!-- Fourth image -->
+        <div class="slideshow fade">
+            <img class="merch-hero-img" src="/media/cryptohaven-mugs.png" alt="crypto-main-img">
+        </div>
+
+        <!-- Fifth image -->
+        <div class="slideshow fade">
+            <img class="merch-hero-img" src="/media/uniswap-tshirt.jpg" alt="crypto-main-img">
+        </div>
+
+        <!-- Sixth image -->
+        <div class="slideshow fade">
+            <img class="merch-hero-img" src="/media/girl-loves-dogecoin-tshirt.jpg" alt="crypto-main-img">
+        </div>
+    </section>
+{% endblock %}
+
+{% block postloadjs %}
+    <!-- Slideshow script -->
+    <script type="text/javascript" src="{% static 'crypthomerch/js/slideshow.js' %}"></script>
 {% endblock %}

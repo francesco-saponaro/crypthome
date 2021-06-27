@@ -18,8 +18,58 @@
     font-size: 18px;
 }
 
+/* merch accordion */
+.accordion-button {
+    border: 1px solid #07011c;
+}
 
+.accordion-button:not(.collapsed) {
+    color: #f8f9fa;
+    background-color: #07011c;
+    box-shadow: none;
+    border: 1px solid #07011c;
+}
 
+.accordion-button:focus {
+    box-shadow: none;
+}
+
+.accordion-body ul li a {
+    display:block;
+    color:#07011c;
+    padding:8px 0;
+}
+
+.accordion-body ul li a:hover {
+    background-color:#07011c;
+    color: #f8f9fa;
+}
+
+/* merch hero image */
+.merch-hero {
+    padding-top: 5px;
+}
+
+.merch-hero img {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    width: 85%;
+    margin: 0 auto;
+}
+
+/* merch hero image fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 5s;
+}
+
+@keyframes fade {
+  from {opacity: .1}
+  to {opacity: 1}
+}
+
+/* media queries */
 @media (max-width: 1100px) {
     .merch-logo {
         font-size: 45px;
@@ -69,12 +119,13 @@
         font-size: 12px;
     }
 
-    #all-products p, #clothing p, #accessories p {
+    .accordion-button {
         font-size: 14px;
     }
 
-    .products-dropdown a {
+    .accordion-body ul li a {
         font-size: 14px;
+        padding:6px 0;
     }
 }
 
@@ -103,13 +154,5 @@
 @media (max-width: 376px) {
     .merch-logo {
         font-size: 14px;
-    }
-
-    #all-products p, #clothing p, #accessories p {
-        font-size: 12px;
-    }
-
-    .products-dropdown a {
-        font-size: 12px;
     }
 }

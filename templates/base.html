@@ -59,7 +59,7 @@
                     <div class="col-6 col-sm-4 col-md-5 my-auto py-1">
                         <ul class="list-inline list-unstyled text-center my-0">
                             <!-- Crypthomerch -->
-                            <li class="list-inline-item">
+                            <li class="list-inline-item crypto-list-item">
                                 <a class="nav-link home-nav-link merch-link" href="{% url 'crypthomerch' %}">
                                     <div class="text-center">
                                         <div><i class="fas fa-tshirt"></i></div>
@@ -69,7 +69,7 @@
                             </li>
                             {% if request.user.is_authenticated%}
                                 <!-- Portfolio -->
-                                <li class="list-inline-item d-none d-xl-inline-block">
+                                <li class="list-inline-item crypto-list-item d-none d-xl-inline-block">
                                     <a class="nav-link home-nav-link" href="">
                                         <div class="text-center">
                                             <div><i class="fas fa-chart-pie"></i></div>
@@ -78,7 +78,7 @@
                                     </a>
                                 </li>
                                 <!-- Watchlist -->
-                                <li class="list-inline-item d-none d-xl-inline-block">
+                                <li class="list-inline-item crypto-list-item d-none d-xl-inline-block">
                                     <a class="nav-link home-nav-link" href="{% url 'watchlist' %}">
                                         <div class="text-center {% if request.resolver_match.kwargs.navbar == 'watchlist' %}active{% endif %}">
                                             <div><i class="fas fa-star"></i></div>
@@ -89,7 +89,7 @@
                             {% endif %}
                             
                             <!-- Nav dropdown -->
-                            <li class="list-inline-item main-dropdown dropdown">
+                            <li class="list-inline-item crypto-list-item main-dropdown dropdown">
                                 <!-- Dropdown toggler -->
                                 <a class="text-black nav-link home-nav-link" href="#" id="user-options" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="text-center text-light">
@@ -155,7 +155,7 @@
             <!-- Call to action -->
             <div class="container-fluid">
                 <div class="row bg-black text-center">
-                    <div class="col-12 cta my-3">
+                    <div class="col-12 cta crypto-cta">
                         <h4 class="text-white text-uppercase">Free delivery on merch orders over ${{ free_delivery_threshold }}!</h4> <a href="" class="btn rounded-0 text-uppercase">View Collection</a>
                     </div>            
                 </div>

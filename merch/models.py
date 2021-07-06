@@ -1,8 +1,10 @@
 from django.db import models
 
 
+# Categories model
 class Category(models.Model):
 
+    # Meta class to override plural model name
     class Meta:
         verbose_name_plural = 'Categories'
 
@@ -16,8 +18,10 @@ class Category(models.Model):
         return self.friendly_name
 
 
+# Merch model
 class Merch(models.Model):
 
+    # Meta class to override plural model name
     class Meta:
         verbose_name_plural = 'Merch'
 

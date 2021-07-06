@@ -24,6 +24,10 @@ body {
     align-items: center;
 }
 
+.bg-main {
+    background-color: #07011c;
+}
+
 .bg-black {
     background-color: black;
 }
@@ -163,11 +167,6 @@ input {
     align-items: center;
 }
 
-.cta h4 {
-    margin-right:50px;
-    margin-bottom: 0;
-}
-
 .cta a {
     background-color: black;
     color:#eaee12;
@@ -180,6 +179,16 @@ input {
 
 .cta a:focus {
     box-shadow: none;
+}
+
+.crypto-cta {
+    margin-top:1rem;
+    margin-bottom:1rem;
+}
+
+.crypto-cta h4 {
+    margin-right:50px;
+    margin-bottom: 0;
 }
 
 /* section title */
@@ -505,7 +514,7 @@ input[type=number]::-webkit-outer-spin-button {
         display: block;
     }
 
-    .cta h4 {
+    .crypto-cta h4 {
         margin-right:0;
         margin-bottom: 10px;
     }
@@ -688,7 +697,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 @media (max-width: 500px) {
-    .list-inline-item:not(:last-child) {
+    .crypto-list-item:not(:last-child) {
         margin-right: 0;
     }
 
@@ -729,6 +738,14 @@ input[type=number]::-webkit-outer-spin-button {
 
     .sub-title {
         font-size:11px;
+    }
+
+    .cta h4 {
+        font-size:12px;
+    }
+
+    .cta a {
+        font-size:12px;
     }
 }
 

@@ -12,7 +12,7 @@
         <div class="col-6 col-sm-4 col-md-6 my-auto py-1">
             <ul class="list-inline list-unstyled text-center my-0 flex">
                 <!-- Cryphthome -->
-                <li class="list-inline-item">
+                <li class="list-inline-item merch-list-item">
                     <a class="nav-link merch-nav-link" href="{% url 'home' %}">
                         <div class="text-center">
                             <div><i class="fab fa-bitcoin fa-lg"></i></div>
@@ -22,7 +22,7 @@
                 </li>
             
                 <!-- Nav dropdown -->
-                <li class="list-inline-item dropdown">
+                <li class="list-inline-item merch-list-item dropdown">
                     <!-- Dropdown toggler -->
                     <a class="text-black nav-link merch-nav-link" href="#" id="user-options" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="text-center text-light">
@@ -53,7 +53,7 @@
                 </li>
 
                 <!-- Shopping bag link -->
-                <li class="list-inline-item merch-dropdown">
+                <li class="list-inline-item merch-list-item merch-dropdown">
                     <a class="{% if grand_total %}text-info font-weight-bold active{% else %}text-black{% endif %} nav-link merch-nav-link" href="">
                         <div class="text-center">
                             <div><i class="fas fa-shopping-bag fa-lg"></i></div>

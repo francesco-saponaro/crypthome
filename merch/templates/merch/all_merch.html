@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <!-- Crypthomerch app css file -->
+    <link rel="stylesheet" href="{% static 'crypthomerch/css/crypthomerch.css' %}">
+{% endblock %}
+
+{% block extra_title %}
+    merch
+{% endblock %}
+
+{% block header %}
+    <!-- Crypthomerch header -->
+    {% include "includes/crypthomerch-header.html" %}
+{% endblock %}
+
+{% block cta %}
+    <!-- Call to action -->
+    <div class="container-fluid">
+        <div class="row bg-black text-center">
+            <div class="col-12 cta my-3">
+                <h4 class="text-white text-uppercase">Free delivery on merch orders over £{{ free_delivery_threshold }}!</h4>
+            </div>            
+        </div>
+    </div>
+{% endblock %}
+
+{% block sub_header %}
+    <!-- Crypthomerch accordion -->
+    {% include "includes/products-menu-accordion.html" %}
+{% endblock %}
+
+{% block content %}
+    <!-- All Merch items -->
+    <div class="container">
+        <div class="row pt-4 pb-5">
+            {% for item in merch %}
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div class="card h-100 border-0 bg-main">
+                        {% if item.image %}
+                            <a href="">
+                                <img class="card-img-top img-fluid" src="/media/{{ item.image }}" alt="{{ item.name }}">
+                            </a>
+                        {% else %}
+                            <a href="">
+                                <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.name }}">
+                            </a>
+                        {% endif %}
+                        <div class="card-body pb-0">
+                            <p class="mb-0">
+                                {{ item.name }}
+                            </p>
+                        </div>
+                        <div class="card-footer pt-0 border-0 text-left">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="lead mb-0 text-left font-weight-bold">
+                                        £{{ item.price }}
+                                    </p>
+                                    {% if item.rating %}
+                                        <small class="text-muted"><i class="fas fa-star me-1"></i> {{ item.rating }}/5</small>
+                                    {% else %}
+                                        <small class="text-muted">No rating</small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Horizontal rule visible on extra small screens -->
+                {% if forloop.counter|divisibleby:1 %}
+                    <div class="col-12 d-sm-none mb-5">
+                        <hr>
+                    </div>
+                {% endif %}
+
+                <!-- Horizontal rule visible on small and medium screens -->
+                {% if forloop.counter|divisibleby:2 %}
+                    <div class="col-12 d-none d-sm-block d-lg-none mb-5">
+                        <hr>
+                    </div>
+                {% endif %}
+
+                <!-- Horizontal rule visible on large screens -->
+                {% if forloop.counter|divisibleby:3 %}
+                    <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                        <hr>
+                    </div>
+                {% endif %}
+
+                <!-- Horizontal rule visible on extra large screens -->
+                {% if forloop.counter|divisibleby:4 %}
+                    <div class="col-12 d-none d-xl-block mb-5">
+                        <hr>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

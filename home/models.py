@@ -1,7 +1,7 @@
 from django.db import models
 
 
-# Model to store tokens data
+# Model to store tokens data.
 class Position(models.Model):
     name = models.CharField(max_length=200)
     id = models.CharField(default="crypto", max_length=100, primary_key=True)

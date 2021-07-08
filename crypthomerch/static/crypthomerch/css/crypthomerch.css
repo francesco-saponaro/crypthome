@@ -1,4 +1,4 @@
-/* merch header */
+/* Merch header */
 .merch-logo {
     font-family: 'Press Start 2P', cursive;
     font-size:50px;
@@ -14,17 +14,13 @@
     color:#ffc107;
 }
 
-.merch-nav-link {
-    font-size: 18px;
-}
-
-/* cta */
+/* Call to action */
 .merch-cta {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
-/* merch accordion */
+/* Merch accordion */
 .accordion-button {
     border: 1px solid #07011c;
 }
@@ -51,7 +47,7 @@
     color: #f8f9fa;
 }
 
-/* merch hero image */
+/* Merch hero image */
 .merch-hero img {
     display:flex;
     align-items:center;
@@ -60,7 +56,7 @@
     margin: 0 auto;
 }
 
-/* merch hero image fading animation */
+/* Merch hero image fading animation */
 .fade {
   animation-name: fade;
   animation-duration: 5s;
@@ -71,58 +67,28 @@
   to {opacity: 1}
 }
 
-/* media queries */
-@media (max-width: 1100px) {
+/* Media queries */
+@media (max-width: 992px) {
+    .merch-logo {
+        text-align: center;
+    }
+}
+
+@media (max-width: 700px) {
     .merch-logo {
         font-size: 45px;
     }
 }
 
-@media (max-width: 1000px) {
-    .merch-logo {
-        font-size: 40px;
-    }
-}
-
-@media (max-width: 930px) {
-    .merch-logo {
-        font-size: 35px;
-    }
-}
-
-@media (max-width: 840px) {
-    .merch-logo {
-        font-size: 32px;
-    }
-
-    .merch-nav-link {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 800px) {
-    .merch-logo {
-        font-size: 31px;
-    }
-}
-
 @media (max-width: 630px) {
     .merch-logo {
-        font-size: 29px;
-    }
-
-    .merch-nav-link {
-        padding-left: 0;
+        font-size: 42px;
     }
 }
 
 @media (max-width: 576px) {
     .merch-logo {
-        font-size: 28px;
-    }
-
-    .merch-nav-link {
-        font-size: 12px;
+        font-size: 38px;
     }
 
     .accordion-button {
@@ -137,13 +103,13 @@
 
 @media (max-width: 525px) {
     .merch-logo {
-        font-size: 24px;
+        font-size: 35px;
     }
 }
 
 @media (max-width: 460px) {
     .merch-logo {
-        font-size: 21px;
+        font-size: 32px;
     }
 }
 
@@ -156,20 +122,18 @@
 
 @media (max-width: 430px) {
     .merch-logo {
-        font-size: 19px;
+        font-size: 29px;
     }
+}
 
-    .merch-nav-link {
-        font-size: 10px;
-    }
-
-    .merch-list-item:not(:last-child) {
-        margin-right: .3rem;
+@media (max-width: 400px) {
+    .merch-logo {
+        font-size: 27px;
     }
 }
 
 @media (max-width: 376px) {
     .merch-logo {
-        font-size: 17px;
+        font-size: 26px;
     }
 }

@@ -8,12 +8,7 @@ body {
     background-color: #07011c;
 }
 
-/* general styles */
-.press-start {
-    font-family: 'Press Start 2P', cursive;
-    margin:1rem 0;
-}
-
+/* General styles */
 .x-small {
     font-size: x-small;
 }
@@ -41,7 +36,7 @@ body {
     text-decoration: none;
 }
 
-/* icon class from Bulma */
+/* Icon class from Bulma */
 .icon {
     align-items: center;
     display: inline-flex;
@@ -50,7 +45,7 @@ body {
     width: 1.5rem;
 }
 
-/* hero section */
+/* Hero section */
 .hero-section img {
     position:absolute;
     top:72px;
@@ -71,13 +66,9 @@ body {
     z-index: -9
 }
 
-/* navbar */
+/* Navbar */
 #topnav {
     background-color: #050114;
-}
-
-.main-logo-link {
-    width: fit-content;
 }
 
 .logo-font {
@@ -92,17 +83,9 @@ body {
     font-size:21px;
 }
 
-header ul {
-    float:right;
-}
-
 .nav-link {
     color:#f8f9fa;
     padding: 10px;
-}
-
-.home-nav-link {
-    font-size: 18px;
 }
 
 .nav-link:hover {
@@ -138,7 +121,7 @@ header ul {
     color:#212529;
 }
 
-/* search bar */
+/* Search bar */
 .form-control:focus {
     box-shadow:none
 }
@@ -160,44 +143,33 @@ input {
   color: rgba(255,255,255,.5)!important;;
 }
 
-/* call to action */
-.cta {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.cta a {
-    background-color: black;
-    color:#eaee12;
-    border: 1px solid #eaee12;
-}
-
-.cta a:hover {
-    background-color:#eaee12;
-}
-
-.cta a:focus {
-    box-shadow: none;
-}
-
+/* Call to action */
 .crypto-cta {
     margin-top:1rem;
     margin-bottom:1rem;
 }
 
-.crypto-cta h4 {
-    margin-right:50px;
-    margin-bottom: 0;
+.crypto-cta a {
+    background-color: black;
+    color:#eaee12;
+    border: 1px solid #eaee12;
 }
 
-/* section title */
+.crypto-cta a:hover {
+    background-color:#eaee12;
+}
+
+.crypto-cta a:focus {
+    box-shadow: none;
+}
+
+/* Section title */
 .section-title {
     background-color: #07011c;
     border-top: 1px solid #212529;
 }
 
-/* cryptos table */
+/* Cryptos table */
 thead tr {
     border: 1px solid #212529;
 }
@@ -240,14 +212,14 @@ td .btn:focus {
     color: red;
 }
 
-/* watchlist page */
+/* Watchlist page */
 .add-fav:hover {
     background: -webkit-linear-gradient(right, #09793b, #00d4ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* token page */
+/* Token page */
 .token-pg-container {
     padding-left: 48px;
     padding-right: 48px;
@@ -349,14 +321,16 @@ input[type=number]::-webkit-outer-spin-button {
   opacity: 1;
 }
 
-/* media queries */
+/* Media queries */
 @media (min-width: 1600px) {
-    .main-logo-link {
-        padding-left:25px;
-    }
-
     .section-title {
         padding-left:35px!important;
+    }
+}
+
+@media (min-width: 1500px) {
+    .nav-link {
+        font-size: 18px;
     }
 }
 
@@ -369,12 +343,6 @@ input[type=number]::-webkit-outer-spin-button {
 @media (min-width: 650px) {
     .buy-crypto-container {
         width:50%;
-    }
-}
-
-@media (max-width: 1199px) {
-    .press-start {
-        margin:1rem 0 0 0;
     }
 }
 
@@ -415,19 +383,17 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 
-@media (max-width: 900px) {
-    .navbar-toggler {
-        float:right;
-    }
-
+@media (max-width: 992px) {
     .logo-font {
-        font-size:50px;
+        text-align: center;
     }
 
     .sub-title {
-        font-size:21px;
+        text-align: center;
     }
+}
 
+@media (max-width: 900px) {
     .token-pg-image {
         width: 47px;
     }
@@ -457,25 +423,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 
-@media (max-width: 850px) {
-    .logo-font {
-        font-size:45px;
-    }
-
-    .sub-title {
-        font-size:19px;
-    }
-}
-
 @media (max-width: 800px) {
-    .logo-font {
-        font-size:44px;
-    }
-
-    .sub-title {
-        font-size:18px;
-    }
-
     .token-pg-image {
         width: 45px;
     }
@@ -498,10 +446,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 @media (max-width: 768px) {
-    .logo-font {
-        font-size:42px;
-    }
-
     .hero-section img {
         top:59px;
     }
@@ -510,17 +454,8 @@ input[type=number]::-webkit-outer-spin-button {
         top:59px;
     }
 
-    .cta {
-        display: block;
-    }
-
     .crypto-cta h4 {
-        margin-right:0;
         margin-bottom: 10px;
-    }
-
-    .sub-title {
-        font-size:17px;
     }
 
     .token-pg-image {
@@ -540,16 +475,6 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 
-@media (max-width: 767px) {
-    .main-dropdown {
-        padding-right:15px;
-    }
-
-    .merch-dropdown {
-        padding-right:10px;
-    }
-}
-
 @media (max-width: 725px) {
     .token-pg-image {
         width: 38px;
@@ -564,15 +489,23 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
     .logo-font {
-        font-size:40px;
+        font-size: 45px;
     }
 
     .sub-title {
-        font-size:16px;
+        font-size: 19px;
     }
+}
 
+@media (max-width: 660px) {
+    .small-nav ul li .nav-link {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 650px) {
     .token-pg-image {
         width: 32px;
     }
@@ -614,14 +547,29 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 630px) {
     .logo-font {
-        font-size:35px;
+        font-size: 42px;
     }
 
-    .navbar-toggler {
-        padding:1px 6px;
+    .sub-title {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 600px) {
+    .small-nav ul li .nav-link {
         font-size: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .logo-font {
+        font-size:38px;
+    }
+
+    .sub-title {
+        font-size: 15px;
     }
 
     .hero-section img {
@@ -638,10 +586,6 @@ input[type=number]::-webkit-outer-spin-button {
 
     .cta a {
         font-size:15px;
-    }
-
-    .sub-title {
-        font-size:14px;
     }
 
     .token-pg-container {
@@ -686,9 +630,24 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 545px) {
+    .small-nav ul li .nav-link {
+        font-size: 10px;
+    }
+
+    .navbar-toggler{
+        font-size: 10px;
+        padding: 0 5px;
+    }
+
+    .form-control {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 525px) {
     .logo-font {
-        font-size:32px;
+        font-size:35px;
     }
 
     .sub-title {
@@ -697,18 +656,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 @media (max-width: 500px) {
-    .crypto-list-item:not(:last-child) {
-        margin-right: 0;
-    }
-
-    .logo-font {
-        font-size: 30px;
-    }
-
-    .sub-title {
-        font-size:12px;
-    }
-
     .token-pg-image {
         width: 25px;
         margin-right:10px;
@@ -731,15 +678,13 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 
+@media (max-width: 490px) {
+    .portfolio, .watchlist {
+        display:none;
+    }
+}
+
 @media (max-width: 450px) {
-     .logo-font {
-        font-size: 27px;
-    }
-
-    .sub-title {
-        font-size:11px;
-    }
-
     .cta h4 {
         font-size:12px;
     }
@@ -749,22 +694,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 
-@media (max-width: 430px) {
-    .navbar-toggler {
-        padding:1px 6px;
-        font-size: 10px;
-    }
-}
-
 @media (max-width: 420px) {
-    .logo-font {
-        font-size: 22px;
-    }
-
-    .sub-title {
-        font-size:9px;
-    }
-
     .section-title-h {
         font-size:15px;
     }
@@ -830,15 +760,17 @@ input[type=number]::-webkit-outer-spin-button {
     }
 }
 
-@media (max-width: 365px) {
+@media (max-width: 400px) {
     .logo-font {
-        font-size: 20px;
+        font-size:32px;
     }
 
     .sub-title {
-        font-size:8px;
+        font-size:11px;
     }
+}
 
+@media (max-width: 365px) {
     .token-pg-image {
         width: 20px;
     }
@@ -862,11 +794,11 @@ input[type=number]::-webkit-outer-spin-button {
 
 @media (max-width: 350px) {
     .logo-font {
-        font-size: 15px;
+        font-size:29px;
     }
 
-     .sub-title {
-        font-size:6px;
+    .sub-title {
+        font-size:10px;
     }
 
     .token-pg-image {

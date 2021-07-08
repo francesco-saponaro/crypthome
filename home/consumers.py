@@ -2,9 +2,9 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 
-# Instance of AsyncWebsocketConsumer class
-# We are accepting the incoming Websocket connection
-# We want to add the incoming connection to a group of channels
+# Instance of AsyncWebsocketConsumer class.
+# We are accepting the incoming Websocket connection.
+# We want to add the incoming connection to a group of channels.
 class HomeConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         # Group_add takes two arguments, first the name of the group we are

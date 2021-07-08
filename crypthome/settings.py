@@ -30,7 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
+# Application definition.
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -72,7 +72,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                # required by allauth
+                # required by allauth.
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -82,10 +82,10 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
+    # Needed to login by username in Django admin, regardless of `allauth`.
     'django.contrib.auth.backends.ModelBackend',
 
-    # `allauth` specific authentication methods, such as login by e-mail
+    # `allauth` specific authentication methods, such as login by e-mail.
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
@@ -100,7 +100,7 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
 # logs emails to console
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 WSGI_APPLICATION = 'crypthome.wsgi.application'
 ASGI_APPLICATION = 'crypthome.asgi.application'
@@ -108,11 +108,11 @@ ASGI_APPLICATION = 'crypthome.asgi.application'
 # Define celery broker URL, which in this case is Redis.
 # A broker is needed to pass Django tasks to the Celery workers.
 # When the broker gets a task from the Django app, it puts it in a
-# cue, then it starts sending this tasks to the workers
+# cue, then it starts sending this tasks to the workers.
 CELERY_BROKER_URL = 'redis://localhost:6379'
 
 
-# Database
+# Database.
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
@@ -122,7 +122,7 @@ DATABASES = {
     }
 }
 
-# Configure channel layers
+# Configure channel layers.
 # Channel layers its a cue of messages that it receives from its clients
 # and for each message Django will call the assigned consumer, which in this
 # case is the HomeConsumer class defined in consumers.py.
@@ -136,7 +136,7 @@ CHANNEL_LAYERS = {
     }
 }
 
-# Password validation
+# Password validation.
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -159,7 +159,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# Internationalization.
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -173,7 +173,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images).
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
@@ -182,7 +182,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Default primary key field type
+# Default primary key field type.
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

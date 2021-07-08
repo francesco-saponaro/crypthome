@@ -36,10 +36,18 @@
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#secondAccordion">
                         <div class="accordion-body p-0">
                             <ul class="list-unstyled ps-0 mb-0">
-                                <li><a href="" class="text-decoration-none ps-3">Hoodies</a></li>
-                                <li><a href="" class="text-decoration-none ps-3">Shirts</a></li>
-                                <li><a href="" class="text-decoration-none ps-3">Hats</a></li>
-                                <li><a href="" class="text-decoration-none ps-3">All Clothing</a></li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}?category=hoodies" class="text-decoration-none ps-3">Hoodies</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}?category=t-shirts" class="text-decoration-none ps-3">Shirts</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}?category=hats" class="text-decoration-none ps-3">Hats</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}?category=hoodies,t-shirts,hats" class="text-decoration-none ps-3">All Clothing</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -59,10 +67,18 @@
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#thirdAccordion">
                         <div class="accordion-body p-0">
                             <ul class="list-unstyled ps-0 mb-0">
-                                <li><a href="" class="text-decoration-none ps-3">Mugs</a></li>
-                                <li><a href="" class="text-decoration-none ps-3">Bags</a></li>
-                                <li><a href="" class="text-decoration-none ps-3">Phone cases</a></li>
-                                <li><a href="" class="text-decoration-none ps-3">All Accessories</a></li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}?category=mugs" class="text-decoration-none ps-3">Mugs</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}?category=bags" class="text-decoration-none ps-3">Bags</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}?category=phone_cases" class="text-decoration-none ps-3">Phone cases</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}?category=mugs,bags,phone_cases" class="text-decoration-none ps-3">All Accessories</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

@@ -19,7 +19,7 @@ from home.routing import ws_urlpatterns
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crypthome.settings')
 
-# Instance of ProtocolTypeRouter class
+# Instance of ProtocolTypeRouter class.
 # First Django channels check the type of connection, either HTTP or
 # websocket. If it is a websocket connection it'll be passed to the
 # AuthMiddlewareStack class, then to the URLRouter class that passes it

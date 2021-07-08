@@ -46,55 +46,164 @@
         {% block header %}
             <!-- Navbar -->
             <header class="container-fluid">
-                <div id="topnav" class="row bg-gradient py-lg-2">
+                <div id="topnav" class="row bg-gradient px-lg-2 py-lg-2">
+
+                    <!-- Merch Nav links for small screens -->
+                    <div class="container-fluid small-nav bg-main d-lg-none">
+                        <div class="row py-1">
+                            <div class="col-10 my-auto">
+                                <ul class="list-inline list-unstyled my-0">
+                                    <!-- Cryphthome -->
+                                    <li class="list-inline-item">
+                                        <a class="nav-link" href="{% url 'crypthomerch' %}">
+                                            <div class="text-center">
+                                                <p class="my-0">Crypthomerch</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {% if request.user.is_authenticated%}
+                                        <!-- Portfolio -->
+                                        <li class="list-inline-item portfolio">
+                                            <a class="nav-link" href="">
+                                                <div class="text-center">
+                                                    <p class="my-0">Portfolio</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <!-- Watchlist -->
+                                        <li class="list-inline-item watchlist">
+                                            <a class="nav-link" href="{% url 'watchlist' %}">
+                                                <div class="text-center {% if request.resolver_match.kwargs.navbar == 'watchlist' %}active{% endif %}">
+                                                    <p class="my-0">Watchlist</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                
+                                    <!-- Nav dropdown -->
+                                    <li class="list-inline-item dropdown">
+                                        <!-- Dropdown toggler -->
+                                        <a class="text-black nav-link" href="#" id="user-options" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <div class="text-center text-light">
+                                                <p class="my-0">My Account</p>
+                                            </div>
+                                        </a>
+                                        <!-- Dropdown menu -->
+                                        <div class="dropdown-menu border-0 bg-dark bg-gradient" aria-labelledby="user-options">
+                                            {% if request.user.is_authenticated%}
+                                                <!-- Product management -->
+                                                {% if request.user.is_superuser%}
+                                                    <a href="" class="dropdown-item"><i class="fas fa-cog"></i> Product Management</a>
+                                                {% endif %}
+                                                <!-- Watchlist  -->
+                                                <a href="{% url 'watchlist' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'watchlist' %}dropdown-active{% endif %}"><i class="fas fa-star"></i> Watchlist</a>
+                                                <!-- Portfolio -->
+                                                <a href="" class="dropdown-item"><i class="fas fa-chart-pie"></i> Portfolio</a>
+                                                <!-- Log out -->
+                                                <a href="{% url 'account_logout' %}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                                            {% else %}
+                                                <!-- Register -->
+                                                <a href="{% url 'account_signup' %}" class="dropdown-item"><i class="fas fa-user-plus"></i> Register</a>
+                                                <!-- Log in -->
+                                                <a href="{% url 'account_login' %}" class="dropdown-item"><i class="fas fa-sign-in-alt"></i> Log In</a>
+                                            {% endif %}
+                                        </div>
+                                    </li>
+
+                                    <!-- Shopping bag link -->
+                                    <li class="list-inline-item">
+                                        <a class="{% if grand_total %}text-info font-weight-bold active{% else %}text-black{% endif %} nav-link" href="">
+                                            <div class="text-center">
+                                                <p class="my-0">
+                                                    <i class="fas fa-shopping-bag me-1"></i> 
+                                                    {% if grand_total %}
+                                                        ${{ grand_total|floatformat:2 }}
+                                                    {% else %}
+                                                        $0.00
+                                                    {% endif %}
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Search button collapsible for small screens -->
+                            <div class="col-2 my-auto text-end text-light">
+                                <button class="navbar-toggler text-light border border-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContentSmall" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="icon">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <!-- Search form input for small screens-->
+                            <div class="collapse" id="navbarToggleExternalContentSmall">
+                                <div>
+                                    <form method="GET" action="">
+                                        <div class="input-group w-100">
+                                            <input class="form-control border-0 rounded-0 bg-secondary" type="text" name="q" placeholder="Search Crypto">
+                                            <div class="input-group-append">
+                                                <button class="form-control btn border-0 rounded-0 bg-secondary text-white-50" type="submit">
+                                                    <span class="icon">
+                                                        <i class="fas fa-search"></i>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Logo -->
-                    <div class="col-5 col-sm-7 col-md-6 my-auto py-1 text-start">
-                        <a href="{% url 'home' %}" class="nav-link home-nav-link main-logo-link">
+                    <div class="col-12 col-lg-6 my-auto py-1 ps-lg-0">
+                        <a href="{% url 'home' %}" class="nav-link">
                             <h1 class="logo-font my-0">Crypthome</h1>
-                            <p class="text-uppercase text-white text-start sub-title mt-1 mb-0">Practice your crypto-trading skills</p>
+                            <p class="text-uppercase text-white sub-title mt-1 mb-0">Practice your crypto-trading skills</p>
                         </a>
                     </div>
 
-                    <!-- Nav links -->
-                    <div class="col-6 col-sm-4 col-md-5 my-auto py-1">
-                        <ul class="list-inline list-unstyled text-center my-0">
+                    <!-- Nav links for large screens -->
+                    <div class="col-lg-5 my-auto py-1 pe-0 d-none d-lg-inline-block">
+                        <ul class="list-inline list-unstyled text-center my-0 float-end">
                             <!-- Crypthomerch -->
-                            <li class="list-inline-item crypto-list-item">
-                                <a class="nav-link home-nav-link merch-link" href="{% url 'crypthomerch' %}">
+                            <li class="list-inline-item">
+                                <a class="nav-link" href="{% url 'crypthomerch' %}">
                                     <div class="text-center">
                                         <div><i class="fas fa-tshirt"></i></div>
-                                        <p class="my-0 d-none d-md-block">Crypthomerch</p>
+                                        <p class="my-0">Crypthomerch</p>
                                     </div>
                                 </a>
                             </li>
                             {% if request.user.is_authenticated%}
                                 <!-- Portfolio -->
-                                <li class="list-inline-item crypto-list-item d-none d-xl-inline-block">
-                                    <a class="nav-link home-nav-link" href="">
+                                <li class="list-inline-item d-none d-xl-inline-block">
+                                    <a class="nav-link" href="">
                                         <div class="text-center">
                                             <div><i class="fas fa-chart-pie"></i></div>
-                                            <p class="my-0 d-none d-md-block">Portfolio</p>
+                                            <p class="my-0">Portfolio</p>
                                         </div>
                                     </a>
                                 </li>
                                 <!-- Watchlist -->
-                                <li class="list-inline-item crypto-list-item d-none d-xl-inline-block">
-                                    <a class="nav-link home-nav-link" href="{% url 'watchlist' %}">
+                                <li class="list-inline-item d-none d-xl-inline-block">
+                                    <a class="nav-link" href="{% url 'watchlist' %}">
                                         <div class="text-center {% if request.resolver_match.kwargs.navbar == 'watchlist' %}active{% endif %}">
                                             <div><i class="fas fa-star"></i></div>
-                                            <p class="my-0 d-none d-md-block">Watchlist</p>
+                                            <p class="my-0">Watchlist</p>
                                         </div>
                                     </a>
                                 </li>
                             {% endif %}
                             
                             <!-- Nav dropdown -->
-                            <li class="list-inline-item crypto-list-item main-dropdown dropdown">
+                            <li class="list-inline-item dropdown">
                                 <!-- Dropdown toggler -->
-                                <a class="text-black nav-link home-nav-link" href="#" id="user-options" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="text-black nav-link" href="#" id="user-options" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="text-center text-light">
-                                        <div><i class="fas fa-user fa-lg"></i></div>
-                                        <p class="my-0 d-none d-md-block">My Account</p>
+                                        <div><i class="fas fa-user"></i></div>
+                                        <p class="my-0">My Account</p>
                                     </div>
                                 </a>
                                 <!-- Dropdown menu -->
@@ -121,19 +230,18 @@
                         </ul>
                     </div>
         
-                    <!-- Search bar collapsible -->
-                    <!-- Search button -->
-                    <div class="col-1 my-auto py-1 text-center text-light">
+                    <!-- Search button collapsible for large screens -->
+                    <div class="col-1 my-auto py-1 ps-0 text-end text-light d-none d-lg-inline-block">
                         <button class="navbar-toggler text-light border border-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="icon">
                                 <i class="fas fa-search"></i>
                             </span>
                         </button>
                     </div>
-                    <!-- Search form input -->
+                    <!-- Search form input for large screens-->
                     <div class="collapse" id="navbarToggleExternalContent">
                         <div>
-                            <form method="POST" action="">
+                            <form method="GET" action="">
                                 <div class="input-group w-100">
                                     <input class="form-control border-0 rounded-0 bg-secondary" type="text" name="q" placeholder="Search Crypto">
                                     <div class="input-group-append">
@@ -155,8 +263,9 @@
             <!-- Call to action -->
             <div class="container-fluid">
                 <div class="row bg-black text-center">
-                    <div class="col-12 cta crypto-cta">
-                        <h4 class="text-white text-uppercase">Free delivery on merch orders over ${{ free_delivery_threshold }}!</h4> <a href="" class="btn rounded-0 text-uppercase">View Collection</a>
+                    <div class="col-12 cta crypto-cta d-block d-md-flex justify-content-center">
+                        <h4 class="text-white text-uppercase me-md-5 mb-md-0">Free delivery on merch orders over ${{ free_delivery_threshold }}!</h4> 
+                        <a href="{% url 'all_merch' %}" class="btn rounded-0 text-uppercase">View Collection</a>
                     </div>            
                 </div>
             </div>

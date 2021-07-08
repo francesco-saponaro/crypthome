@@ -19,8 +19,8 @@
     <!-- Call to action -->
     <div class="container-fluid">
         <div class="row bg-black text-center">
-            <div class="col-12 cta my-3">
-                <h4 class="text-white text-uppercase">Free delivery on merch orders over £{{ free_delivery_threshold }}!</h4>
+            <div class="col-12 cta merch-cta">
+                <h4 class="text-white text-uppercase mb-0">Free delivery on merch orders over £{{ free_delivery_threshold }}!</h4>
             </div>            
         </div>
     </div>
@@ -29,6 +29,13 @@
 {% block sub_header %}
     <!-- Crypthomerch accordion -->
     {% include "includes/products-menu-accordion.html" %}
+    <div class="container-fluid">
+        <div class="row pt-4 pb-2">
+            <div class="col-12">
+                <h3 class="text-uppercase text-center mb-0">Products</h3>          
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block content %}
@@ -39,11 +46,11 @@
                 <div class="col-sm-6 col-lg-4 col-xl-3">
                     <div class="card h-100 border-0 bg-main">
                         {% if item.image %}
-                            <a href="">
+                            <a href="{% url 'product_detail' item.id %}">
                                 <img class="card-img-top img-fluid" src="/media/{{ item.image }}" alt="{{ item.name }}">
                             </a>
                         {% else %}
-                            <a href="">
+                            <a href="{% url 'product_detail' item.id %}">
                                 <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.name }}">
                             </a>
                         {% endif %}
@@ -52,10 +59,10 @@
                                 {{ item.name }}
                             </p>
                         </div>
-                        <div class="card-footer pt-0 border-0 text-left">
+                        <div class="card-footer pt-0 border-0 text-start">
                             <div class="row">
                                 <div class="col">
-                                    <p class="lead mb-0 text-left font-weight-bold">
+                                    <p class="lead mb-0 text-start fw-bold">
                                         £{{ item.price }}
                                     </p>
                                     {% if item.rating %}

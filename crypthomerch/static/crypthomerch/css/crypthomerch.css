@@ -47,6 +47,12 @@
     color: #f8f9fa;
 }
 
+/* Badge */
+.badge:hover {
+    background-color: #fff;
+    color: #07011c;
+}
+
 /* Merch hero image */
 .merch-hero img {
     display:flex;

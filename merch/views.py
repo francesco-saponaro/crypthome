@@ -13,9 +13,46 @@ def all_merch(request):
     # an error when getting to the all_merch page.
     query = None
     categories = None
+    sort = None
+    direction = None
 
     # Check whether request.GET exists
     if request.GET:
+        # Check whether 'sort' is in request.GET.
+        # If it is I'll set equal to both sort and sortkey.
+        # We do this in order to leave the original 'name'
+        # field unchanged.
+        if 'sort' in request.GET:
+            sortkey = request.GET['sort']
+            sort = sortkey
+            # In the event the user is sorting by name, we rename
+            # sortkey to 'lower_name', which refers to the new temporary
+            # field we are going annotate.
+            if sortkey == 'name':
+                sortkey = 'lower_name'
+                # Then we annotate (temporarily append) the current list
+                # of products with a new lower_name field, which just
+                # converts the 'name' field to lowercase.
+                merch = merch.annotate(lower_name=Lower('name'))
+            # In the event the user is sorting by category, we rename
+            # the sortkey to 'category__name' in order to sort categories
+            # by their name rather than ID.
+            # The double underscore here allows us to drill into a related
+            # model.
+            if sortkey == 'category':
+                sortkey = 'category__name'
+
+            # Check whether 'direction' is in request.GET.
+            # If it is I'll assign it to a variable and check
+            # if direction is descending.
+            # If it is reverse the order by adding a minus to the sortkey.
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            # Finally use the order_by method to order merch by the sortkey.
+            merch = merch.order_by(sortkey)
+
         # Check whether 'category' is in request.GET.
         # If it is i'll set it to a variable called categories and
         # then split into a list at the commas.
@@ -51,10 +88,16 @@ def all_merch(request):
             # Then pass the queries to the filter method.
             merch = merch.filter(queries)
 
+    # To return the sorting methodology to the template.
+    # If no sorting the value will be None_None, as originally
+    # above we assigned a value of None to both.
+    current_sorting = f'{sort}_{direction}'
+
     context = {
         'merch': merch,
         'search_term': query,
         'current_categories': categories,
+        'current_sorting': current_sorting,
     }
 
     return render(request, 'merch/all_merch.html', context)

@@ -36,6 +36,10 @@ body {
     text-decoration: none;
 }
 
+.form-select:focus {
+    box-shadow:none;
+}
+
 /* Icon class from Bulma */
 .icon {
     align-items: center;

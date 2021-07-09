@@ -27,20 +27,78 @@
 {% endblock %}
 
 {% block sub_header %}
-    <!-- Crypthomerch accordion -->
+    <!-- Crypthomerch accordion, title and badges -->
+    <!-- Accordion -->
     {% include "includes/products-menu-accordion.html" %}
     <div class="container-fluid">
         <div class="row pt-4 pb-2">
-            <div class="col-12">
-                <h3 class="text-uppercase text-center mb-0">Products</h3>          
+            <div class="col-12 text-center">
+                <!-- Title -->
+                <h3 class="text-uppercase mb-0">Products</h3>
+                <!-- Badges -->
+                {% for category in current_categories %}
+                    <a class="category-badge text-decoration-none" href="{% url 'all_merch' %}?category={{ category.name }}">
+                        <span class="p-2 mt-4 badge rounded-0 border text-capitalize">
+                            {{ category.friendly_name }}
+                        </span>
+                    </a>
+                {% endfor %}          
             </div>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    <!-- All Merch items -->
+    <!-- Merch container -->
     <div class="container">
+        <!-- Select box and sorting results -->
+        <div class="row">
+            <!-- Select box -->
+            <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
+                <div class="sort-select-wrapper mt-3">
+                    <select id="sort-selector" class="form-select form-select-sm border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+                        <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>
+                            Sort by....
+                        </option>
+                        <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>
+                            Price (low to high)
+                        </option>
+                        <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>
+                            Price (high to low)
+                        </option>
+                        <option value="rating_asc" {% if current_sorting == 'rating_asc' %}selected{% endif %}>
+                            Rating (low to high)
+                        </option>
+                        <option value="rating_desc" {% if current_sorting == 'rating_desc' %}selected{% endif %}>
+                            Rating (high to low)
+                        </option>
+                        <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>
+                            Name (A-Z)
+                        </option>
+                        <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>
+                            Name (Z-A)
+                        </option>
+                        <option value="category_asc" {% if current_sorting == 'category_asc' %}selected{% endif %}>
+                            Category (A-Z)
+                        </option>
+                        <option value="category_desc" {% if current_sorting == 'category_desc' %}selected{% endif %}>
+                            Category (Z-A)
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <!-- Sorting results info -->
+            <div class="col-12 col-md-6 order-md-first">
+                <p class="text-muted mt-3 text-center text-md-start">
+                    {% if search_term or current_categories or current_sorting != 'None_None' %}
+                        <span class="small"><a href="{% url 'all_merch' %}">All Products</a> |</span>
+                    {% endif %}
+                    {{ merch|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"{% endif %}</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- Merch -->
         <div class="row pt-4 pb-5">
             {% for item in merch %}
                 <div class="col-sm-6 col-lg-4 col-xl-3">
@@ -65,8 +123,15 @@
                                     <p class="lead mb-0 text-start fw-bold">
                                         £{{ item.price }}
                                     </p>
+                                    {% if item.category %}
+                                        <p class="small mt-1 mb-0">
+                                            <a href="{% url 'all_merch' %}?category={{ item.category.name }}" class="text-muted">
+                                                <i class="fas fa-tag me-1"></i>{{ item.category.friendly_name }}
+                                            </a>
+                                        </p>
+                                    {% endif %}
                                     {% if item.rating %}
-                                        <small class="text-muted"><i class="fas fa-star me-1"></i> {{ item.rating }}/5</small>
+                                        <small class="text-muted"><i class="fas fa-star me-1"></i>{{ item.rating }}/5</small>
                                     {% else %}
                                         <small class="text-muted">No rating</small>
                                     {% endif %}

@@ -5,18 +5,28 @@
         <div class="col-12 col-md-4">
             <div class="accordion accordion-flush" id="firstAccordion">
                 <div class="accordion-item">
+                    <!-- Button -->
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             All Products
                         </button>
                     </h2>
+                    <!-- Collapsible -->
                     <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#firstAccordion">
                         <div class="accordion-body p-0">
                             <ul class="list-unstyled ps-0 mb-0">
-                                <li><a href="" class="text-decoration-none ps-3">By Price</a></li>
-                                <li><a href="" class="text-decoration-none ps-3">By Rating</a></li>
-                                <li><a href="" class="text-decoration-none ps-3">By Category</a></li>
-                                <li><a href="{% url 'all_merch' %}" class="text-decoration-none ps-3">All Products</a></li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}?sort=price&direction=asc" class="text-decoration-none ps-3">By Price</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}?sort=rating&direction=desc" class="text-decoration-none ps-3">By Rating</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}?sort=category&direction=asc" class="text-decoration-none ps-3">By Category</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'all_merch' %}" class="text-decoration-none ps-3">All Products</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -28,11 +38,13 @@
         <div class="col-12 col-md-4">
             <div class="accordion accordion-flush" id="secondAccordion">
                 <div class="accordion-item">
+                    <!-- Button -->
                     <h2 class="accordion-header" id="headingTwo">
                         <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                             Clothing
                         </button>
                     </h2>
+                    <!-- Collapsible -->
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#secondAccordion">
                         <div class="accordion-body p-0">
                             <ul class="list-unstyled ps-0 mb-0">
@@ -59,11 +71,13 @@
         <div class="col-12 col-md-4">
             <div class="accordion accordion-flush" id="thirdAccordion">
                 <div class="accordion-item">
+                    <!-- Button -->
                     <h2 class="accordion-header" id="headingThree">
                         <button class="accordion-button collapsed text-uppercase" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
                             Accessories
                         </button>
                     </h2>
+                    <!-- Collapsible -->
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#thirdAccordion">
                         <div class="accordion-body p-0">
                             <ul class="list-unstyled ps-0 mb-0">

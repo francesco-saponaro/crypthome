@@ -109,22 +109,6 @@
                                             {% endif %}
                                         </div>
                                     </li>
-
-                                    <!-- Shopping bag link -->
-                                    <li class="list-inline-item">
-                                        <a class="{% if grand_total %}text-info font-weight-bold active{% else %}text-black{% endif %} nav-link" href="">
-                                            <div class="text-center">
-                                                <p class="my-0">
-                                                    <i class="fas fa-shopping-bag me-1"></i> 
-                                                    {% if grand_total %}
-                                                        ${{ grand_total|floatformat:2 }}
-                                                    {% else %}
-                                                        $0.00
-                                                    {% endif %}
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </li>
                                 </ul>
                             </div>
 
@@ -141,7 +125,7 @@
                                 <div>
                                     <form method="GET" action="">
                                         <div class="input-group w-100">
-                                            <input class="form-control border-0 rounded-0 bg-secondary" type="text" name="q" placeholder="Search Crypto">
+                                            <input class="form-control search-bar border-0 rounded-0 bg-secondary" type="text" name="q" placeholder="Search Crypto">
                                             <div class="input-group-append">
                                                 <button class="form-control btn border-0 rounded-0 bg-secondary text-white-50" type="submit">
                                                     <span class="icon">
@@ -243,7 +227,7 @@
                         <div>
                             <form method="GET" action="">
                                 <div class="input-group w-100">
-                                    <input class="form-control border-0 rounded-0 bg-secondary" type="text" name="q" placeholder="Search Crypto">
+                                    <input class="form-control search-bar border-0 rounded-0 bg-secondary" type="text" name="q" placeholder="Search Crypto">
                                     <div class="input-group-append">
                                         <button class="form-control btn border-0 rounded-0 bg-secondary text-white-50" type="submit">
                                             <span class="icon">
@@ -260,15 +244,6 @@
         {% endblock %}
 
         {% block cta %}
-            <!-- Call to action -->
-            <div class="container-fluid">
-                <div class="row bg-black text-center">
-                    <div class="col-12 cta crypto-cta d-block d-md-flex justify-content-center">
-                        <h4 class="text-white text-uppercase me-md-5 mb-md-0">Free delivery on merch orders over ${{ free_delivery_threshold }}!</h4> 
-                        <a href="{% url 'all_merch' %}" class="btn rounded-0 text-uppercase">View Collection</a>
-                    </div>            
-                </div>
-            </div>
         {% endblock %}
 
         {% block sub_header %}

@@ -5,6 +5,18 @@
     home page
 {% endblock %}
 
+{% block cta %}
+    <!-- Call to action -->
+    <div class="container-fluid">
+        <div class="row bg-black text-center">
+            <div class="col-12 cta crypto-cta d-block d-md-flex justify-content-center">
+                <h4 class="text-white text-uppercase me-md-5 mb-md-0">Free delivery on merch orders over £{{ free_delivery_threshold }}!</h4> 
+                <a href="{% url 'all_merch' %}" class="btn rounded-0 text-uppercase">View Collection</a>
+            </div>            
+        </div>
+    </div>
+{% endblock %}
+
 {% block hero_section %}
     {% include "includes/background-img.html" %}
 {% endblock %}

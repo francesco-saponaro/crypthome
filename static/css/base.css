@@ -36,6 +36,10 @@ body {
     text-decoration: none;
 }
 
+.btn:focus {
+    box-shadow: none;
+}
+
 .form-select:focus {
     box-shadow:none;
 }
@@ -130,7 +134,7 @@ body {
     box-shadow:none
 }
 
-input {
+.search-bar {
     color: rgba(255,255,255,.5)!important;
 }
 
@@ -171,6 +175,7 @@ input {
 .section-title {
     background-color: #07011c;
     border-top: 1px solid #212529;
+    border-bottom: 1px solid #212529;
 }
 
 /* Cryptos table */
@@ -198,10 +203,6 @@ td .btn:hover {
     background-color: #12df2b;
     color:black;
     border: 1px solid black;
-}
-
-td .btn:focus {
-    box-shadow: none;
 }
 
 .small-table tr:first-child {
@@ -300,10 +301,6 @@ td .btn:focus {
     color:black;
     border: 1px solid black;
 }
-
-.token-pg-btn:focus {
-    box-shadow: none;
-} 
 
 /* Buy crypto page */
 .buy-crypto-container {

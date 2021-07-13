@@ -73,6 +73,21 @@
   to {opacity: 1}
 }
 
+/* Back to top button */
+.btt-button {
+    height:42px;
+    width:42px;
+    position:fixed;
+    bottom:10px;
+    right:10px;
+}
+
+/* Add to bag button */
+.atb-btn {
+    background: white;
+    color:#07011c !important;
+}
+
 /* Media queries */
 @media (max-width: 992px) {
     .merch-logo {

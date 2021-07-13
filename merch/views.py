@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
+from django.db.models.functions import Lower
 from .models import Merch, Category
 
 
@@ -62,7 +63,7 @@ def all_merch(request):
             # The double underscore here allows us to drill into
             # the related category model (merch and category are
             # related by a foreign key), specifically we are looking
-            # for the name field of the category model
+            # for the name field of the category model.
             merch = merch.filter(category__name__in=categories)
             # We also grab the category objects whose name is in the url list,
             # so that we can access their fields in the template in order to
@@ -79,7 +80,7 @@ def all_merch(request):
                 messages.error(request, 'You didn`t enter any search criteria')
                 return redirect(reverse('all_merch'))
 
-            # If it isn't use built-in Q object to return results where
+            # If it isn't, use built-in Q object to return results where
             # the query matches either name or description and not
             # necessarily both at the same time, the "|" is the or
             # statement and "i" is for case insensitive.
@@ -89,6 +90,7 @@ def all_merch(request):
             merch = merch.filter(queries)
 
     # To return the sorting methodology to the template.
+    # We need this for the sort selector box.
     # If no sorting the value will be None_None, as originally
     # above we assigned a value of None to both.
     current_sorting = f'{sort}_{direction}'

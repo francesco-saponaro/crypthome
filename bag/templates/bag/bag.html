@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'crypthomerch/css/crypthomerch.css' %}">
+{% endblock %}
+
+{% block extra_title %}
+    shopping bag
+{% endblock %}
+
+{% block header %}
+    <!-- Crypthomerch header -->
+    {% include "includes/crypthomerch-header.html" %}
+{% endblock %}
+
+{% block sub_header %}
+    <div class="container-fluid">
+        <div class="row section-title py-2 ps-4">
+            <div class="col-12">
+                <h3 class="text-uppercase mb-0 section-title-h">Shopping bag</h3>
+            </div>            
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4 mb-2">
+        <div class="row">
+            <div class="col-12">
+                {% if bag_items %}
+                    <div class="table-responsive rounded">
+                    </div>
+                {% else %}
+                    <p class="lead mb-5">Your bag is empty</p>
+                    <a href="" class="btn text-white rounded-0 btn-lg">
+                        <span class="icon">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
+                        <span class="text-uppercase">Keep Shopping</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

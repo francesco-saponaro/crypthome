@@ -179,27 +179,27 @@ body {
 }
 
 /* Cryptos table */
-thead tr {
+.crypto-thead tr {
     border: 1px solid #212529;
 }
 
-tbody tr {
+.crypto-tbody tr {
     border-bottom: 1px solid #212529;
     border-left: 1px solid #212529;
     border-right: 1px solid #212529;
 }
 
-tbody tr:hover {
+.crypto-tbody tr:hover {
     background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
 }
 
-td .btn {
+.crypto-tbody tr td .btn {
     background-color: black;
     color:#12df2b;
     border: 1px solid #12df2b;
 }
 
-td .btn:hover {
+.crypto-tbody tr td .btn:hover {
     background-color: #12df2b;
     color:black;
     border: 1px solid black;
@@ -336,7 +336,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 @media (min-width: 992px) {
-    td .btn {
+    .crypto-tbody tr td .btn {
         width:100%;
     }
 }

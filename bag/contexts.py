@@ -15,21 +15,39 @@ def bag_contents(request):
     # it doesnt by initializing it as an empty dictionary.
     bag = request.session.get('bag', {})
 
-    # For each item in the bag dictionary, I'll first get the product
-    # by it's id, then add it's quantity times the price to the total,
-    # then increment the product count by the quantity.
-    for item_id, quantity in bag.items():
-        product = get_object_or_404(Merch, pk=item_id)
-        total += quantity * product.price
-        product_count += quantity
-        # Finally I will add a dictionary containing the product id, the
-        # quantity and the actual product object, to the bag_items list.
-        # So we can display them anywhere in the site.
-        bag_items.append({
-            'item_id': item_id,
-            'quantity': quantity,
-            'product': product,
-        })
+    # For each item in the bag dictionary.
+    for item_id, item_data in bag.items():
+        # We check if the item has no sizes by checking if
+        # item_data is an integer, since if it is an integer
+        # we know item_data is just the quantity.
+        if isinstance(item_data, int):
+            # I'll first get the product by it's id, then add
+            # it's quantity times the price to the total,
+            # then increment the product count by the quantity.
+            product = get_object_or_404(Merch, pk=item_id)
+            total += item_data * product.price
+            product_count += item_data
+            # Finally I will add a dictionary containing the product id, the
+            # quantity and the actual product object, to the bag_items list.
+            # So we can display them anywhere in the site.
+            bag_items.append({
+                'item_id': item_id,
+                'quantity': item_data,
+                'product': product,
+            })
+        # If item_data is not an integer we know it's a dictionary, in which
+        # case we need to iterate through the inner dictionary of items_by_size
+        else:
+            product = get_object_or_404(Merch, pk=item_id)
+            for size, quantity in item_data['items_by_size'].items():
+                total += quantity * product.price
+                product_count += quantity
+                bag_items.append({
+                    'item_id': item_id,
+                    'quantity': item_data,
+                    'product': product,
+                    'size': size,
+                })
 
     # If total is less than free delivery threshold, the delivery cost will be
     # the total multiplied by the standard delivery percentage

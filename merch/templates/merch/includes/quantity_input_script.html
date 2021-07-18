@@ -1,0 +1,35 @@
+<script type="text/javascript">
+    // Grab quantity input element
+    let qtyInput = document.querySelector('.qty_input');
+
+    // Disable buttons fuction
+    function HandleEnableDisable() {
+        // If value below 2 disable decrementer
+        parseInt(qtyInput.value) < 2 ? document.querySelector('.decrement-qty').setAttribute('disabled', '') : document.querySelector('.decrement-qty').removeAttribute('disabled');
+        // If value above 98 disable incrementer
+        parseInt(qtyInput.value) > 98 ? document.querySelector('.increment-qty').setAttribute('disabled', '') : document.querySelector('.increment-qty').removeAttribute('disabled');
+    }
+
+    // Call the function as soon as page loads to prevent user from selecting a '0' value, as default input value is 1
+    HandleEnableDisable()
+
+    // Listen to change event on built in up and down number box arrows, to prevent user to go above 99 or below 2 by using them
+    qtyInput.addEventListener('change', () => {
+        HandleEnableDisable()
+    });
+
+    // Increment quantity
+    document.querySelector('.increment-qty').addEventListener('click', (e) => {
+        // Prevent default button functionality
+        e.preventDefault();
+        qtyInput.value = parseInt(qtyInput.value) + 1;
+        HandleEnableDisable()
+    });
+    // Decrement quantity
+    document.querySelector('.decrement-qty').addEventListener('click', (e) => {
+        // Prevent default button functionality
+        e.preventDefault();
+        qtyInput.value = parseInt(qtyInput.value) - 1;
+        HandleEnableDisable()
+    });
+</script>

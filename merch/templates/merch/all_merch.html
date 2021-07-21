@@ -171,6 +171,7 @@
             {% endfor %}
         </div>
     </div>
+    <!-- Back to top button -->
     <div class="btt-button rounded-0 border">
         <a class="btt-link link d-flex h-100 text-white">
             <i class="fas fa-arrow-up mx-auto my-auto"></i>
@@ -181,12 +182,7 @@
 {% block postloadjs %}
     {{ block.super }}
     <!-- Btt button script -->
-    <script type="text/javascript">
-    // On click, scroll to the top of the page.
-        document.querySelector(".btt-button").addEventListener("click", (e) => {
-            window.scrollTo(0,0)
-        })
-    </script>
+    {% include 'merch/includes/back_to_top.html' %}
 
     <!-- Sort selector box script -->
     <script type="text/javascript">

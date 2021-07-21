@@ -1,35 +1,66 @@
 <script type="text/javascript">
-    // Grab quantity input element
-    let qtyInput = document.querySelector('.qty_input');
 
     // Disable buttons fuction
-    function HandleEnableDisable() {
-        // If value below 2 disable decrementer
-        parseInt(qtyInput.value) < 2 ? document.querySelector('.decrement-qty').setAttribute('disabled', '') : document.querySelector('.decrement-qty').removeAttribute('disabled');
-        // If value above 98 disable incrementer
-        parseInt(qtyInput.value) > 98 ? document.querySelector('.increment-qty').setAttribute('disabled', '') : document.querySelector('.increment-qty').removeAttribute('disabled');
+    function HandleEnableDisable(itemId) {
+        // Grab all quantity inputs by their item_id and for each check their value
+        let qtySizeInputs = document.querySelectorAll(`.qty_input_${itemId}`);
+        qtySizeInputs.forEach((input) => {
+            // If value below 2 disable its decrementer
+            parseInt(input.value) < 2 ? input.previousElementSibling.firstElementChild.setAttribute('disabled', '') : input.previousElementSibling.firstElementChild.removeAttribute('disabled');
+            // If value above 98 disable its incrementer
+            parseInt(input.value) > 98 ? input.nextElementSibling.firstElementChild.setAttribute('disabled', '') : input.nextElementSibling.firstElementChild.removeAttribute('disabled');
+        })
     }
 
-    // Call the function as soon as page loads to prevent user from selecting a '0' value, as default input value is 1
-    HandleEnableDisable()
+    // Grab all quantity input elements on both product detail and bag pages
+    let qtyInputs = document.querySelectorAll('.qty_input');
+    // Call the function on current quantity input as soon as page loads to prevent user from selecting a '0' value, as default input value is 1
+    qtyInputs.forEach((input) => {
+        let itemId = input.dataset.item_id;
+        HandleEnableDisable(itemId);
+    })
 
-    // Listen to change event on built in up and down number box arrows, to prevent user to go above 99 or below 2 by using them
-    qtyInput.addEventListener('change', () => {
-        HandleEnableDisable()
-    });
+    // Listen to change event on current built in up and down number box arrows of current quantity input and call the function, to prevent user to go above 99 or below 2 by using them
+    qtyInputs.forEach((input) => {
+        input.addEventListener('change', () => {
+            let itemId = input.dataset.item_id;
+            HandleEnableDisable(itemId)
+        });
+    })
 
-    // Increment quantity
-    document.querySelector('.increment-qty').addEventListener('click', (e) => {
-        // Prevent default button functionality
-        e.preventDefault();
-        qtyInput.value = parseInt(qtyInput.value) + 1;
-        HandleEnableDisable()
-    });
-    // Decrement quantity
-    document.querySelector('.decrement-qty').addEventListener('click', (e) => {
-        // Prevent default button functionality
-        e.preventDefault();
-        qtyInput.value = parseInt(qtyInput.value) - 1;
-        HandleEnableDisable()
-    });
+    // Grab incremement_qty elements on both product detail and bag pages
+    let incrementers = document.querySelectorAll('.increment-qty');
+    // Increment quantity on current input element
+    incrementers.forEach((incrementer) => {
+        incrementer.addEventListener('click', (e) => {
+            // Prevent default button functionality
+            e.preventDefault();
+            // Grab current incrementer parent node
+            let parent = incrementer.parentNode;
+            // Grab current incrementer parent node previous sibling and change its value
+            let siblingInput = parent.previousElementSibling;
+            siblingInput.value = parseInt(siblingInput.value) + 1;
+            // Call disable button function on current incrementer
+            let itemId = incrementer.dataset.item_id;
+            HandleEnableDisable(itemId);
+        });
+    })
+    
+    // Grab incremement_qty elements on both product detail and bag pages
+    let decrementers = document.querySelectorAll('.decrement-qty')
+    // Decrement quantity on current input element
+    decrementers.forEach((decrementer) => {
+        decrementer.addEventListener('click', (e) => {
+            // Prevent default button functionality
+            e.preventDefault();
+            // Grab current decrementer parent node
+            let parent = decrementer.parentNode;
+            // Grab current decrementer parent node next sibling and change its value
+            let siblingInput = parent.nextElementSibling;
+            siblingInput.value = parseInt(siblingInput.value) - 1;
+            // Call disable button function on current decrementer
+            let itemId = decrementer.dataset.item_id;
+            HandleEnableDisable(itemId)
+        });
+    })
 </script>

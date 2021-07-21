@@ -317,11 +317,6 @@ body {
     font-size: 25px;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button {
-  opacity: 1;
-}
-
 /* Media queries */
 @media (min-width: 1600px) {
     .section-title {

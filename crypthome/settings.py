@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'crypthomerch',
     'merch',
     'bag',
+    'checkout',
 ]
 
 MIDDLEWARE = [

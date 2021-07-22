@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+<!-- Custom filter created in bag_tools.py -->
+{% load bag_tools %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'crypthomerch/css/crypthomerch.css' %}">
@@ -49,6 +51,8 @@
                                     </p>
                                     <p class="my-0 small text-muted">SKU: {{ item.product.sku|upper }}</p>
                                     <p class="my-2">Price Each: £{{ item.product.price }}</p>
+                                    <!-- bag_tools custom filter -->
+                                    <p class="my-2"><strong>Subtotal:</strong> £{{ item.product.price | calc_subtotal:item.quantity }}</p>
                                 </div>
                                 <!-- Quantity input form -->
                                 <div class="col-12 col-sm-6">
@@ -199,7 +203,8 @@
                                         <a class="remove-item text-danger link float-end" id="remove_{{ item.item_id }}" data-product_size="{{ item.size }}"><small>Remove</small></a>
                                     </td>
                                     <td class="py-3">
-                                        <p class="my-0">£{{ item.product.price }}</p>
+                                        <!-- bag_tools custom filter -->
+                                        <p class="my-0">£{{ item.product.price | calc_subtotal:item.quantity }}</p>
                                     </td>
                                 </tr>
                             {% endfor %}

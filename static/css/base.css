@@ -317,6 +317,28 @@ body {
     font-size: 25px;
 }
 
+/* Bootstrap toasts */
+.message-container {
+    position: fixed;
+    top: 93px;
+    right: 12px;
+    z-index: 99999999999;
+}
+
+.custom-toast {
+    overflow: visible;
+}
+
+.toast-capper {
+    height: 2px;
+}
+
+.bag-notification-wrapper {
+    height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 /* Media queries */
 @media (min-width: 1600px) {
     .section-title {
@@ -386,6 +408,11 @@ body {
 
     .sub-title {
         text-align: center;
+    }
+
+    .message-container {
+        top: 53px;
+        right: 12px;
     }
 }
 
@@ -556,6 +583,11 @@ body {
 @media (max-width: 600px) {
     .small-nav ul li .nav-link {
         font-size: 12px;
+    }
+
+    .message-container {
+        top: 47px;
+        right: 12px;
     }
 }
 

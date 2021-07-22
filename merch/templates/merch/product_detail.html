@@ -22,10 +22,10 @@
 
 {% block content %}
     <!-- Product detail -->
-    <div class="container">
+    <div class="container-fluid">
         <div class="row pt-4 pb-5">
             <!-- Image -->
-            <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
+            <div class="col-12 col-md-6 col-lg-5 offset-lg-1">
                 <div class="image-container my-5">
                     {% if product.image %}
                         <a href="/media/{{ product.image }}" target="_blank">
@@ -41,7 +41,7 @@
 
             <!-- Detail -->
             <div class="col-12 col-md-6 col-lg-4">
-                <div class="mb-5 mt-md-5 ms-md-5">
+                <div class="mb-5 mt-md-5">
                     <p class="mb-0">
                         {{ product.name }}
                     </p>
@@ -112,14 +112,14 @@
                                 </div>
 
                                 <!-- Submit and keep shopping buttons -->
-                                <div class="col{% if s %}-12 mt-2{% endif %}">
-                                    <a href="{% url 'all_merch' %}" class="btn text-white border-white rounded-0 mt-5">
+                                <div class="col-12 mt-5">
+                                    <a href="{% url 'all_merch' %}" class="btn text-white border-white rounded-0">
                                         <span class="icon">
                                             <i class="fas fa-chevron-left"></i>
                                         </span>
                                         <span class="text-uppercase">Keep Shopping</span>
                                     </a>
-                                    <input type="submit" class="btn atb-btn rounded-0 text-uppercase mt-5" value="Add to Bag">
+                                    <input type="submit" class="btn atb-btn rounded-0 text-uppercase" value="Add to Bag">
                                 </div>
                                 <!-- Hidden input to submit the current url, in order to redirect the user to the same page once the product is added to their bag  -->
                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">

@@ -18,7 +18,7 @@
 
 {% block sub_header %}
     <div class="container-fluid">
-        <div class="row section-title py-2 ps-4">
+        <div class="row section-title py-2 ps-sm-4">
             <div class="col-12">
                 <h3 class="text-uppercase mb-0 section-title-h">Shopping bag</h3>
             </div>            
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                         <!-- Checkout and keep shopping buttons -->
-                        <div class="row text-center">
+                        <div class="row text-end">
                             <div class="col pt-4">
                                 <a href="{% url 'all_merch' %}" class="btn text-white border-white rounded-0 btn-lg">
                                     <span class="icon">
@@ -115,7 +115,7 @@
                                     </span>
                                     <span class="text-uppercase">Keep Shopping</span>
                                 </a>
-                                <a href="" class="btn atb-btn text-white rounded-0 btn-lg">
+                                <a href="{% url 'checkout' %}" class="btn atb-btn text-white rounded-0 btn-lg">
                                     <span class="text-uppercase">Secure Checkout</span>
                                     <span class="icon">
                                         <i class="fas fa-lock"></i>
@@ -230,7 +230,7 @@
                                         </span>
                                         <span class="text-uppercase">Keep Shopping</span>
                                     </a>
-                                    <a href="" class="btn atb-btn text-white rounded-0 btn-lg">
+                                    <a href="{% url 'checkout' %}" class="btn atb-btn text-white rounded-0 btn-lg">
                                         <span class="text-uppercase">Secure Checkout</span>
                                         <span class="icon">
                                             <i class="fas fa-lock"></i>
@@ -258,7 +258,7 @@
 {% block postloadjs %}
     {{ block.super }}
     <!-- Quantity input script -->
-    {% include 'merch/includes/quantity_input_script.html' %}
+    {% include 'merch/includes/merch_quantity_input_script.html' %}
     <!-- Btt button script -->
     {% include 'merch/includes/back_to_top.html' %}
 

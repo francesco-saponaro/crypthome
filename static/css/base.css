@@ -138,16 +138,16 @@ body {
     color: rgba(255,255,255,.5)!important;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+input[name='q']::placeholder, input[name='token-amount']::placeholder, input[name='gbp-amount']::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: rgba(255,255,255,.5)!important;
   opacity: 1; /* Firefox */
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+input[name='q']:-ms-input-placeholder, input[name='token-amount']:-ms-input-placeholder, input[name='gbp-amount']:-ms-input-placeholder { /* Internet Explorer 10-11 */
   color: rgba(255,255,255,.5)!important;;
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
+input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-placeholder, input[name='gbp-amount']::-ms-input-placeholder { /* Microsoft Edge */
   color: rgba(255,255,255,.5)!important;;
 }
 

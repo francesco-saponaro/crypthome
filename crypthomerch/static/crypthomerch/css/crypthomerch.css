@@ -88,6 +88,11 @@
     color:#07011c !important;
 }
 
+/* Checkout form */
+.form-group {
+    margin-bottom:1rem;
+}
+
 /* Media queries */
 @media (max-width: 992px) {
     .merch-logo {

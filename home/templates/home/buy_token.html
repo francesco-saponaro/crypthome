@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block sub_header %}
-    <div class="row section-title py-2 ps-4">
+    <div class="row section-title py-2 ps-sm-4">
         <div class="col-12">
             <h3 class="text-uppercase mb-0 section-title-h">Buy {{ db_token }}</h3>
         </div>            
@@ -37,13 +37,52 @@
 
                     <!-- Monetary inputs -->
                     <div class="row pt-3">
-                        <div class="col-12 pb-3 text-start">
-                            <label for="token-amount" class="pb-1 slategrey">Enter {{ api_token.name }} amount</label>
-                            <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="token-amount" name="token-amount" placeholder="{{ api_token.name }} amount">
+                        <!-- Token amount label -->
+                        <label for="token-amount" class="pb-1 slategrey text-start">Enter {{ api_token.name }} amount</label>
+                        <!-- Token amount input group -->
+                        <div class="input-group">
+                            <!-- Token decrementer -->
+                            <div class="input-group-prepend">
+                                <button class="decrement-qty btn text-white border-white rounded-0" data-item_id="">
+                                    <span class="icon">
+                                        <i class="fas fa-minus"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <!-- Token amount Input -->
+                            <input class="form-control qty_input border-0 rounded-0 bg-secondary text-center" type="number" min="1" id="token-amount" name="token-amount" placeholder="{{ api_token.name }} amount">
+                            <!-- Token incrementer -->
+                            <div class="input-group-append">
+                                <button class="increment-qty btn text-white border-white rounded-0" data-item_id="">
+                                    <span class="icon">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-12 text-start">
-                            <label for="gbp-amount" class="pb-1 slategrey">Total (GBP)</label>
-                            <input class="form-control border-0 rounded-0 bg-secondary text-center" type="number" id="gbp-amount" name="gbp-amount" placeholder="Total (GBP)">
+
+                        <!-- GBP amount label -->
+                        <label for="gbp-amount" class="pb-1 slategrey text-start">Total (GBP)</label>
+                        <!-- GBP amount input group -->
+                        <div class="input-group">
+                            <!-- GBP decrementer -->
+                            <div class="input-group-prepend">
+                                <button class="decrement-qty btn text-white border-white rounded-0" data-item_id="">
+                                    <span class="icon">
+                                        <i class="fas fa-minus"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <!-- GBP Input -->                              
+                            <input class="form-control qty_input border-0 rounded-0 bg-secondary text-center" type="number" min="1" id="gbp-amount" name="gbp-amount" placeholder="Total (GBP)">
+                            <!-- GBP incrementer -->
+                            <div class="input-group-append">
+                                <button class="increment-qty btn text-white border-white rounded-0" data-item_id="">
+                                    <span class="icon">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -71,9 +110,12 @@
     {% endif %}
 {% endblock %}
 
-<!-- Unlike the index html that has a separate external js file, in this page I had to use an internal script in order to use Django template in the filter function -->
 {% block postloadjs %}
     {{ block.super }}
+    <!-- Quantity input script -->
+    {% include 'home/includes/crypto_quantity_input_script.html' %}
+
+    <!-- Unlike the index html that has a separate external js file, in this page I had to use an internal script in order to use Django template in the filter function -->
     <script type="text/javascript">
         /* Create new instance of Websocket class and pass it the URL defined in routing.py */
         let socket = new WebSocket(`wss://${window.location.host}/ws/home/`);

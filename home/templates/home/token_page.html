@@ -29,16 +29,19 @@
                     <!-- Main Data row -->
                     <div class="row">
                         <div class="col-12 flex justify-content-between">
+                            <!-- Current price -->
                             <p class="mb-0">
                                 <span class="token-pg-h">Price</span> 
                                 <br> 
                                 <span class="token-pg-data">£{{ api_token.current_price }}</span>
                             </p>
+                            <!-- Market cap -->
                             <p class="mb-0">
                                 <span class="token-pg-h">Market Cap</span> 
                                 <br> 
                                 <span class="token-pg-data">£{{ api_token.market_cap }}</span>
                             </p>
+                            <!-- 24h % -->
                             <p class="mb-0 text-end">
                                 <span class="token-pg-h">24h%</span> 
                                 <br> 
@@ -53,67 +56,97 @@
                     <!-- Token links row -->
                     <div class="row">
                         <div class="col-12">
-                            <p class="token-pg-h mb-1">Useful links</p>
                             <ul class="list-inline list-unstyled float-none flex justify-content-between text-center my-0">
+                                <!-- Token website -->
                                 <li class="list-inline-item pe-2">
-                                    <a class="token-pg-link text-light" href="{{ coins_api_data.links.homepage.0 }}">{{ api_token.name }} Homepage</a>
+                                    <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ coins_api_data.links.homepage.0 }}">
+                                        <i class="fas fa-home mb-1"></i>
+                                        {{ api_token.name }} Website
+                                    </a>
                                 </li>
+                                <!-- Reddit -->
                                 <li class="list-inline-item pe-2">
-                                    <a class="token-pg-link text-light" href="{{ coins_api_data.links.blockchain_site.0 }}">{{ api_token.name }} Blockchain site</a>
+                                    <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ coins_api_data.links.subreddit_url }}">
+                                        <i class="fab fa-reddit mb-1"></i>
+                                        {{ api_token.name }} Subreddit
+                                    </a>
                                 </li>
-                                <li class="list-inline-item pe-2">
-                                    <a class="token-pg-link text-light" href="{{ coins_api_data.links.subreddit_url }}">{{ api_token.name }} Subreddit</a>
-                                </li>
+                                <!-- Github -->
                                 <li class="list-inline-item">
-                                    <a class="token-pg-link text-light" href="{{ coins_api_data.links.repos_url.github.0 }}">{{ api_token.name }} Github repo</a>
+                                    <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ coins_api_data.links.repos_url.github.0 }}">
+                                        <i class="fab fa-github mb-1"></i>
+                                        {{ api_token.name }} Github repo
+                                    </a>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
+                    <!-- Divider -->
+                    <div class="row"><div class="col"><hr class="bg-light border-2 border-top border-light"></div></div>
+
                     <!-- Description and additional data row -->
-                    <div class="row token-desc-row pb-3">
+                    <div class="row pb-3 pt-2 pt-sm-3">
+                        <!-- Description -->
                         <div class="col-12 col-md-6 col-xxl-8">
                             <!-- First part of description text -->
                             <p class="token-pg-desc">{{ coins_api_desc }}
-                                <span id="dots">...</span>
+                                <!-- "..." if second part exists, as in if text goes above first part characters limit -->
+                                {% if coins_api_desc_second %}
+                                    <span id="dots">...</span>
+                                {% endif %}
                                 <!-- Second part of description text, hidden by default -->
                                 <span id="more-text">{{ coins_api_desc_second }}</span>
                             </p>
-                            <!-- Toggler button to show/hide second part of description -->
-                            <p onclick="toggleText()" id="text-button" class="text-light text-uppercase">
-                                Show More <i class="fas fa-caret-down"></i>
-                            </p>
+                            <!-- Show text toggler button if second part exists, as in if text goes above first part characters limit -->
+                            {% if coins_api_desc_second %}
+                                <!-- Toggler button to show/hide second part of description -->
+                                <p onclick="toggleText()" id="text-button" class="btn text-white border-white rounded-0">
+                                    <span class="icon">
+                                        <i class="fas fa-caret-down"></i>
+                                    </span>
+                                    <span class="text-uppercase">Show more</span>
+                                </p>
+                            {% endif %}
                         </div>
+                        <!-- Chart link and additional data -->
                         <div class="col-12 col-md-6 col-xxl-4">
                             <div class="row first-additional-data-row pb-5">
+                                <!-- Chart link -->
+                                <div class="col-6 text-center">
+                                    <a class="token-pg-link text-light d-flex flex-column align-items-center" href="https://www.coingecko.com/en/coins/{{ api_token.id }}/gbp" target="_blank">
+                                        <i class="fas fa-chart-bar fa-lg mb-1"></i>
+                                        {{ api_token.name }} chart
+                                        <small>(from Coingecko)</small></a>
+                                </div>
+                                <!-- Total supply -->
                                 <div class="col-6 text-center">
                                     <p class="token-pg-small-h slategrey text-center">Total Supply ({{ coins_api_data.symbol|upper }})</p>
                                     <p class="token-pg-small-data">{{ coins_api_data.market_data.total_supply }}</p>
                                 </div>
+                            </div>
+                            <div class="row pb-5">
+                                <!-- Circulating supply -->
                                 <div class="col-6 text-center">
                                     <p class="token-pg-small-h slategrey text-center">Circulating Supply ({{ coins_api_data.symbol|upper }})</p>
                                     <p class="token-pg-small-data">{{ coins_api_data.market_data.circulating_supply }}</p>
                                 </div>
-                            </div>
-                            <div class="row pb-5">
+                                <!-- All time high -->
                                 <div class="col-6 text-center">
                                     <p class="token-pg-small-h slategrey text-center">All Time High</p>
                                     <p class="token-pg-small-data">£{{ coins_api_data.market_data.ath.gbp }}</p>
                                 </div>
+                            </div>
+                             <div class="row">
+                                 <!-- All time high % -->
                                 <div class="col-6 text-center">
                                     <p class="token-pg-small-h slategrey text-center">ATH Change Percentage</p>
                                     <p class="token-pg-small-data">{{ coins_api_data.market_data.ath_change_percentage.gbp }}%</p>
                                 </div>
-                            </div>
-                             <div class="row">
+                                <!-- Price change 30d % -->
                                 <div class="col-6 text-center">
                                     <p class="token-pg-small-h slategrey text-center">Price Change 30d %</p>
                                     <p class="token-pg-small-data">{{ coins_api_data.market_data.price_change_percentage_30d_in_currency.gbp }}%</p>
-                                </div>
-                                <div class="col-6 text-center">
-                                    <p class="token-pg-small-h slategrey text-center">Price Change 60d %</p>
-                                    <p class="token-pg-small-data">{{ coins_api_data.market_data.price_change_percentage_60d_in_currency.gbp }}%</p>
                                 </div>
                             </div>
                         </div>

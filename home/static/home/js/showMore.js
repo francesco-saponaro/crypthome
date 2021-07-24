@@ -14,7 +14,7 @@ function toggleText() {
         moreText.style.display = "none";
 
         // Change the text on button to 'Show More' and the icon to caret down
-        buttonText.innerHTML = "Show More <i class='fas fa-caret-down'></i>";
+        buttonText.innerHTML = "<span class='icon'><i class='fas fa-caret-down'></i></span><span class='text-uppercase'>Show More</span>";
     }
 
     // If the hidden portion is revealed, we will change it back to be hidden
@@ -26,6 +26,6 @@ function toggleText() {
         moreText.style.display = "inline";
 
         // Change the text on button to 'Show Less' and the icon to caret up
-        buttonText.innerHTML = "Show Less <i class='fas fa-caret-up'></i>";
+        buttonText.innerHTML = "<span class='icon'><i class='fas fa-caret-up'></i></span><span class='text-uppercase'>Show Less</span>";
     }
 }

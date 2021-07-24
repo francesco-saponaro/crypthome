@@ -22,7 +22,7 @@
     {% if api_data %}
         {% for api_token in api_data %}
             {% if api_token.id == db_token.id %}
-                <div class="container-fluid buy-crypto-container mt-5">
+                <div class="container-fluid buy-crypto-container mt-4">
                     <!-- Token data -->
                     <div class="row pb-3 buy-token-row text-center">
                         <div class="col-6">
@@ -50,7 +50,7 @@
                                 </button>
                             </div>
                             <!-- Token amount Input -->
-                            <input class="form-control qty_input border-0 rounded-0 bg-secondary text-center" type="number" min="1" id="token-amount" name="token-amount" placeholder="{{ api_token.name }} amount">
+                            <input class="form-control qty_input border-0 rounded-0 bg-secondary text-center" type="number" value="0" min="1" id="token-amount" name="token-amount" placeholder="{{ api_token.name }} amount">
                             <!-- Token incrementer -->
                             <div class="input-group-append">
                                 <button class="increment-qty btn text-white border-white rounded-0" data-item_id="">
@@ -62,7 +62,7 @@
                         </div>
 
                         <!-- GBP amount label -->
-                        <label for="gbp-amount" class="pb-1 slategrey text-start">Total (GBP)</label>
+                        <label for="gbp-amount" class="pb-1 slategrey text-start mt-2">Total (GBP)</label>
                         <!-- GBP amount input group -->
                         <div class="input-group">
                             <!-- GBP decrementer -->
@@ -74,7 +74,7 @@
                                 </button>
                             </div>
                             <!-- GBP Input -->                              
-                            <input class="form-control qty_input border-0 rounded-0 bg-secondary text-center" type="number" min="1" id="gbp-amount" name="gbp-amount" placeholder="Total (GBP)">
+                            <input class="form-control qty_input border-0 rounded-0 bg-secondary text-center" type="number" value="0" min="1" id="gbp-amount" name="gbp-amount" placeholder="Total (GBP)">
                             <!-- GBP incrementer -->
                             <div class="input-group-append">
                                 <button class="increment-qty btn text-white border-white rounded-0" data-item_id="">

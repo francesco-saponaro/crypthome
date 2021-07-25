@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'crypthomerch/css/crypthomerch.css' %}">
+{% endblock %}
+
+{% block header %}
+    <!-- Crypthomerch header -->
+    {% include "includes/crypthomerch-header.html" %}
+{% endblock %}
+
+{% block cta %}
+    <!-- Call to action -->
+    <div class="container-fluid">
+        <div class="row bg-black text-center">
+            <div class="col-12 cta merch-cta">
+                <h4 class="text-white text-uppercase mb-0">Free delivery on merch orders over £{{ free_delivery_threshold }}!</h4>
+            </div>            
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <!-- Order summary -->
+            <div class="col-12">
+                <hr>
+                <h2 class="mb-4">Thank You</h2>
+                <hr>
+                <p>Your order information is below. A confirmation email will be sent to <strong>{{ order.email }}</strong>.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-lg-7">
+            </div>
+        </div>
+
+        <div class="row">
+			<div class="col-12 cta crypto-cta col-lg-7 text-end">         
+                <a href="{% url 'all_merch' %}" class="btn rounded-0 text-uppercase">View Collection</a>
+			</div>
+		</div>
+                
+{% endblock %}

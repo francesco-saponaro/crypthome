@@ -19,7 +19,8 @@ def bag_contents(request):
     for item_id, item_data in bag.items():
         # We check if the item has no sizes by checking if
         # item_data is an integer, since if it is an integer
-        # we know item_data is just the quantity.
+        # we know the item has no sizes and  item_data is
+        # just the quantity.
         if isinstance(item_data, int):
             # I'll first get the product by it's id, then add
             # it's quantity times the price to the total,
@@ -35,8 +36,9 @@ def bag_contents(request):
                 'quantity': item_data,
                 'product': product,
             })
-        # If item_data is not an integer we know it's a dictionary, in which
-        # case we need to iterate through the inner dictionary of items_by_size
+        # If item_data is not an integer we know it's a dictionary,
+        # which means it has sizes, therefore we iterate through
+        # each size (inner dictionary of items_by_size).
         else:
             product = get_object_or_404(Merch, pk=item_id)
             for size, quantity in item_data['items_by_size'].items():

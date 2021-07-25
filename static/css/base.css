@@ -277,6 +277,10 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     -webkit-text-fill-color: transparent;
 }
 
+.chart-btn:hover {
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+}
+
 #text-button {
     cursor:pointer;
 }

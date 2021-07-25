@@ -59,22 +59,22 @@
                             <ul class="list-inline list-unstyled float-none flex justify-content-between text-center my-0">
                                 <!-- Token website -->
                                 <li class="list-inline-item pe-2">
-                                    <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ coins_api_data.links.homepage.0 }}">
-                                        <i class="fas fa-home mb-1"></i>
+                                    <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ coins_api_data.links.homepage.0 }}" target="_blank">
+                                        <img src="/media/{{ api_token.id }}-logo.svg" alt="" class="mb-1">
                                         {{ api_token.name }} Website
                                     </a>
                                 </li>
                                 <!-- Reddit -->
                                 <li class="list-inline-item pe-2">
-                                    <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ coins_api_data.links.subreddit_url }}">
-                                        <i class="fab fa-reddit mb-1"></i>
+                                    <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ coins_api_data.links.subreddit_url }}" target="_blank">
+                                        <img src="/media/reddit-logo.svg" alt="" class="mb-1">
                                         {{ api_token.name }} Subreddit
                                     </a>
                                 </li>
                                 <!-- Github -->
                                 <li class="list-inline-item">
-                                    <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ coins_api_data.links.repos_url.github.0 }}">
-                                        <i class="fab fa-github mb-1"></i>
+                                    <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ coins_api_data.links.repos_url.github.0 }}" target="_blank">
+                                        <img src="/media/github-logo.svg" alt="" class="mb-1">
                                         {{ api_token.name }} Github repo
                                     </a>
                                 </li>
@@ -111,42 +111,39 @@
                         </div>
                         <!-- Chart link and additional data -->
                         <div class="col-12 col-md-6 col-xxl-4">
-                            <div class="row first-additional-data-row pb-5">
+                            <div class="row first-additional-data-row pb-4">
                                 <!-- Chart link -->
-                                <div class="col-6 text-center">
-                                    <a class="token-pg-link text-light d-flex flex-column align-items-center" href="https://www.coingecko.com/en/coins/{{ api_token.id }}/gbp" target="_blank">
-                                        <i class="fas fa-chart-bar fa-lg mb-1"></i>
-                                        {{ api_token.name }} chart
-                                        <small>(from Coingecko)</small></a>
+                                <div class="col-12 text-center">
+                                    <a href="https://www.coingecko.com/en/coins/{{ api_token.id }}/gbp" class="btn btn-lg text-white border-white rounded-0 token-pg-h w-100" target="_blank">
+                                        <span class="text-uppercase flex">{{ api_token.name }} chart
+                                            <i class="fas fa-chart-bar fa-lg ms-2"></i>
+                                        </span>
+                                        <small>from CoinGecko</small>
+                                    </a>
                                 </div>
+                            </div>
+                            <div class="row pb-5">
                                 <!-- Total supply -->
                                 <div class="col-6 text-center">
                                     <p class="token-pg-small-h slategrey text-center">Total Supply ({{ coins_api_data.symbol|upper }})</p>
                                     <p class="token-pg-small-data">{{ coins_api_data.market_data.total_supply }}</p>
                                 </div>
-                            </div>
-                            <div class="row pb-5">
                                 <!-- Circulating supply -->
                                 <div class="col-6 text-center">
                                     <p class="token-pg-small-h slategrey text-center">Circulating Supply ({{ coins_api_data.symbol|upper }})</p>
                                     <p class="token-pg-small-data">{{ coins_api_data.market_data.circulating_supply }}</p>
                                 </div>
+                            </div>
+                             <div class="row">
                                 <!-- All time high -->
                                 <div class="col-6 text-center">
                                     <p class="token-pg-small-h slategrey text-center">All Time High</p>
                                     <p class="token-pg-small-data">£{{ coins_api_data.market_data.ath.gbp }}</p>
                                 </div>
-                            </div>
-                             <div class="row">
-                                 <!-- All time high % -->
+                                <!-- All time high % -->
                                 <div class="col-6 text-center">
                                     <p class="token-pg-small-h slategrey text-center">ATH Change Percentage</p>
                                     <p class="token-pg-small-data">{{ coins_api_data.market_data.ath_change_percentage.gbp }}%</p>
-                                </div>
-                                <!-- Price change 30d % -->
-                                <div class="col-6 text-center">
-                                    <p class="token-pg-small-h slategrey text-center">Price Change 30d %</p>
-                                    <p class="token-pg-small-data">{{ coins_api_data.market_data.price_change_percentage_30d_in_currency.gbp }}%</p>
                                 </div>
                             </div>
                         </div>

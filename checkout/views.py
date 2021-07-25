@@ -10,6 +10,10 @@ import stripe
 
 # Checkout view.
 def checkout(request):
+    # Get keys from environment.
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+
     # Get the bag from the session.
     bag = request.session.get('bag', {})
     # If bag is empty.
@@ -24,6 +28,16 @@ def checkout(request):
     # Multiply the total by a 100 and round it to zero decimal places
     # since stripe will require the amount to charge as an integer.
     stripe_total = round(total * 100)
+    # Set secret key on stripe.
+    stripe.api_key = stripe_secret_key
+    # Create payment intent.
+    # Stripe creates a payment intent everytime the user gets to
+    # the checkout page.
+    intent = stripe.PaymentIntent.create(
+        amount=stripe_total,
+        currency=settings.STRIPE_CURRENCY,
+    )
+    print(intent)
 
     template = 'checkout/checkout.html'
     # Create an instance of the order form and pass it into
@@ -31,8 +45,8 @@ def checkout(request):
     order_form = OrderForm()
     context = {
         'order_form': order_form,
-        'stripe_public_key': 'pk_test_51Ip7yhJO3fdzlzXp9syaRd9HKtTjJZsJRWbe4wvg8yQo60nQTi7CXE4kmgCL7mpNHWa5wrRaFpq2wNDS0ELuj6W300jDk73kqU',
-        'client_secret': 'Test client secret'
+        'stripe_public_key': stripe_public_key,
+        'client_secret': intent.client_secret,
     }
 
     return render(request, template, context)

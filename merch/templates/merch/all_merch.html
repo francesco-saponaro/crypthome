@@ -103,6 +103,7 @@
             {% for item in merch %}
                 <div class="col-sm-6 col-lg-4 col-xl-3">
                     <div class="card h-100 border-0 bg-main">
+                        <!-- Image -->
                         {% if item.image %}
                             <a href="{% url 'product_detail' item.id %}">
                                 <img class="card-img-top img-fluid" src="/media/{{ item.image }}" alt="{{ item.name }}">
@@ -112,6 +113,7 @@
                                 <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.name }}">
                             </a>
                         {% endif %}
+                        <!-- Name -->
                         <div class="card-body pb-0">
                             <p class="mb-0">
                                 {{ item.name }}
@@ -120,9 +122,11 @@
                         <div class="card-footer pt-0 border-0 text-start">
                             <div class="row">
                                 <div class="col">
+                                    <!-- Price -->
                                     <p class="lead mb-0 text-start fw-bold">
                                         £{{ item.price }}
                                     </p>
+                                    <!-- Category -->
                                     {% if item.category %}
                                         <p class="small mt-1 mb-0">
                                             <a href="{% url 'all_merch' %}?category={{ item.category.name }}" class="text-muted">
@@ -130,6 +134,7 @@
                                             </a>
                                         </p>
                                     {% endif %}
+                                    <!-- Rating -->
                                     {% if item.rating %}
                                         <small class="text-muted"><i class="fas fa-star me-1"></i>{{ item.rating }}/5</small>
                                     {% else %}

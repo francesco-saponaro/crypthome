@@ -150,3 +150,8 @@ def buy_token(request, token_id):
         }
 
     return render(request, 'home/buy_token.html', context)
+
+
+# Portfolio view
+def portfolio(request, **kwargs):
+    return render(request, 'home/portfolio.html')

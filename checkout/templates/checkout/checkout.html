@@ -121,7 +121,7 @@
                     </fieldset>
 
                     <!-- Buttons -->
-                    <div class="submit-button text-end mt-5 mb-2">
+                    <div class="text-end mt-5 mb-2">
                         <!-- Adjust bag button -->                    
 						<a href="{% url 'view_bag' %}" class="btn text-white border-white rounded-0">
 							<span class="icon">
@@ -129,24 +129,55 @@
 							</span>
 							<span class="font-weight-bold">Adjust Bag</span>
 						</a>
-                        <!-- Complete order button -->
-						<button id="submit-button" class="btn atb-btn text-white rounded-0">
+                        <!-- Complete order button trigger modal -->
+						<a id="submit-button" class="btn atb-btn text-white rounded-0" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 							<span class="font-weight-bold">Complete Order</span>
 							<span class="icon">
 								<i class="fas fa-lock"></i>
 							</span>
-						</button>
+						</a>                        
+                        <!-- Complete order Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content bg-main border-white">
+                                    <!-- Modal header -->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-uppercase" id="staticBackdropLabel">Are you sure?</h5>
+                                        <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="modal-body text-center">
+                                        <p class="mb-0">Please confirm your transaction of <strong>£{{ grand_total|floatformat:2 }}</strong></p>
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="modal-footer">
+                                        <!-- Cancel button -->
+                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                        <!-- Complete order button -->
+                                        <button type="submit" class="btn btn-success">Confirm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Card charge amount warning -->
 						<p class="small text-danger my-0">
 							<span class="icon">
 								<i class="fas fa-exclamation-circle"></i>
 							</span>
-							<span>Your card will be charged <strong>${{ grand_total|floatformat:2 }}</strong></span>
+							<span>Your card will be charged <strong>£{{ grand_total|floatformat:2 }}</strong></span>
 						</p>
 					</div>
                 </form>
             </div>
         </div>
+    </div>
+    <!-- Loading overlay -->
+    <div id="loading-overlay">
+        <h1 class="text-light loading-spinner">
+            <span class="icon">
+                <i class="fas fa-3x fa-sync-alt fa-spin"></i>
+            </span>
+        </h1>
     </div>
 {% endblock %}
 

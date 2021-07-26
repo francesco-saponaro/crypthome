@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}
+    portfolio
+{% endblock %}
+
+{% block sub_header %}
+    <div class="container-fluid">
+        <div class="row section-title py-2 px-sm-4">
+            <!-- Title -->
+            <div class="col-5">
+                <h3 class="text-uppercase mb-0 section-title-h">Portfolio</h3>
+            </div>
+            <!-- Portfolio value -->
+            <div class="col-7">
+                <h4 class="mb-0 section-title-h float-end">Equity value: £10000</h4>
+            </div>            
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid token-pg-container py-3">
+        <!-- Stat chart -->
+        <div class="row">
+            <div class="col-12">
+                <!-- Styles -->
+                <style>
+                #chartdiv {
+                width: 100%;
+                height: 500px;
+                }
+                </style>
+
+                <!-- Resources -->
+                <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+                <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+                <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+                <!-- Chart code -->
+                <script>
+                am4core.ready(function() {
+
+                // Themes begin
+                am4core.useTheme(am4themes_animated);
+                // Themes end
+
+                // Create chart instance
+                var chart = am4core.create("chartdiv", am4charts.PieChart);
+
+                // Add data
+                chart.data = [ {
+                "country": "Lithuania",
+                "litres": 501.9
+                }, {
+                "country": "Czechia",
+                "litres": 301.9
+                }, {
+                "country": "Ireland",
+                "litres": 201.1
+                }, {
+                "country": "Germany",
+                "litres": 165.8
+                }, {
+                "country": "Australia",
+                "litres": 139.9
+                }, {
+                "country": "Austria",
+                "litres": 128.3
+                }
+                ];
+
+                // Add and configure Series
+                var pieSeries = chart.series.push(new am4charts.PieSeries());
+                pieSeries.dataFields.value = "litres";
+                pieSeries.dataFields.category = "country";
+                pieSeries.slices.template.stroke = am4core.color("#fff");
+                pieSeries.slices.template.strokeOpacity = 1;
+                pieSeries.labels.template.fill = am4core.color("white");
+                pieSeries.labels.template.fontSize = 12;
+                pieSeries.alignLabels = false;
+                pieSeries.labels.template.bent = true;
+
+                // This creates initial animation
+                pieSeries.hiddenState.properties.opacity = 1;
+                pieSeries.hiddenState.properties.endAngle = -90;
+                pieSeries.hiddenState.properties.startAngle = -90;
+
+                chart.hiddenState.properties.radius = am4core.percent(0);
+                }); // end am4core.ready()
+                </script>
+
+                <!-- HTML -->
+                <div id="chartdiv"></div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="row"><div class="col"><hr class="bg-light border-2 border-top border-light"></div></div>
+
+        <!-- Open orders -->
+        <div class="row">
+            <div class="col-12">
+                <!-- Title -->
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="mb-0 section-title-h">Open orders:</h4>
+                    </div>
+                </div>
+                <!-- Table -->
+                <table class="table table-borderless mt-3">
+                    <!-- Table body -->
+                    <tbody class="crypto-tbody text-center text-light small-table">
+                        <tr>
+                            <td class="text-start align-middle">
+                                <p class="mb-0">BTC/GBP</p>
+                            </td>
+                            <td class="align-middle">
+                                <p class="mb-0"><span class="text-muted">Amount:</span> 5/2000</p>
+                                <p class="mb-0"><span class="text-muted">Price</span> 1.80</p>
+                            </td>
+                            <td class="align-middle">
+                                Profit
+                            </td>
+                            <td class="align-middle">
+                                <!-- Sell button -->
+                                <a href="" class="btn rounded-0 text-uppercase sell-btn">Sell</a>
+                            </td>
+                            <td class="align-middle text-end">
+                                Order date
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>            
+        </div>
+
+        <!-- Divider -->
+        <div class="row"><div class="col"><hr class="bg-light border-2 border-top border-light"></div></div>
+
+        <!-- Order history -->
+        <div class="row">
+            <div class="col-12">
+                <!-- Title -->
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="mb-0 section-title-h">Order history:</h4>
+                    </div>
+                </div>
+            </div>            
+        </div>
+{% endblock %}
+
+<!-- Unlike the index html that has a separate external js file, in this page I had to use an internal script in order to use Django template in the filter function -->
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- Script to toggle watchlist icon class -->
+    <script type="text/javascript" src="{% static 'home/js/watchlist.js' %}"></script>
+{% endblock %}

@@ -22,6 +22,8 @@ let style = {
 let card = elements.create('card', { style: style });
 card.mount(document.getElementById('card-element'));
 
+// Disable submit button modal trigger by default.
+document.getElementById('submit-button').classList.add('disabled');
 
 // Handle realtime validation errors on the card element.
 // Listen for Stripe errors everytime there is a change in the card element, and display them if any.
@@ -32,11 +34,19 @@ card.addEventListener('change', (event) => {
             <span class="icon" role="alert">
                 <i class="fas fa-times"></i>
             </span>
-            <span>${event.error.message}</span>`
+            <span>${event.error.message}</span>`    
     } else {
         errorDiv.textContent = '';
+    };
+
+    // Enable submit button modal trigger if all card fields have been filled correctly.
+    if (event.complete) {
+        document.getElementById('submit-button').classList.remove('disabled');
+    } else {
+        document.getElementById('submit-button').classList.add('disabled');
     }
 })
+
 
 // Handle form submit. From Stripe.
 var form = document.getElementById('payment-form');
@@ -49,6 +59,9 @@ form.addEventListener('submit', function(ev) {
   // submit button, to prevent multiple submissions.
   card.update({'disabled': true});
   document.getElementById('submit-button').setAttribute('disabled', true)
+  // Fade out the form and trigger loading overlay when user submits the form.
+  $('#payment-form').fadeToggle(100)
+  $('#loading-overlay').fadeToggle(100)
   // If the client secret was rendered server-side as a data-secret attribute
   // on the <form> element, you can retrieve it here by calling `form.dataset.secret`
   stripe.confirmCardPayment(clientSecret, {
@@ -58,11 +71,15 @@ form.addEventListener('submit', function(ev) {
   }).then(function(result) {
     if (result.error) {
         // Show error to your customer (e.g., insufficient funds)
+        let errorDiv = document.getElementById('card-errors');
         errorDiv.innerHTML = `
             <span class="icon" role="alert">
                 <i class="fas fa-times"></i>
             </span>
             <span>${result.error.message}</span>`;
+        // Fade out the form and trigger loading overlay if there are errors.
+        $('#payment-form').fadeToggle(100)
+        $('#loading-overlay').fadeToggle(100)
         // If there is an error we also want to re enable both the card element
         // and the submit button to allow the user to fix it.
         card.update({'disabled': false});

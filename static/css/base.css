@@ -224,6 +224,17 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     -webkit-text-fill-color: transparent;
 }
 
+/* Portfolio page */
+.sell-btn {
+    color:red !important;
+    border: 1px solid red !important;
+}
+
+.sell-btn:hover {
+    background-color: red !important;
+    color:black !important;
+}
+
 /* Token page */
 .token-pg-container {
     padding-left: 48px;

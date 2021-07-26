@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='home'),
     path('watchlist/', views.watchlist, kwargs={'navbar': 'watchlist'}, name='watchlist'),
+    path('portfolio/', views.portfolio, kwargs={'navbar': 'portfolio'}, name='portfolio'),
     path('token_page/<token_id>/', views.token_page, name='token_page'),
     path('buy_token/<token_id>/', views.buy_token, name='buy_token'),
 ]

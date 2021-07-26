@@ -18,7 +18,7 @@
                         {% if request.user.is_authenticated%}
                             <!-- Portfolio -->
                             <li class="list-inline-item portfolio">
-                                <a class="nav-link" href="">
+                                <a class="nav-link" href="{% url 'portfolio' %}">
                                     <div class="text-center">
                                         <p class="my-0">Portfolio</p>
                                     </div>
@@ -52,7 +52,7 @@
                                     <!-- Watchlist  -->
                                     <a href="{% url 'watchlist' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'watchlist' %}dropdown-active{% endif %}"><i class="fas fa-star"></i> Watchlist</a>
                                     <!-- Portfolio -->
-                                    <a href="" class="dropdown-item"><i class="fas fa-chart-pie"></i> Portfolio</a>
+                                    <a href="{% url 'portfolio' %}" class="dropdown-item"><i class="fas fa-chart-pie"></i> Portfolio</a>
                                     <!-- Log out -->
                                     <a href="{% url 'account_logout' %}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Log Out</a>
                                 {% else %}
@@ -134,7 +134,7 @@
                 {% if request.user.is_authenticated%}
                     <!-- Portfolio -->
                     <li class="list-inline-item d-none d-xl-inline-block">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="{% url 'portfolio' %}">
                             <div class="text-center">
                                 <div><i class="fas fa-chart-pie"></i></div>
                                 <p class="my-0">Portfolio</p>
@@ -171,7 +171,7 @@
                             <!-- Watchlist  -->
                             <a href="{% url 'watchlist' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'watchlist' %}dropdown-active{% endif %}"><i class="fas fa-star"></i> Watchlist</a>
                             <!-- Portfolio -->
-                            <a href="" class="dropdown-item"><i class="fas fa-chart-pie"></i> Portfolio</a>
+                            <a href="{% url 'portfolio' %}" class="dropdown-item"><i class="fas fa-chart-pie"></i> Portfolio</a>
                             <!-- Log out -->
                             <a href="{% url 'account_logout' %}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Log Out</a>
                         {% else %}

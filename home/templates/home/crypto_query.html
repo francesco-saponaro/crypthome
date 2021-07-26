@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}
+    search result
+{% endblock %}
+
+{% block cta %}
+    <!-- Call to action -->
+    <div class="container-fluid">
+        <div class="row bg-black text-center">
+            <div class="col-12 cta crypto-cta d-block d-md-flex justify-content-center">
+                <h4 class="text-white text-uppercase me-md-5 mb-md-0">Free delivery on merch orders over £{{ free_delivery_threshold }}!</h4> 
+                <a href="{% url 'all_merch' %}" class="btn rounded-0 text-uppercase">View Collection</a>
+            </div>            
+        </div>
+    </div>
+{% endblock %}
+
+{% block hero_section %}
+    {% include "includes/background-img.html" %}
+{% endblock %}
+
+{% block content %}
+    <!-- If the query has been found in the data coming from the API, Iterate through it, create a table and display it's data-->
+    {% if results %}
+        <div class="container-fluid mt-3 mb-5">
+            <!-- Table large screens -->
+            <table class="table table-borderless d-none d-sm-table">
+                <!-- Table head -->
+                <thead class="crypto-thead text-light text-center">
+                    <tr>
+                        <th scope="col "></th>
+                        <th scope="col">#</th>
+                        <th scope="col" class="text-start">Name</th>
+                        <th scope="col"></th>
+                        <th scope="col" class="text-end">Price (£)</th>
+                        <th scope="col" class="text-end"">24h %</th>
+                        <th scope="col" class="text-end"">Market Cap (£)</th>
+                    </tr>
+                </thead>
+
+                <!-- Table body -->
+                <tbody class="crypto-tbody text-center text-light large-table">
+                {% for result in results %}
+                    <!-- Create a table row for each token in results -->
+                    <tr>
+                        <td class="align-middle"><i class="far fa-star favourites"></i></td>
+                        <td class="align-middle">{{ result.market_cap_rank }}</td>
+                        <td class="align-middle text-start">
+                            <a href="{% url 'token_page' result.id %}" class="text-light link">
+                                <img src={{result.image}} height="30"> 
+                                {{ result.name }}
+                                <span class="text-uppercase fw-bold symbol">{{ result.symbol }}</span>
+                            </a>
+                        </td>
+                        <td class="align-middle">
+                            <!-- Buy button -->
+                            <a href="{% url 'buy_token' result.id %}" class="btn rounded-0 text-uppercase">Buy</a>
+                        </td>
+                        <td class="align-middle text-end">{{ result.current_price }}</td>
+                        <td class="align-middle text-end">{{ result.price_change_percentage_24h|floatformat:2 }}</td>
+                        <td class="align-middle text-end">{{ result.market_cap }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Table small screens -->
+            <table class="table table-borderless d-sm-none">
+                <!-- Table body small -->
+                <tbody class="crypto-tbody text-center text-light small-table">
+                {% for result in results %}
+                    <!-- Create a table row for each token in data -->
+                    <tr>
+                        <td class="align-middle"><img src={{result.image}} height="30"></td>
+                        <td class="text-start">
+                            <a href="{% url 'token_page' result.id %}" class="text-light link">
+                                {{ result.name }}
+                                <br>
+                                <span class="bg-dark btn-sm">{{ result.market_cap_rank }}</span>
+                                <span class="text-uppercase fw-bold x-small">{{ result.symbol }}  {{ result.price_change_percentage_24h|floatformat:2}}%</span>
+                            </a>
+                        </td>
+                        <td class="align-middle">
+                            <!-- Buy button -->
+                            <a href="{% url 'buy_token' result.id %}" class="btn rounded-0 text-uppercase">Buy</a>
+                        </td>
+                        <td class="align-middle text-end">£{{ result.current_price }}
+                            <br>
+                            <span class="x-small">MCap £{{ result.market_cap }}</span>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h3 class="text-center mt-5 text-uppercase">
+                    Ooops...
+                    <br>
+                    Data is not available
+                </h3>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- Script to toggle watchlist icon class -->
+    <script type="text/javascript" src="{% static 'home/js/watchlist.js' %}"></script>
+{% endblock %}

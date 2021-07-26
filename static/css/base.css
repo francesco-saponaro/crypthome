@@ -459,6 +459,10 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     .token-pg-h {
         font-size: 20px;
     }
+
+    .order-tbody tr td {
+        font-size:12px;
+    }
 }
 
 @media (max-width: 800px) {
@@ -719,6 +723,10 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     .first-additional-data-row {
         padding:12px;
     }
+
+    .order-tbody tr td {
+        font-size:10px;
+    }
 }
 
 @media (max-width: 490px) {
@@ -800,6 +808,10 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 
     .buy-data {
         font-size: 15px;
+    }
+
+    .order-tbody tr td {
+        font-size:8px;
     }
 }
 

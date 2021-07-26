@@ -215,3 +215,4 @@ STRIPE_CURRENCY = 'gbp'
 # or add them from the gitpod workspace settings page.
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')

@@ -16,7 +16,7 @@ let style = {
             color: '#aab7c4'
         }
     },
-  };
+};
 
 // Create a card element and mount it to designated div.
 let card = elements.create('card', { style: style });
@@ -50,50 +50,96 @@ card.addEventListener('change', (event) => {
 
 // Handle form submit. From Stripe.
 var form = document.getElementById('payment-form');
-
 form.addEventListener('submit', function(ev) {
-  // Prevent default action, which in this case is POST.
-  // Instead we'll execute code beloe
-  ev.preventDefault();
-  // Before we call out stripe we want to disable both the card element and the
-  // submit button, to prevent multiple submissions.
-  card.update({'disabled': true});
-  document.getElementById('submit-button').setAttribute('disabled', true)
-  // Fade out the form and trigger loading overlay when user submits the form.
-  $('#payment-form').fadeToggle(100)
-  $('#loading-overlay').fadeToggle(100)
-  // If the client secret was rendered server-side as a data-secret attribute
-  // on the <form> element, you can retrieve it here by calling `form.dataset.secret`
-  stripe.confirmCardPayment(clientSecret, {
-    payment_method: {
-      card: card,
-    }
-  }).then(function(result) {
-    if (result.error) {
-        // Show error to your customer (e.g., insufficient funds)
-        let errorDiv = document.getElementById('card-errors');
-        errorDiv.innerHTML = `
-            <span class="icon" role="alert">
-                <i class="fas fa-times"></i>
-            </span>
-            <span>${result.error.message}</span>`;
-        // Fade out the form and trigger loading overlay if there are errors.
-        $('#payment-form').fadeToggle(100)
-        $('#loading-overlay').fadeToggle(100)
-        // If there is an error we also want to re enable both the card element
-        // and the submit button to allow the user to fix it.
-        card.update({'disabled': false});
-        document.getElementById('submit-button').setAttribute('disabled', false)
-    } else {
-      // The payment has been processed!
-      if (result.paymentIntent.status === 'succeeded') {
-        // Show a success message to your customer
-        // There's a risk of the customer closing the window before callback
-        // execution. Set up a webhook or plugin to listen for the
-        // payment_intent.succeeded event that handles any business critical
-        // post-payment actions.
-        form.submit();
-      }
-    }
-  });
+    // When the user clicks the submit button this eevnt prevents the form from 
+    // submitting, the default action, which in this case is POST.
+    // Instead we'll execute code below
+    ev.preventDefault();
+    // Instead disables the card element and submit button to prevent multiple
+    // submissions, fades out the form and triggers the loading overlay.
+    card.update({'disabled': true});
+    document.getElementById('submit-button').setAttribute('disabled', true);
+    $('#payment-form').fadeToggle(100);
+    $('#loading-overlay').fadeToggle(100);
+
+    // Then we create a few variables to capture the form data we can't put in the 
+    // the payment intent here. Like checking the if the user checked the save info box.
+    var saveInfo = Boolean($('#id-save-info').attr('checked'));
+    // From using {% csrf_token %} in the form
+    let csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+    var postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'client_secret': clientSecret,
+        'save_info': saveInfo,
+    };
+    // And instead post the above data to the cache_checkout_data view.
+    // The view in views.py updates the payment intent and returns a 200 response.
+    // At which point, when it's "done", we call confirmCardPayment from stripe
+    // and if everything is ok, submit the form
+    var url = '/checkout/cache_checkout_data/';
+    $.post(url, postData).done(function () {
+        // If the client secret was rendered server-side as a data-secret attribute
+        // on the <form> element, you can retrieve it here by calling `form.dataset.secret`
+        stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                  name: form.full_name.value.trim(),
+                  phone: form.phone_number.value.trim(),
+                  email: form.email.value.trim(),
+                  address:{
+                      line1: form.street_address1.value.trim(),
+                      line2: form.street_address2.value.trim(),
+                      city: form.town_or_city.value.trim(),
+                      country: form.country.value.trim(),
+                      state: form.county.value.trim(),
+                    }
+                }
+            },
+            shipping: {
+                name: form.full_name.value.trim(),
+                phone: form.phone_number.value.trim(),
+                address:{
+                    line1: form.street_address1.value.trim(),
+                    line2: form.street_address2.value.trim(),
+                    city: form.town_or_city.value.trim(),
+                    country: form.country.value.trim(),
+                    postal_code: form.postcode.value.trim(),
+                    state: form.county.value.trim(),
+                }
+            }
+        }).then(function(result) {
+            // If there is an error in the form, the loading overlay will be hidden,
+            // the card element re enabled and the error displayed for the user.
+            if (result.error) {
+                // Show error to the user (e.g., insufficient funds).
+                let errorDiv = document.getElementById('card-errors');
+                errorDiv.innerHTML = `
+                    <span class="icon" role="alert">
+                        <i class="fas fa-times"></i>
+                    </span>
+                    <span>${result.error.message}</span>`;
+                // Fade in the form and out the trigger loading overlay.
+                $('#payment-form').fadeToggle(100)
+                $('#loading-overlay').fadeToggle(100)
+                // Re enable both the card element and the submit button to allow the user to fix it.
+                card.update({'disabled': false});
+                document.getElementById('submit-button').setAttribute('disabled', false)
+            } else {
+                // The payment has been processed!
+                if (result.paymentIntent.status === 'succeeded') {
+                  // Show a success message to your customer
+                  // There's a risk of the customer closing the window before callback
+                  // execution. Set up a webhook or plugin to listen for the
+                  // payment_intent.succeeded event that handles any business critical
+                  // post-payment actions.
+                  form.submit();
+                }
+            }
+        });
+    }).fail(function () { 
+          // If anything goes wrong posting the data to the view we reload the page
+          // without ever charging the user.
+          location.reload();
+    })
 });

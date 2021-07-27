@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
 
@@ -8,6 +9,37 @@ from merch.models import Merch
 from bag.contexts import bag_contents
 
 import stripe
+import json
+
+
+# We expect the POST method only in this view.
+# Before we call the confirmCardPayment method in the stripe
+# javascript, we make a post request to this view.
+@require_POST
+def cache_checkout_data(request):
+    try:
+        # We give it the client secret from the payment intent, if
+        # we split that at the word secret, the first part of it
+        # would be the payment intent id.
+        pid = request.POST.get('client_secret').split('_secret')[0]
+        # Then I'll set up stripe with the secret key so we can modify
+        # the payment intent.
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        # I can do so by calling the below method, pass it the
+        # payment intent id and tell it what we want to modify.
+        # In this case we want to add the user placing the orders,
+        # if the wanted to save their info and a json dump of their
+        # shopping bag.
+        stripe.PaymentIntent.modify(pid, metadata={
+            'bag': json.dumps(request.session.get('bag', {})),
+            'save_info': request.POST.get('save_info'),
+            'username': request.user,
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.error(request, 'Sorry, your payment cannot be \
+            processed right now. Please try again later.')
+        return HttpResponse(content=e, status=400)
 
 
 # Checkout view.

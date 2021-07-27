@@ -68,9 +68,21 @@ def checkout(request):
         }
         # Then create an instance of the form with the form_data dictionary.
         order_form = OrderForm(form_data)
-        # If form is valid save it
+        # If form is valid save it.
         if order_form.is_valid():
-            order = order_form.save()
+            # Commit false to prevent multiple save events.
+            order = order_form.save(commit=False)
+            # We get the client secret from the payment intent, if
+            # we split that at the word secret, the first part of it
+            # would be the payment intent id.
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            # Set the pid and the shopping bag on the designated order
+            # fields and save the order.
+            # We will need this two fields to allow two exact orders from the 
+            # same user being submitted.
+            order.stripe_pid = pid
+            order.original_bag = json.dumps(bag)
+            order.save()
             # Then iterate through bag items to create a line item for each.
             for item_id, item_data in bag.items():
                 try:

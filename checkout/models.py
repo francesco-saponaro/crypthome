@@ -29,6 +29,10 @@ class Order(models.Model):
                                       null=False, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2,
                                       null=False, default=0)
+    # This field will contain the original shopping bag that created the order.
+    original_bag = models.TextField(null=False, blank=False, default='')
+    # This field will contain the unique stripe payment intent id.
+    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default='')
 
     # Update grand total each time a line item is added,
     # accounting for delivery cost.

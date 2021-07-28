@@ -52,7 +52,9 @@
                                     <!-- Watchlist  -->
                                     <a href="{% url 'watchlist' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'watchlist' %}dropdown-active{% endif %}"><i class="fas fa-star"></i> Watchlist</a>
                                     <!-- Portfolio -->
-                                    <a href="{% url 'portfolio' %}" class="dropdown-item"><i class="fas fa-chart-pie"></i> Portfolio</a>
+                                    <a href="{% url 'portfolio' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'portfolio' %}dropdown-active{% endif %}"><i class="fas fa-chart-pie"></i> Portfolio</a>
+                                    <!-- Profile  -->
+                                    <a href="{% url 'profile' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'profile' %}dropdown-active{% endif %}"><i class="fas fa-user-edit"></i> Profile</a>
                                     <!-- Log out -->
                                     <a href="{% url 'account_logout' %}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Log Out</a>
                                 {% else %}
@@ -171,7 +173,9 @@
                             <!-- Watchlist  -->
                             <a href="{% url 'watchlist' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'watchlist' %}dropdown-active{% endif %}"><i class="fas fa-star"></i> Watchlist</a>
                             <!-- Portfolio -->
-                            <a href="{% url 'portfolio' %}" class="dropdown-item"><i class="fas fa-chart-pie"></i> Portfolio</a>
+                            <a href="{% url 'portfolio' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'portfolio' %}dropdown-active{% endif %}"><i class="fas fa-chart-pie"></i> Portfolio</a>
+                            <!-- Profile  -->
+                            <a href="{% url 'profile' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'profile' %}dropdown-active{% endif %}"><i class="fas fa-user-edit"></i> Profile</a>
                             <!-- Log out -->
                             <a href="{% url 'account_logout' %}" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Log Out</a>
                         {% else %}

@@ -4,7 +4,6 @@ let socket = new WebSocket(`wss://${window.location.host}/ws/home/`);
 /* Add data coming from the consumer to a variable */
 socket.onmessage = function(event) {
     let ws_tokens = JSON.parse(event.data);
-    console.log(ws_tokens);
 
     /* Create a variable to populate the large table, that loops through each token and creates a row with token data for each */
     let newDataLg = ws_tokens.map(ws_token => 

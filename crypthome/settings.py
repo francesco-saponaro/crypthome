@@ -96,7 +96,7 @@ TEMPLATES = [
     },
 ]
 
-# Required to store messages in the session. 
+# Required to store messages in the session.
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTHENTICATION_BACKENDS = [

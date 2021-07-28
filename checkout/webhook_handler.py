@@ -54,7 +54,7 @@ class StripeWH_Handler:
         # it didnt find any order. And once the view finally finishes it
         # will result in the same order being added twice to the database.
         # Therefore let's introduce a delay by letting the webhook handler
-        # attempt to find the order 5 times from the database and wait 1 
+        # attempt to find the order 5 times from the database and wait 1
         # second each time, before giving up and creating the order itself.
         attempt = 1
         while attempt <= 5:
@@ -87,7 +87,8 @@ class StripeWH_Handler:
         # If the order exists we return a 200 http response to stripe.
         if order_exists:
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                content=f'Webhook received: {event["type"]} | SUCCESS: \
+                    Verified order already in database',
                 status=200)
         # If it doesnt exist, let's create it just like if the form were
         # submitted.
@@ -119,7 +120,8 @@ class StripeWH_Handler:
                         )
                         order_line_item.save()
                     else:
-                        for size, quantity in item_data['items_by_size'].items():
+                        for size, quantity in item_data['items_by_size'].\
+                                              items():
                             order_line_item = OrderLineItem(
                                 order=order,
                                 product=product,
@@ -139,7 +141,8 @@ class StripeWH_Handler:
         # If the order is created by the webhook handler correctly, return a
         # response indicating that.
         return HttpResponse(
-            content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
+            content=f'Webhook received: {event["type"]} | SUCCESS: Created \
+                order in webhook',
             status=200)
 
     # Handle payment intent failing.

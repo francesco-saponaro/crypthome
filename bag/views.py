@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
+from django.shortcuts import render, redirect, reverse, HttpResponse, \
+    get_object_or_404
 from django.contrib import messages
 
 from merch.models import Merch
@@ -39,12 +40,15 @@ def add_to_bag(request, item_id):
             if size in bag[item_id]['items_by_size'].keys():
                 bag[item_id]['items_by_size'][size] += quantity
                 # Success message.
-                messages.success(request, f'Updated size {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}')
+                messages.success(request, f'Updated size {size.upper()} \
+                    {product.name} quantity to \
+                        {bag[item_id]["items_by_size"][size]}')
             # Otherwise add the product with the different selected size.
             else:
                 bag[item_id]['items_by_size'][size] = quantity
                 # Success message.
-                messages.success(request, f'Added size {size.upper()} {product.name} to your bag')
+                messages.success(request, f'Added size {size.upper()} \
+                    {product.name} to your bag')
         # If the product is not in the bag, we add it as a dictionary
         # since we may have multiple items with this id but different sizes.
         # This allows us to have a single item id for each item but still
@@ -52,7 +56,8 @@ def add_to_bag(request, item_id):
         else:
             bag[item_id] = {'items_by_size': {size: quantity}}
             # Success message.
-            messages.success(request, f'Added size {size.upper()} {product.name} to your bag')
+            messages.success(request, f'Added size {size.upper()} \
+                {product.name} to your bag')
 
     # If a product without sizes is being added
     else:
@@ -61,7 +66,8 @@ def add_to_bag(request, item_id):
         if item_id in list(bag.keys()):
             bag[item_id] += quantity
             # Success message.
-            messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
+            messages.success(request, f'Updated {product.name} quantity to \
+                {bag[item_id]}')
         else:
             bag[item_id] = quantity
             # Success message.
@@ -98,7 +104,9 @@ def adjust_bag(request, item_id):
         if quantity > 0:
             bag[item_id]['items_by_size'][size] = quantity
             # Success message.
-            messages.success(request, f'Updated size {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}')
+            messages.success(request, f'Updated size {size.upper()} \
+                {product.name} quantity to \
+                    {bag[item_id]["items_by_size"][size]}')
         # If quantity is below 0 delete the size of the targeted
         # product from the bag.
         else:
@@ -110,14 +118,16 @@ def adjust_bag(request, item_id):
             if not bag[item_id]['items_by_size']:
                 bag.pop(item_id)
             # Success message.
-            messages.success(request, f'Removed {size.upper()} {product.name} from your bag')
+            messages.success(request, f'Removed {size.upper()} \
+                {product.name} from your bag')
     # If a product without sizes is being adjustesd.
     else:
         # If quantity is above 0 update quantity.
         if quantity > 0:
             bag[item_id] = quantity
             # Success message.
-            messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
+            messages.success(request, f'Updated {product.name} quantity to \
+                {bag[item_id]}')
         # If quantity is below 0 delete the product from the bag.
         else:
             bag.pop[item_id]
@@ -158,7 +168,8 @@ def remove_from_bag(request, item_id):
             if not bag[item_id]['items_by_size']:
                 bag.pop(item_id)
             # Success message.
-            messages.success(request, f'Removed {size.upper()} {product.name} from your bag')
+            messages.success(request, f'Removed {size.upper()} \
+                {product.name} from your bag')
         # If a product with no sizes is being deleted.
         else:
             bag.pop(item_id)

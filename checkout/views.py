@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import render, redirect, reverse, get_object_or_404, \
+    HttpResponse
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
@@ -78,7 +79,7 @@ def checkout(request):
             pid = request.POST.get('client_secret').split('_secret')[0]
             # Set the pid and the shopping bag on the designated order
             # fields and save the order.
-            # We will need this two fields to allow two exact orders from the 
+            # We will need this two fields to allow two exact orders from the
             # same user being submitted.
             order.stripe_pid = pid
             order.original_bag = json.dumps(bag)
@@ -116,7 +117,8 @@ def checkout(request):
                 # shopping bag page.
                 except product.DoesNotExist:
                     messages.error(request, (
-                        "One of the products in your bag wasn't found in our database. "
+                        "One of the products in your bag wasn't found in our \
+                            database. "
                         "Please call us for assistance!")
                     )
                     order.delete()
@@ -128,7 +130,8 @@ def checkout(request):
 
             # Redirect user to the success page with the order number as
             # argument.
-            return redirect(reverse('checkout_success', args=[order.order_number]))
+            return redirect(reverse('checkout_success',
+                                    args=[order.order_number]))
         # If form isn't valid.
         else:
             messages.error(request, 'There was an error with your form. \
@@ -140,7 +143,8 @@ def checkout(request):
         bag = request.session.get('bag', {})
         # If bag is empty.
         if not bag:
-            messages.error(request, "There`s nothing in your bag at the moment")
+            messages.error(request,
+                           "There`s nothing in your bag at the moment")
             return redirect(reverse('all_merch'))
 
         # Imported bag_contents dictionary from contexts.py as Stripe

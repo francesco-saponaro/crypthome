@@ -25,6 +25,21 @@ card.mount(document.getElementById('card-element'));
 // Disable submit button modal trigger by default.
 document.getElementById('submit-button').classList.add('disabled');
 
+// Enable submit button modal trigger if all form fields have been filled correctly
+// and the stripe card element is complete.
+var form = document.getElementById('payment-form');
+form.addEventListener('change', () => {
+    if ($('#id_full_name').val() === "no") {
+        card.addEventListener('change', (event) => {
+            if (event.complete) {
+                document.getElementById('submit-button').classList.remove('disabled');
+            } else {
+                document.getElementById('submit-button').classList.add('disabled');
+            }
+        })
+    }
+})
+
 // Handle realtime validation errors on the card element.
 // Listen for Stripe errors everytime there is a change in the card element, and display them if any.
 card.addEventListener('change', (event) => {
@@ -39,17 +54,20 @@ card.addEventListener('change', (event) => {
         errorDiv.textContent = '';
     };
 
-    // Enable submit button modal trigger if all card fields have been filled correctly.
+    // Enable submit button modal trigger if the stripe element is complete and
+    // all form fields have been filled correctly.
     if (event.complete) {
-        document.getElementById('submit-button').classList.remove('disabled');
-    } else {
-        document.getElementById('submit-button').classList.add('disabled');
+        form.addEventListener('change', () => {
+            if ($('#id_full_name').val() === "no") {
+                document.getElementById('submit-button').classList.remove('disabled');
+            } else {
+                document.getElementById('submit-button').classList.add('disabled');
+            }
+        })
     }
 })
 
-
 // Handle form submit. From Stripe.
-var form = document.getElementById('payment-form');
 form.addEventListener('submit', function(ev) {
     // When the user clicks the submit button this eevnt prevents the form from 
     // submitting, the default action, which in this case is POST.
@@ -133,7 +151,7 @@ form.addEventListener('submit', function(ev) {
                   // execution. Set up a webhook or plugin to listen for the
                   // payment_intent.succeeded event that handles any business critical
                   // post-payment actions.
-                  //form.submit();
+                  form.submit();
                 }
             }
         });

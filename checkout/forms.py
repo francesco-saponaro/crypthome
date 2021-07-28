@@ -42,6 +42,7 @@ class OrderForm(forms.ModelForm):
             if field != 'country':
                 if self.fields[field].required:
                     placeholder = f'{placeholders[field]} *'
+                    self.fields[field].widget.attrs['value'] = ''
                 else:
                     placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder

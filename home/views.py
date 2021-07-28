@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
-from django.db.models import Q
 from .models import Position
 # Install and import "requests" library to get data from the API
 import requests
@@ -15,6 +14,34 @@ def index(request):
            bitcoin%2C%20ethereum%2C%20cardano%2C%20dogecoin%2C%20polkadot%2C\
            %20ripple&order=market_cap_desc&per_page=100&page=1&sparkline=false'
     data = requests.get(url).json()
+
+    # Set query and category to None initially to not get
+    # an error when getting to the index page.
+    query = None
+
+    # Check whether request.GET exists
+    if request.GET:
+        # Check whether the text input (named Q) is in request.GET.
+        # If it is i'll set it to a variable called query but in
+        # lower case.
+        if 'q' in request.GET:
+            query = request.GET['q'].lower()
+            # If the query is blank send error message and redirect to
+            # index url.
+            if not query:
+                messages.error(request, 'You didn`t enter any search criteria')
+                return redirect(reverse('home'))
+
+            # Then iterate through api data and search for a
+            # match to the query.
+            data = [token for token in data if re.search(query, token['id'])]
+
+            # If there is no match to the query send error message and
+            # redirect to index url.
+            if not data:
+                messages.error(request, 'No Cryptocurrencies match your \
+                    criteria')
+                return redirect(reverse('home'))
 
     context = {'api_data': data}
 
@@ -159,35 +186,3 @@ def buy_token(request, token_id):
 # Portfolio view
 def portfolio(request, **kwargs):
     return render(request, 'home/portfolio.html')
-
-
-# Search crypto view
-def crypto_query(request):
-    # Get coins data from Coingecko API
-    url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
-           bitcoin%2C%20ethereum%2C%20cardano%2C%20dogecoin%2C%20polkadot%2C\
-           %20ripple&order=market_cap_desc&per_page=100&page=1&sparkline=false'
-    data = requests.get(url).json()
-
-    # Check whether request.GET exists
-    if request.GET:
-        # Check whether the text input (named Q) is in request.GET.
-        # If it is i'll set it to a variable called query but in
-        # lower case.
-        if 'q' in request.GET:
-            query = request.GET['q'].lower()
-            # If the query is blank send error message and redirect to
-            # index url.
-            if not query:
-                messages.error(request, 'You didn`t enter any search criteria')
-                return redirect(reverse('home'))
-
-            # Then iterate through api data and search for a
-            # match to the query.
-            results = [token for token in data if re.search(query, token['id'])]
-
-    context = {
-        'results': results,
-        }
-
-    return render(request, 'home/crypto_query.html', context)

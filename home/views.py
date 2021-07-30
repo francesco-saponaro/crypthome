@@ -177,7 +177,8 @@ def buy_token(request, token_id):
 
     # Gee this token page url with token id, needed on template for "Back
     # to token page" button conditional.
-    url = f"https://8000-bronze-stingray-bewdyfh1.ws-eu11.gitpod.io/token_page/{token.id}/"
+    url = f"https://8000-bronze-stingray-bewdyfh1.ws-eu13.gitpod.io/token_page/{token.id}/"
+    print(url)
 
     context = {
         'api_data': data,

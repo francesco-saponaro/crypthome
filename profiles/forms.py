@@ -28,15 +28,12 @@ class UserProfileForm(forms.ModelForm):
 
         # Autofocus on phone number field to true.
         self.fields['default_phone_number'].widget.attrs['autofocus'] = True
-        # Add star to placeholder of required fields.
+        # Add placeholder.
         for field in self.fields:
             if field != 'default_country':
-                if self.fields[field].required:
-                    placeholder = f'{placeholders[field]} *'
-                else:
-                    placeholder = placeholders[field]
+                placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].widget.attrs['class'] = 'border-black rounded-0 \
-                profile-form-input'
+                stripe-style-input'
             # Removing the labels since we now have placeholders.
             self.fields[field].label = False

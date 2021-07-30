@@ -20,13 +20,26 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Back button -->
+    <div class="container-fluid ps-3 ps-sm-5 mt-4">
+        <div class="row">
+            <div class="col-12 float-start">
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn text-light border-white rounded-0 back-btn">
+                    <span class="icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid mt-3">
         <!-- Table large screens -->
         <table class="table table-borderless d-none d-sm-table">
             <thead class="crypto-thead text-light text-center">
                 <tr>
                     <th scope="col "></th>
-                    <th scope="col">#</th>
+                    <th scope="col " class="text-start">#</th>
                     <th scope="col" class="text-start">Name</th>
                     <th scope="col"></th>
                     <th scope="col" class="text-end">Price (£)</th>

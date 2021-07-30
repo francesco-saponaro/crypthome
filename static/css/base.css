@@ -235,6 +235,10 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     color:black !important;
 }
 
+.portfolio-btn-container {
+    height:1px;
+}
+
 /* Token page */
 .token-pg-container {
     padding-left: 48px;
@@ -332,7 +336,7 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     font-size: 25px;
 }
 
-.back-btn {
+.tokenpg-back-btn {
     font-size: 10px;
 }
 

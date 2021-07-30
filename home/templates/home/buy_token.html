@@ -24,16 +24,28 @@
 
     <!-- If there is data coming from the API -->
     {% if api_data %}
-        <!-- From 568px If coming from token page display back button -->
+        <!-- Up to 568px If coming from token page display back button, otherwise display go back to previous url page button -->
         {% if request.META.HTTP_REFERER == url %}
             <div class="container-fluid ps-5 mt-4 d-none d-md-block">
+                <div class="row">
+                    <div class="col-12 float-start">
+                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 tokenpg-back-btn">
+                            <span class="icon">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span>Back to {% if request.META.HTTP_REFERER == url %} {{ db_token.name }}`s {% else %} previous {% endif %} page</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="container-fluid ps-3 ps-sm-5 mt-4">
                 <div class="row">
                     <div class="col-12 float-start">
                         <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
                             <span class="icon">
                                 <i class="fas fa-chevron-left"></i>
                             </span>
-                            <span class="text-uppercase">Back to {{ db_token.name }}`s page</span>
                         </a>
                     </div>
                 </div>
@@ -43,7 +55,7 @@
         <!-- Iterate through it and if the API's token id matches the database token id in the URL, display it's data -->
         {% for api_token in api_data %}
             {% if api_token.id == db_token.id %}
-                <div class="container-fluid buy-crypto-container mt-5 {% if request.META.HTTP_REFERER == url %}mt-md-3 {% else %} mt-md-5 {% endif %} mb-3">
+                <div class="container-fluid buy-crypto-container {% if request.META.HTTP_REFERER == url %} mt-5 mt-md-3 {% else %} mt-3 {% endif %} mb-3">
                     <!-- Token data -->
                     <div class="row pb-3 buy-token-row text-center">
                         <div class="col-6">
@@ -128,7 +140,7 @@
                             <span class="icon">
                                 <i class="fas fa-chevron-left"></i>
                             </span>
-                            <span class="text-uppercase">Back to {{ db_token.name }}`s page</span>
+                            <span>Back to {{ db_token.name }}`s page</span>
                         </a>
                     </div>
                 </div>

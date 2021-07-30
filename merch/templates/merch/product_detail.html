@@ -21,6 +21,19 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Back button -->
+    <div class="container-fluid pe-3 pe-md-5 mt-2">
+        <div class="row">
+            <div class="col-12 text-end">
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
+                    <span class="icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Product detail -->
     <div class="container-fluid">
         <div class="row pt-4 pb-5">

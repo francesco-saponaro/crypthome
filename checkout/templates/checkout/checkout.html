@@ -129,42 +129,19 @@
                     <!-- Buttons -->
                     <div class="text-end mt-5 mb-2">
                         <!-- Adjust bag button -->                    
-						<a href="{% url 'view_bag' %}" class="btn text-white border-white rounded-0">
-							<span class="icon">
+						<a href="{% url 'view_bag' %}" class="btn text-light border-white rounded-0">
+							<span class="icon me-2">
 								<i class="fas fa-chevron-left"></i>
 							</span>
-							<span class="font-weight-bold">Adjust Bag</span>
+							<span class="font-weight-bold text-uppercase">Adjust Bag</span>
 						</a>
                         <!-- Complete order button trigger modal -->
-						<a id="submit-button" class="btn atb-btn text-white rounded-0" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-							<span class="font-weight-bold">Complete Order</span>
-							<span class="icon">
+						<button id="submit-button" class="btn atb-btn text-light rounded-0">
+							<span class="font-weight-bold text-uppercase">Complete Order</span>
+							<span class="icon ms-2">
 								<i class="fas fa-lock"></i>
 							</span>
-						</a>                        
-                        <!-- Complete order Modal -->
-                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content bg-main border-white">
-                                    <!-- Modal header -->
-                                    <div class="modal-header">
-                                        <h5 class="modal-title text-uppercase" id="staticBackdropLabel">Are you sure?</h5>
-                                        <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <!-- Modal body -->
-                                    <div class="modal-body text-center">
-                                        <p class="mb-0">Please confirm your transaction of <strong>£{{ grand_total|floatformat:2 }}</strong></p>
-                                    </div>
-                                    <!-- Modal footer -->
-                                    <div class="modal-footer">
-                                        <!-- Cancel button -->
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                                        <!-- Complete order button -->
-                                        <button type="submit" class="btn btn-success">Confirm</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+						</button>                        
                         <!-- Card charge amount warning -->
 						<p class="small text-danger my-0">
 							<span class="icon">

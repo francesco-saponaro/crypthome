@@ -26,5 +26,87 @@
 {% endblock %}
 
 {% block content %}
+<div class="container py-5">
+    <div class="row">
+        <!-- Order history -->
+        <div class="col-12 col-lg-6 order-lg-last mb-5 px-4 px-sm-3">
+            <p class="text-muted">Order History</p>
+            <div class="order-history table-responsive">
+                <table class="table table-sm table-borderless text-light">
+                    <thead>
+                        <tr>
+                            <th>Order Number</th>
+                            <th>Date</th>
+                            <th>Items</th>
+                            <th>Order Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td>
+                                    <a class="link text-info" href="{% url 'order_history' order.order_number %}"
+                                    title="{{ order.order_number }}">
+                                        {{ order.order_number|truncatechars:6 }}
+                                    </a>
+                                </td>
+                                <td>{{ order.date }}</td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        {% for item in order.lineitems.all %}
+                                            <li class="small">
+                                                {% if item.product.has_sizes %}
+                                                    Size {{ item.product.size|upper }}
+                                                {% endif %}{{ item.product.name }} x{{ item.quantity }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>${{ order.grand_total }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Profile details form -->
+        <div class="col-12 col-lg-6">
+            <p class="text-muted">Please fill out the form below to complete your order</p>
+            <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <!-- Update info button -->
+                <button id="submit-button" class="btn text-white border-white rounded-0 float-end text-uppercase">
+                    Update information
+                </button>                        
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <!-- Countryfield color script-->
+    <script type="text/javascript">
+        // Get countryfield value on page load.
+        let countrySelected = document.getElementById('id_default_country').value;
+        // If value is empty set this color.
+        if(!countrySelected) {
+            document.getElementById('id_default_country').style.color = '#aab7c4';
+        };
+
+        // Everytime the select box change event executes, get its value and change
+        // color depending on value being empty. 
+        document.getElementById('id_default_country').addEventListener('change', () => {
+            let countrySelected = document.getElementById('id_default_country').value;
+            if(!countrySelected) {
+                document.getElementById('id_default_country').style.color = '#aab7c4';
+            } else {
+                document.getElementById('id_default_country').style.color = '#000';
+            }
+        });
+    </script>
 {% endblock %}
     

@@ -13,7 +13,7 @@ class OrderForm(forms.ModelForm):
                   'county',)
 
     # Overriding the init method which will allow us to
-    # customize it quite a bit.
+    # customize it.
     def __init__(self, *args, **kwargs):
         """
         Add placeholders and classes, remove auto-generated
@@ -37,15 +37,24 @@ class OrderForm(forms.ModelForm):
 
         # Autofocus on name field to true.
         self.fields['full_name'].widget.attrs['autofocus'] = True
-        # Add star to placeholder of required fields.
         for field in self.fields:
+            # Add star to placeholder of required fields.
             if field != 'country':
                 if self.fields[field].required:
                     placeholder = f'{placeholders[field]} *'
-                    self.fields[field].widget.attrs['value'] = ''
                 else:
                     placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
+            # Add regex validation to certain fields.
+            if field == 'full_name':
+                self.fields[field].widget.attrs['pattern'] = "(?=^.{0,40}$)^[a-zA-Z-]+\s[a-zA-Z-]+$"
+                self.fields[field].widget.attrs['title'] = "Please add Name and Surname"
+            if field == 'email':
+                self.fields[field].widget.attrs['pattern'] = "\w+@\w+\.\w{2,10}"
+                self.fields[field].widget.attrs['title'] = "Wrong email format"
+            if field == 'phone_number':
+                self.fields[field].widget.attrs['pattern'] = "\d+"
+                self.fields[field].widget.attrs['title'] = "Only digits allowed"
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             # Removing the labels since we now have placeholders.
             self.fields[field].label = False

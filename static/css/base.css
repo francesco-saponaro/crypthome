@@ -321,7 +321,7 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 .buy-crypto-container {
     background-color:#07011c;
     width:80%;
-    padding:20px;
+    padding:0 20px 20px 20px;
 }
 
 .buy-token-row {
@@ -330,6 +330,10 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 
 .buy-data {
     font-size: 25px;
+}
+
+.back-btn {
+    font-size: 10px;
 }
 
 /* Bootstrap toasts */
@@ -428,9 +432,9 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     }
 }
 
-@media (min-width: 650px) {
+@media (min-width: 768px) {
     .buy-crypto-container {
-        width:50%;
+        width:65%;
     }
 }
 

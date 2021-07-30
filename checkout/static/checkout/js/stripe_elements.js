@@ -22,23 +22,8 @@ let style = {
 let card = elements.create('card', { style: style });
 card.mount(document.getElementById('card-element'));
 
-// Disable submit button modal trigger by default.
-document.getElementById('submit-button').classList.add('disabled');
 
-// Enable submit button modal trigger if all form fields have been filled correctly
-// and the stripe card element is complete.
 var form = document.getElementById('payment-form');
-form.addEventListener('change', () => {
-    if ($('#id_full_name').val() === "no") {
-        card.addEventListener('change', (event) => {
-            if (event.complete) {
-                document.getElementById('submit-button').classList.remove('disabled');
-            } else {
-                document.getElementById('submit-button').classList.add('disabled');
-            }
-        })
-    }
-})
 
 // Handle realtime validation errors on the card element.
 // Listen for Stripe errors everytime there is a change in the card element, and display them if any.
@@ -57,13 +42,9 @@ card.addEventListener('change', (event) => {
     // Enable submit button modal trigger if the stripe element is complete and
     // all form fields have been filled correctly.
     if (event.complete) {
-        form.addEventListener('change', () => {
-            if ($('#id_full_name').val() === "no") {
-                document.getElementById('submit-button').classList.remove('disabled');
-            } else {
-                document.getElementById('submit-button').classList.add('disabled');
-            }
-        })
+        document.getElementById('submit-button').classList.remove('disabled');
+    } else {
+        document.getElementById('submit-button').classList.add('disabled');
     }
 })
 
@@ -142,7 +123,7 @@ form.addEventListener('submit', function(ev) {
                 $('#loading-overlay').fadeToggle(100)
                 // Re enable both the card element and the submit button to allow the user to fix it.
                 card.update({'disabled': false});
-                document.getElementById('submit-button').setAttribute('disabled', false)
+                document.getElementById('submit-button').removeAttribute('disabled')
             } else {
                 // The payment has been processed!
                 if (result.paymentIntent.status === 'succeeded') {
@@ -161,3 +142,7 @@ form.addEventListener('submit', function(ev) {
           location.reload();
     })
 });
+
+
+
+

@@ -175,9 +175,14 @@ def buy_token(request, token_id):
     # Get targeted token object from position model
     token = get_object_or_404(Position, pk=token_id)
 
+    # Gee this token page url with token id, needed on template for "Back
+    # to token page" button conditional.
+    url = f"https://8000-bronze-stingray-bewdyfh1.ws-eu11.gitpod.io/token_page/{token.id}/"
+
     context = {
         'api_data': data,
         'db_token': token,
+        'url': url,
         }
 
     return render(request, 'home/buy_token.html', context)

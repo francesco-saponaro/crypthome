@@ -20,16 +20,30 @@
     </div>
 {% endblock %}
 
-{% block hero_section %}
-    {% include "includes/background-img.html" %}
-{% endblock %}
-
 {% block content %}
-    <!-- If there is data coming from the API, Iterate through it and if the API's token id matches the database token id in the URL, display it's data -->
+
+    <!-- If there is data coming from the API -->
     {% if api_data %}
+        <!-- From 568px If coming from token page display back button -->
+        {% if request.META.HTTP_REFERER == url %}
+            <div class="container-fluid ps-5 mt-4 d-none d-md-block">
+                <div class="row">
+                    <div class="col-12 float-start">
+                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
+                            <span class="icon">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="text-uppercase">Back to {{ db_token.name }}`s page</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Iterate through it and if the API's token id matches the database token id in the URL, display it's data -->
         {% for api_token in api_data %}
             {% if api_token.id == db_token.id %}
-                <div class="container-fluid buy-crypto-container mt-4">
+                <div class="container-fluid buy-crypto-container mt-5 {% if request.META.HTTP_REFERER == url %}mt-md-3 {% else %} mt-md-5 {% endif %} mb-3">
                     <!-- Token data -->
                     <div class="row pb-3 buy-token-row text-center">
                         <div class="col-6">
@@ -50,7 +64,7 @@
                         <div class="input-group">
                             <!-- Token decrementer -->
                             <div class="input-group-prepend">
-                                <button class="decrement-qty btn text-white border-white rounded-0" data-item_id="">
+                                <button class="decrement-qty btn text-light border-white rounded-0" data-item_id="">
                                     <span class="icon">
                                         <i class="fas fa-minus"></i>
                                     </span>
@@ -60,7 +74,7 @@
                             <input class="form-control qty_input border-0 rounded-0 bg-secondary text-center" type="number" value="0" min="1" id="token-amount" name="token-amount" placeholder="{{ api_token.name }} amount">
                             <!-- Token incrementer -->
                             <div class="input-group-append">
-                                <button class="increment-qty btn text-white border-white rounded-0" data-item_id="">
+                                <button class="increment-qty btn text-light border-white rounded-0" data-item_id="">
                                     <span class="icon">
                                         <i class="fas fa-plus"></i>
                                     </span>
@@ -74,7 +88,7 @@
                         <div class="input-group">
                             <!-- GBP decrementer -->
                             <div class="input-group-prepend">
-                                <button class="decrement-qty btn text-white border-white rounded-0" data-item_id="">
+                                <button class="decrement-qty btn text-light border-white rounded-0" data-item_id="">
                                     <span class="icon">
                                         <i class="fas fa-minus"></i>
                                     </span>
@@ -84,7 +98,7 @@
                             <input class="form-control qty_input border-0 rounded-0 bg-secondary text-center" type="number" value="0" min="1" id="gbp-amount" name="gbp-amount" placeholder="Total (GBP)">
                             <!-- GBP incrementer -->
                             <div class="input-group-append">
-                                <button class="increment-qty btn text-white border-white rounded-0" data-item_id="">
+                                <button class="increment-qty btn text-light border-white rounded-0" data-item_id="">
                                     <span class="icon">
                                         <i class="fas fa-plus"></i>
                                     </span>
@@ -104,15 +118,54 @@
                 </div>
             {% endif %}
         {% endfor %}
-    {% else %}
-        <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-                <h3 class="text-center mt-5 text-uppercase">
-                    Ooops...
-                    <br>
-                    Data is not available
-                </h3>
+
+        <!-- Up to 568px If coming from token page display back button -->
+        {% if request.META.HTTP_REFERER == url %}
+            <div class="container-fluid ps-5 mt-3 d-block d-md-none">
+                <div class="row">
+                    <div class="col-12 float-start">
+                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
+                            <span class="icon">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="text-uppercase">Back to {{ db_token.name }}`s page</span>
+                        </a>
+                    </div>
+                </div>
             </div>
+        {% endif %}
+    <!-- If no data coming from the API -->
+    {% else %}
+        <div class="container-fluid mt-4">
+            {% if request.META.HTTP_REFERER == url %}
+                <div class="row">
+                    <div class="col-12">
+                        <p>Oops..... Data is not available </p>
+                    </div>
+                    <div class="col-12 mt-4 float-start">
+                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
+                            <span class="icon">
+                                <i class="fas fa-angle-left"></i>
+                            </span>
+                            <span class="text-uppercase">Back to {{ db_token.name }}`s page</span>
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-12">
+                        <p>Oops..... Data is not available </p>
+                    </div>
+                    <div class="col-12 my-3 col-lg-7 text-end">  
+                        <a href="{% url 'home' %}" class="btn text-light border-white rounded-0">
+                            <span class="icon me-2">
+                                <i class="fas fa-angle-left"></i>
+                            </span>
+                            <span class="text-uppercase">Back to Home Page</span>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
         </div>
     {% endif %}
 {% endblock %}

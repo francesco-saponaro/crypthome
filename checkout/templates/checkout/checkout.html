@@ -171,4 +171,6 @@
     {{ client_secret|json_script:"id_client_secret" }}
     <!-- Stripe script -->
     <script type="text/javascript" src="{% static 'checkout/js/stripe_elements.js' %}"></script>
+    <!-- Form validation script -->
+    <script type="text/javascript" src="{% static 'checkout/js/checkout_form_validation.js' %}"></script>
 {% endblock %}

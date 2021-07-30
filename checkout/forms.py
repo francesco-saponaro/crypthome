@@ -38,7 +38,7 @@ class OrderForm(forms.ModelForm):
         # Autofocus on name field to true.
         self.fields['full_name'].widget.attrs['autofocus'] = True
         for field in self.fields:
-            # Add star to placeholder of required fields.
+            # Add star to placeholder of required fields if not country.
             if field != 'country':
                 if self.fields[field].required:
                     placeholder = f'{placeholders[field]} *'
@@ -48,13 +48,16 @@ class OrderForm(forms.ModelForm):
             # Add regex validation to certain fields.
             if field == 'full_name':
                 self.fields[field].widget.attrs['pattern'] = "(?=^.{0,40}$)^[a-zA-Z-]+\s[a-zA-Z-]+$"
-                self.fields[field].widget.attrs['title'] = "Please add Name and Surname"
+                self.fields[field].widget.attrs['title'] = "Please add Name and Surname."
             if field == 'email':
                 self.fields[field].widget.attrs['pattern'] = "\w+@\w+\.\w{2,10}"
-                self.fields[field].widget.attrs['title'] = "Wrong email format"
+                self.fields[field].widget.attrs['title'] = "Please add a correct email format."
             if field == 'phone_number':
                 self.fields[field].widget.attrs['pattern'] = "\d+"
-                self.fields[field].widget.attrs['title'] = "Only digits allowed"
+                self.fields[field].widget.attrs['title'] = "Please add a phone number. Only digits allowed."
+            if field == 'country':
+                self.fields[field].widget.attrs['title'] = "Please select a country from the list."
+            # Add class to all inputs
             self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             # Removing the labels since we now have placeholders.
             self.fields[field].label = False

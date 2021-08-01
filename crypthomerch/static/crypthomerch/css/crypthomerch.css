@@ -183,6 +183,17 @@ select option[value=""] {
     color: #aab7c4;
 }
 
+/* Add product form */
+.add-product-form label {
+    margin-bottom:5px;
+}
+
+.box-shadow {
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+}
+
 /* Media queries */
 @media (max-width: 992px) {
     .merch-logo {

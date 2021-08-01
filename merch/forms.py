@@ -19,5 +19,4 @@ class ProductForm(forms.ModelForm):
         # Update category field on the form.
         self.fields['category'].choices = friendly_names
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'border-black rounded-0 \
-                stripe-style-input'
+            field.widget.attrs['class'] = 'border-black rounded-0 box-shadow'

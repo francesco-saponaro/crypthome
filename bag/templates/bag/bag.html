@@ -37,8 +37,11 @@
                             <div class="row">
                                 <!-- Image -->
                                 <div class="col-12 col-sm-6 mb-2">
-                                    <img class="img-fluid rounded" src="/media/{{ item.product.image }}">
-                                </div>
+                                {% if item.product.image %}
+                                    <img class="img-fluid rounded" src="/media/{{ item.product.image }}" alt="{{ item.product.name }}">
+                                {% else %}
+                                    <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
+                                {% endif %}
                                 <!-- Name, size, sku and price each -->
                                 <div class="col-12 col-sm-6 mb-2">
                                     <p class="my-0"><strong>{{ item.product.name }}</strong></p>
@@ -149,7 +152,11 @@
                                 <tr>
                                     <!-- Image -->
                                     <td class="p-3 w-25">
-                                        <img class="img-fluid rounded" src="/media/{{ item.product.image }}">
+                                        {% if item.product.image %}
+                                            <img class="img-fluid rounded" src="/media/{{ item.product.image }}" alt="{{ item.product.name }}">
+                                        {% else %}
+                                            <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
+                                        {% endif %}
                                     </td>
                                     <!-- Name, size and sku -->
                                     <td class="py-3">

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'crypthomerch/css/crypthomerch.css' %}">
+{% endblock %}
+
+{% block extra_title %}
+    add product
+{% endblock %}
+
+{% block header %}
+    <!-- Crypthomerch header -->
+    {% include "includes/crypthomerch-header.html" %}
+{% endblock %}
+
+{% block sub_header %}
+    <div class="container-fluid">
+        <div class="row section-title py-2 ps-sm-4">
+            <div class="col-12">
+                <h3 class="text-uppercase mb-0 section-title-h">Product management</h3>
+            </div>            
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="container py-5">
+        <!-- Page sub title -->
+        <div class="row">
+            <div class="col-12 col-md-6 mb-4 px-4 px-sm-3">
+                <h4 class="text-muted">Add a product</h4>
+                <hr>
+            </div>
+        </div>
+
+        <!-- Add product form -->
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <!-- enctype attribute required in order to submit an image file -->
+                <form method="POST" action="{% url 'add_product' %}" class="form mb-2 add-product-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% if field.name != 'image' %}
+                            {{ field | as_crispy_field }}
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+                    {% endfor %}
+                    <!-- Buttons -->
+                    <div class="text-end mt-5 mb-2">
+                        <!-- Cancel button -->                    
+						<a href="{% url 'all_merch' %}" class="btn text-light border-white rounded-0 text-uppercase">
+                            Cancel
+						</a>
+                        <!-- Add product button -->
+						<button type="submit" class="btn atb-btn text-light rounded-0 text-uppercase">
+							Add Product
+						</button>                
+                    </div>
+                </form>
+            </div>            
+        </div>
+    </div>
+{% endblock %}

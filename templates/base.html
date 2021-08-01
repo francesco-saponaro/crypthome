@@ -91,7 +91,7 @@
                                             {% if request.user.is_authenticated%}
                                                 <!-- Product management -->
                                                 {% if request.user.is_superuser%}
-                                                    <a href="" class="dropdown-item"><i class="fas fa-cog"></i> Product Management</a>
+                                                    <a href="{% url 'add_product' %}" class="dropdown-item"><i class="fas fa-cog"></i> Product Management</a>
                                                 {% endif %}
                                                 <!-- Portfolio -->
                                                 <a href="{% url 'portfolio' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'portfolio' %}dropdown-active{% endif %}"><i class="fas fa-chart-pie"></i> Portfolio</a>
@@ -184,7 +184,7 @@
                                     {% if request.user.is_authenticated%}
                                         <!-- Product management -->
                                         {% if request.user.is_superuser%}
-                                            <a href="" class="dropdown-item"><i class="fas fa-cog"></i> Product Management</a>
+                                            <a href="{% url 'add_product' %}" class="dropdown-item"><i class="fas fa-cog"></i> Product Management</a>
                                         {% endif %}
                                         <!-- Portfolio -->
                                         <a href="{% url 'portfolio' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'portfolio' %}dropdown-active{% endif %}"><i class="fas fa-chart-pie"></i> Portfolio</a>

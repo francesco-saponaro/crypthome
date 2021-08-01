@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
 from .models import Merch, Category
+from .forms import ProductForm
 
 
 # All merch view
@@ -115,3 +116,30 @@ def product_detail(request, product_id):
     }
 
     return render(request, 'merch/product_detail.html', context)
+
+
+# Add products view.
+def add_product(request):
+    # If method is post create an instance of the form from from
+    # request post and also include request files in case an
+    # image was submitted.
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        # If form is valid save it.
+        if form.is_valid():
+            product = form.save()
+            messages.success(request, 'Successfully added product!')
+            return redirect(reverse('add_product'))
+        else:
+            messages.error(request, 'Failed to add product. Please ensure \
+                the form is valid.')
+    else:
+        # Create empty instance of form if method is get.
+        form = ProductForm()
+
+    template = 'merch/add_product.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)

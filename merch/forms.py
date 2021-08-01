@@ -1,4 +1,5 @@
 from django import forms
+from .widgets import CustomClearableFileInput
 from .models import Merch, Category
 
 
@@ -8,6 +9,11 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Merch
         fields = '__all__'
+
+    # Replace image field in the form with one that utilizes
+    # our custom widget.
+    image = forms.ImageField(label='Image', required=False,
+                             widget=CustomClearableFileInput)
 
     # Override init method to get category friendly names
     # in the form.

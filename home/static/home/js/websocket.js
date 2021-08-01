@@ -8,7 +8,6 @@ socket.onmessage = function(event) {
     /* Create a variable to populate the large table, that loops through each token and creates a row with token data for each */
     let newDataLg = ws_tokens.map(ws_token => 
         `<tr>
-            <td class="align-middle"><i class="far fa-star favourites"></i></td>
             <td class="align-middle">${ws_token.rank}</td>
             <td class="align-middle text-start">
                 <a href="token_page/${ws_token.id}/" class="text-light link">
@@ -55,20 +54,4 @@ socket.onmessage = function(event) {
     /* Replace all array items dividing commas with an empty string for correct table display */
     document.querySelector(".small-table").innerHTML = document.querySelector(".small-table").innerHTML.replace(/,/g, "");
     document.querySelector(".large-table").innerHTML = document.querySelector(".large-table").innerHTML.replace(/,/g, "");
-
-    //Get all table's favourite buttons
-    let favourites = document.querySelectorAll('.favourites');
-
-    //Change Icon class and input value on click
-    favourites.forEach(favourite => {
-        favourite.addEventListener('click', e => {
-            if (e.target.classList.contains('far')) {
-                e.target.classList.remove('far');
-                e.target.classList.add('fas', 'text-warning');
-            } else {
-                e.target.classList.remove('fas', 'text-warning');
-                e.target.classList.add('far');
-            }
-        });
-    });
 }

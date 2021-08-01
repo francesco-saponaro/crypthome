@@ -76,14 +76,6 @@
                                                 </div>
                                             </a>
                                         </li>
-                                        <!-- Watchlist -->
-                                        <li class="list-inline-item watchlist">
-                                            <a class="nav-link" href="{% url 'watchlist' %}">
-                                                <div class="text-center {% if request.resolver_match.kwargs.navbar == 'watchlist' %}active{% endif %}">
-                                                    <p class="my-0">Watchlist</p>
-                                                </div>
-                                            </a>
-                                        </li>
                                     {% endif %}
                                 
                                     <!-- Nav dropdown -->
@@ -101,8 +93,6 @@
                                                 {% if request.user.is_superuser%}
                                                     <a href="" class="dropdown-item"><i class="fas fa-cog"></i> Product Management</a>
                                                 {% endif %}
-                                                <!-- Watchlist  -->
-                                                <a href="{% url 'watchlist' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'watchlist' %}dropdown-active{% endif %}"><i class="fas fa-star"></i> Watchlist</a>
                                                 <!-- Portfolio -->
                                                 <a href="{% url 'portfolio' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'portfolio' %}dropdown-active{% endif %}"><i class="fas fa-chart-pie"></i> Portfolio</a>
                                                 <!-- Profile  -->
@@ -131,7 +121,7 @@
                             <!-- Search form input for small screens-->
                             <div class="collapse" id="navbarToggleExternalContentSmall">
                                 <div>
-                                    <form method="GET" action="{% url 'home' %}">
+                                    <form method="GET" action="{% url 'crypto_query' %}">
                                         <div class="input-group w-100">
                                             <input class="form-control search-bar border-0 rounded-0 bg-secondary" type="text" name="q" placeholder="Search Crypto">
                                             <div class="input-group-append">
@@ -178,15 +168,6 @@
                                         </div>
                                     </a>
                                 </li>
-                                <!-- Watchlist -->
-                                <li class="list-inline-item d-none d-xl-inline-block">
-                                    <a class="nav-link" href="{% url 'watchlist' %}">
-                                        <div class="text-center {% if request.resolver_match.kwargs.navbar == 'watchlist' %}active{% endif %}">
-                                            <div><i class="fas fa-star"></i></div>
-                                            <p class="my-0">Watchlist</p>
-                                        </div>
-                                    </a>
-                                </li>
                             {% endif %}
                             
                             <!-- Nav dropdown -->
@@ -205,8 +186,6 @@
                                         {% if request.user.is_superuser%}
                                             <a href="" class="dropdown-item"><i class="fas fa-cog"></i> Product Management</a>
                                         {% endif %}
-                                        <!-- Watchlist -->
-                                        <a href="{% url 'watchlist' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'watchlist' %}dropdown-active{% endif %}"><i class="fas fa-star"></i> Watchlist</a>
                                         <!-- Portfolio -->
                                         <a href="{% url 'portfolio' %}" class="dropdown-item {% if request.resolver_match.kwargs.navbar == 'portfolio' %}dropdown-active{% endif %}"><i class="fas fa-chart-pie"></i> Portfolio</a>
                                         <!-- Profile  -->
@@ -235,7 +214,7 @@
                     <!-- Search form input for large screens-->
                     <div class="collapse" id="navbarToggleExternalContent">
                         <div>
-                            <form method="GET" action="{% url 'home' %}">
+                            <form method="GET" action="{% url 'crypto_query' %}">
                                 <div class="input-group w-100">
                                     <input class="form-control search-bar border-0 rounded-0 bg-secondary" type="text" name="q" placeholder="Search Crypto">
                                     <div class="input-group-append">

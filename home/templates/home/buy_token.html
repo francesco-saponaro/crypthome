@@ -26,7 +26,7 @@
     {% if api_data %}
         <!-- Up to 568px If coming from token page display back button, otherwise display go back to previous url page button -->
         {% if request.META.HTTP_REFERER == url %}
-            <div class="container-fluid ps-5 mt-4 d-none d-md-block">
+            <div class="container-fluid ps-5 mt-4 d-none d-md-block buy-token-btn-container">
                 <div class="row">
                     <div class="col-12 float-start">
                         <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 tokenpg-back-btn">
@@ -39,7 +39,7 @@
                 </div>
             </div>
         {% else %}
-            <div class="container-fluid ps-3 ps-sm-5 mt-4">
+            <div class="container-fluid ps-3 ps-sm-5 mt-4 buy-token-btn-container">
                 <div class="row">
                     <div class="col-12 float-start">
                         <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
@@ -136,7 +136,7 @@
             <div class="container-fluid ps-5 mt-3 d-block d-md-none">
                 <div class="row">
                     <div class="col-12 float-start">
-                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
+                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 tokenpg-back-btn">
                             <span class="icon">
                                 <i class="fas fa-chevron-left"></i>
                             </span>
@@ -155,7 +155,7 @@
                         <p>Oops..... Data is not available </p>
                     </div>
                     <div class="col-12 mt-4 float-start">
-                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
+                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 tokenpg-back-btn">
                             <span class="icon">
                                 <i class="fas fa-angle-left"></i>
                             </span>

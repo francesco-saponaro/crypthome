@@ -11,42 +11,43 @@
         {% if api_data %}
             {% for api_token in api_data %}
                 {% if api_token.id == db_token.id %}
-                    <!-- Header row -->
-                    <div class="row">
-                        <div class="col-10 flex justify-content-start">
-                            <img src={{api_token.image}} class="token-pg-image">
-                            <p class="text-uppercase mb-0 token-pg-title me-4">{{ api_token.name }} <span class="token-pg-symbol">({{ api_token.symbol }})</span></p>
-                            <span class="token-pg-icon"><i class="far fa-star favourites"></i></span>
+                    <div class="header-container">
+                        <!-- Header row -->
+                        <div class="row">
+                            <div class="col-10 flex justify-content-start">
+                                <img src={{api_token.image}} class="token-pg-image">
+                                <p class="text-uppercase mb-0 token-pg-title me-4">{{ api_token.name }} <span class="token-pg-symbol">({{ api_token.symbol }})</span></p>
+                            </div>
+                            <div class="col-2 flex justify-content-end">
+                                <p class="mb-0 token-pg-rank">#{{ api_token.market_cap_rank }}</p>
+                            </div>
                         </div>
-                        <div class="col-2 flex justify-content-end">
-                            <p class="mb-0 token-pg-rank">#{{ api_token.market_cap_rank }}</p>
-                        </div>
-                    </div>
 
-                    <!-- Divider -->
-                    <div class="row"><div class="col"><hr class="bg-light border-2 border-top border-light"></div></div>
+                        <!-- Divider -->
+                        <div class="row"><div class="col"><hr class="bg-light border-2 border-top border-light"></div></div>
 
-                    <!-- Main Data row -->
-                    <div class="row">
-                        <div class="col-12 flex justify-content-between">
-                            <!-- Current price -->
-                            <p class="mb-0">
-                                <span class="token-pg-h">Price</span> 
-                                <br> 
-                                <span class="token-pg-data">£{{ api_token.current_price }}</span>
-                            </p>
-                            <!-- Market cap -->
-                            <p class="mb-0">
-                                <span class="token-pg-h">Market Cap</span> 
-                                <br> 
-                                <span class="token-pg-data">£{{ api_token.market_cap }}</span>
-                            </p>
-                            <!-- 24h % -->
-                            <p class="mb-0 text-end">
-                                <span class="token-pg-h">24h%</span> 
-                                <br> 
-                                <span class="token-pg-data">{{ api_token.price_change_percentage_24h|floatformat:2 }}%</span>
-                            </p>
+                        <!-- Main Data row -->
+                        <div class="row">
+                            <div class="col-12 flex justify-content-between">
+                                <!-- Current price -->
+                                <p class="mb-0">
+                                    <span class="token-pg-h">Price</span> 
+                                    <br> 
+                                    <span class="token-pg-data">£{{ api_token.current_price }}</span>
+                                </p>
+                                <!-- Market cap -->
+                                <p class="mb-0">
+                                    <span class="token-pg-h">Market Cap</span> 
+                                    <br> 
+                                    <span class="token-pg-data">£{{ api_token.market_cap }}</span>
+                                </p>
+                                <!-- 24h % -->
+                                <p class="mb-0 text-end">
+                                    <span class="token-pg-h">24h%</span> 
+                                    <br> 
+                                    <span class="token-pg-data">{{ api_token.price_change_percentage_24h|floatformat:2 }}%</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -156,15 +157,14 @@
                 {% endif %}
             {% endfor %}
         {% else %}
-            <div class="row">
-                <div class="col-12 d-flex justify-content-center">
-                    <h3 class="text-center mt-5 text-uppercase">
-                        Ooops...
-                        <br>
-                        Data is not available
-                    </h3>
-                </div>
-            </div>
+            <!-- No data layout -->
+            <p class="lead mb-5">Ooops.. Data is not available</p>
+            <a href="{% url 'home' %}" class="btn text-light border-white rounded-0 btn-lg">
+                <span class="icon">
+                    <i class="fas fa-chevron-left"></i>
+                </span>
+                <span class="text-uppercase">Back to Homepage</span>
+            </a>
         {% endif %}
     </div>
 {% endblock %}
@@ -179,20 +179,17 @@
         /* Add data coming from the consumer to a variable */
         socket.onmessage = function(event) {
             let ws_tokens = JSON.parse(event.data);
-            console.log(ws_tokens);
 
             /* Filter through the consumer data to only extract the token matching the URL id */
             let newDataTokenPg = ws_tokens.filter(ws_token => ws_token.id == "{{ db_token.id }}");
-            console.log(newDataTokenPg);
-            
+           
             /* Append extracted token to the appropriate container */
-            document.querySelector(".token-pg-container").innerHTML = `
+            document.querySelector(".header-container").innerHTML = `
                 <!-- Header row -->
                 <div class="row">
                     <div class="col-10 flex justify-content-start">
                         <img src=${newDataTokenPg[0].image} class="token-pg-image">
-                        <p class="text-uppercase mb-0 token-pg-title me-4">${newDataTokenPg[0].name} (${newDataTokenPg[0].symbol})</p>
-                        <span class="token-pg-icon"><i class="far fa-star favourites"></i></span>
+                        <p class="text-uppercase mb-0 token-pg-title me-4">${newDataTokenPg[0].name} <span class="token-pg-symbol">(${newDataTokenPg[0].symbol})</span></p>
                     </div>
                     <div class="col-2 flex justify-content-end">
                         <p class="mb-0 token-pg-rank">#${newDataTokenPg[0].rank}</p>
@@ -222,32 +219,9 @@
                         </p>
                     </div>
                 </div>
-
-                <!-- Buy button -->
-                <div class="row mt-3">
-                    <a href="/buy_token/${newDataTokenPg[0].id}/" class="btn rounded-0 text-uppercase token-pg-btn">Buy ${newDataTokenPg[0].name}</a
-                </div>
             `;
-
-            //Get all table's favourite buttons
-            let favourites = document.querySelectorAll('.favourites');
-
-            //Change Icon class and input value on click
-            favourites.forEach(favourite => {
-                favourite.addEventListener('click', e => {
-                    if (e.target.classList.contains('far')) {
-                        e.target.classList.remove('far');
-                        e.target.classList.add('fas', 'text-warning');
-                    } else {
-                        e.target.classList.remove('fas', 'text-warning');
-                        e.target.classList.add('far');
-                    }
-                });
-            });
         }
     </script>
-    <!-- Script to toggle watchlist icon class -->
-    <script type="text/javascript" src="{% static 'home/js/watchlist.js' %}"></script>
     <!-- Script to toggle second part of description text -->
     <script type="text/javascript" src="{% static 'home/js/showMore.js' %}"></script>
 {% endblock %}

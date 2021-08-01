@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from .models import Position
+
 # Install and import "requests" library to get data from the API
 import requests
 
@@ -15,9 +16,18 @@ def index(request):
            %20ripple&order=market_cap_desc&per_page=100&page=1&sparkline=false'
     data = requests.get(url).json()
 
-    # Set query and category to None initially to not get
-    # an error when getting to the index page.
-    query = None
+    context = {'api_data': data}
+
+    return render(request, 'home/index.html', context)
+
+
+# Home page view
+def crypto_query(request):
+    # Get coins data from Coingecko API
+    url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
+           bitcoin%2C%20ethereum%2C%20cardano%2C%20dogecoin%2C%20polkadot%2C\
+           %20ripple&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+    data = requests.get(url).json()
 
     # Check whether request.GET exists
     if request.GET:
@@ -34,31 +44,24 @@ def index(request):
 
             # Then iterate through api data and search for a
             # match to the query.
-            data = [token for token in data if re.search(query, token['id'])]
+            results = [token for token in data if re.search(query, token['id'])]
+
+            # Add all results id in a list in order to be used by websocket.
+            results_id = [result['id'] for result in results]
 
             # If there is no match to the query send error message and
             # redirect to index url.
-            if not data:
+            if not results:
                 messages.error(request, 'No Cryptocurrencies match your \
                     criteria')
                 return redirect(reverse('home'))
 
-    context = {'api_data': data}
+    context = {
+        'results': results,
+        'results_id': results_id,
+        }
 
-    return render(request, 'home/index.html', context)
-
-
-# Watchlist page view
-def watchlist(request, **kwargs):
-    # Get coins data from Coingecko API
-    url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
-           bitcoin%2C%20ethereum%2C%20cardano%2C%20dogecoin%2C%20polkadot%2C\
-           %20ripple&order=market_cap_desc&per_page=100&page=1&sparkline=false'
-    data = requests.get(url).json()
-
-    context = {'api_data': data}
-
-    return render(request, 'home/watchlist.html', context)
+    return render(request, 'home/crypto_query.html', context)
 
 
 # Product page view

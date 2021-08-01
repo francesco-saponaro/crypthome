@@ -153,6 +153,13 @@
                                     {% else %}
                                         <small class="text-muted">No rating</small>
                                     {% endif %}
+                                    <!-- Edit and delete buttons -->
+                                    {% if request.user.is_superuser %}
+                                        <small class="ms-3">
+                                            <a class="link" href="{% url 'edit_product' item.id %}">Edit</a> | 
+                                            <a class="text-danger link" href="{% url 'delete_product' item.id %}">Delete</a>
+                                        </small>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

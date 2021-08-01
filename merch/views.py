@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
 from .models import Merch, Category
@@ -101,6 +102,7 @@ def all_merch(request):
         'search_term': query,
         'current_categories': categories,
         'current_sorting': current_sorting,
+        'dont_show_bag': True,
     }
 
     return render(request, 'merch/all_merch.html', context)
@@ -113,13 +115,20 @@ def product_detail(request, product_id):
 
     context = {
         'product': product,
+        'dont_show_bag': True,
     }
 
     return render(request, 'merch/product_detail.html', context)
 
 
 # Add products view.
+@login_required
 def add_product(request):
+    # Must be a super user to access this view.
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only store owners can do that.')
+        return redirect(reverse('home'))
+
     # If method is post create an instance of the form from from
     # request post and also include request files in case an
     # image was submitted.
@@ -129,7 +138,7 @@ def add_product(request):
         if form.is_valid():
             product = form.save()
             messages.success(request, 'Successfully added product!')
-            return redirect(reverse('add_product'))
+            return redirect(reverse('product_detail', args=[product.id]))
         else:
             messages.error(request, 'Failed to add product. Please ensure \
                 the form is valid.')
@@ -140,6 +149,62 @@ def add_product(request):
     template = 'merch/add_product.html'
     context = {
         'form': form,
+        'dont_show_bag': True,
     }
 
     return render(request, template, context)
+
+
+# Edit products view.
+@login_required
+def edit_product(request, product_id):
+    # Must be a super user to access this view.
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only store owners can do that.')
+        return redirect(reverse('home'))
+
+    # Get product model by its id
+    product = get_object_or_404(Merch, pk=product_id)
+    # If method is post create an instance of the form from from
+    # request post and also include request files in case an
+    # image was submitted. And specify the instance we would like
+    # tp update with the product obtained above.
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        # If form is valid save it and redirect to this product detail page
+        # by using the product id as argument.
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully updated product!')
+            return redirect(reverse('product_detail', args=[product.id]))
+        else:
+            messages.error(request, 'Failed to update product. Please ensure the form is valid.')
+    else:
+        # If method is get instantiate a form with the product
+        # retrieved above.
+        form = ProductForm(instance=product)
+        messages.info(request, f'You are editing {product.name}')
+
+    template = 'merch/edit_product.html'
+    context = {
+        'form': form,
+        'product': product,
+        'dont_show_bag': True,
+    }
+
+    return render(request, template, context)
+
+
+# Delete product view.
+@login_required
+def delete_product(request, product_id):
+    # Must be a super user to access this view.
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only store owners can do that.')
+        return redirect(reverse('home'))
+
+    # Get product by its id and delete it.
+    product = get_object_or_404(Merch, pk=product_id)
+    product.delete()
+    messages.success(request, 'Product deleted!')
+    return redirect(reverse('all_merch'))

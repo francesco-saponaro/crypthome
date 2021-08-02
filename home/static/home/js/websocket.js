@@ -18,7 +18,7 @@ socket.onmessage = function(event) {
             </td>
             <td class="align-middle">
                 <!-- Buy button -->
-                <a href="buy_token/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
+                <a href="buy_token_page/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
             </td>
             <td class="align-middle text-end ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">${ws_token.price}</td>
             <td class="align-middle text-end">${ws_token.price_change.toFixed(2)}</td>
@@ -39,7 +39,7 @@ socket.onmessage = function(event) {
             </td>
             <td class="align-middle">
                 <!-- Buy button -->
-                <a href="buy_token/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
+                <a href="buy_token_page/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
             </td>
             <td class="align-middle text-end price ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">£${ws_token.price}
                 <br><span class="x-small text-light">MCap £${ws_token.market_cap}</span>

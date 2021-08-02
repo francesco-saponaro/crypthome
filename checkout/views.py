@@ -165,7 +165,6 @@ def checkout(request):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
-        print(intent)
 
         # Attempt to prefill the form with any info the user maintains
         # in their profile by using the initial parameter.

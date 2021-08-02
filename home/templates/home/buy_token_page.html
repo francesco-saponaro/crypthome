@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra_title %}
-    Buy {{ db_token }}
+    Buy {{ api_data.0.name }}
 {% endblock %}
 
 {% block sub_header %}
@@ -10,7 +10,7 @@
         <div class="row section-title py-2 px-sm-4">
             <!-- Title -->
             <div class="col-5">
-                <h3 class="text-uppercase mb-0 section-title-h">Buy {{ db_token }}</h3>
+                <h3 class="text-uppercase mb-0 section-title-h">Buy {{ api_data.0.name }}</h3>
             </div>
             <!-- Available equity -->
             <div class="col-7">
@@ -33,7 +33,7 @@
                             <span class="icon">
                                 <i class="fas fa-chevron-left"></i>
                             </span>
-                            <span>Back to {% if request.META.HTTP_REFERER == url %} {{ db_token.name }}`s {% else %} previous {% endif %} page</span>
+                            <span>Back to {% if request.META.HTTP_REFERER == url %} {{ api_data.0.name }}`s {% else %} previous {% endif %} page</span>
                         </a>
                     </div>
                 </div>
@@ -52,84 +52,47 @@
             </div>
         {% endif %}
 
-        <!-- Iterate through it and if the API's token id matches the database token id in the URL, display it's data -->
-        {% for api_token in api_data %}
-            {% if api_token.id == db_token.id %}
-                <div class="container-fluid buy-crypto-container {% if request.META.HTTP_REFERER == url %} mt-5 mt-md-3 {% else %} mt-3 {% endif %} mb-3">
-                    <!-- Token data -->
-                    <div class="row pb-3 buy-token-row text-center">
-                        <div class="col-6">
-                            <p class="slategrey mb-1">Price</p>
-                            <p class="buy-data mb-0">£{{ api_token.current_price }}</p>
-                        </div>
-                        <div class="col-6">
-                            <p class="slategrey mb-1">24h %</p>
-                            <p class="buy-data mb-0">{{ api_token.price_change_percentage_24h|floatformat:2 }}%</p>
-                        </div>
+        <div class="container-fluid buy-crypto-container {% if request.META.HTTP_REFERER == url %} mt-5 mt-md-3 {% else %} mt-3 {% endif %} mb-3">
+            <!-- Token data -->
+            <div class="row pb-3 buy-token-row text-center">
+                <div class="col-6">
+                    <p class="slategrey mb-1">Price</p>
+                    <p class="buy-data mb-0">£{{ api_data.0.current_price }}</p>
+                </div>
+                <div class="col-6">
+                    <p class="slategrey mb-1">24h %</p>
+                    <p class="buy-data mb-0">{{ api_data.0.price_change_percentage_24h|floatformat:2 }}%</p>
+                </div>
+            </div>
+
+            <!-- Buy token form -->
+            <form action="{% url 'buy_token' api_data.0.id %}" method="POST">
+                {% csrf_token %}
+                <div class="row pt-3">
+                    <!-- GBP amount label -->
+                    <label for="token-amount" class="pb-1 slategrey text-start">Enter GBP amount</label>
+                    <!-- GBP amount input group -->
+                    <div class="input-group">
+                        <!-- GBP amount Input -->
+                        <input class="form-control qty_input border-white rounded-0 bg-secondary text-center" type="number" id="gbp-amount" name="gbp-amount" placeholder="{{ api_data.0.name }} amount">
                     </div>
 
-                    <!-- Monetary inputs -->
-                    <div class="row pt-3">
-                        <!-- Token amount label -->
-                        <label for="token-amount" class="pb-1 slategrey text-start">Enter {{ api_token.name }} amount</label>
-                        <!-- Token amount input group -->
-                        <div class="input-group">
-                            <!-- Token decrementer -->
-                            <div class="input-group-prepend">
-                                <button class="decrement-qty btn text-light border-white rounded-0" data-item_id="">
-                                    <span class="icon">
-                                        <i class="fas fa-minus"></i>
-                                    </span>
-                                </button>
-                            </div>
-                            <!-- Token amount Input -->
-                            <input class="form-control qty_input border-0 rounded-0 bg-secondary text-center" type="number" value="0" min="1" id="token-amount" name="token-amount" placeholder="{{ api_token.name }} amount">
-                            <!-- Token incrementer -->
-                            <div class="input-group-append">
-                                <button class="increment-qty btn text-light border-white rounded-0" data-item_id="">
-                                    <span class="icon">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
+                    <!-- Token amount equivalent to display for user -->
+                    <p class="py-3 mb-0 slategrey">
+                        Total {{ api_data.0.name }}: <span class="text-light token-amount"></span>
+                    </p>
+                </div>
 
-                        <!-- GBP amount label -->
-                        <label for="gbp-amount" class="pb-1 slategrey text-start mt-2">Total (GBP)</label>
-                        <!-- GBP amount input group -->
-                        <div class="input-group">
-                            <!-- GBP decrementer -->
-                            <div class="input-group-prepend">
-                                <button class="decrement-qty btn text-light border-white rounded-0" data-item_id="">
-                                    <span class="icon">
-                                        <i class="fas fa-minus"></i>
-                                    </span>
-                                </button>
-                            </div>
-                            <!-- GBP Input -->                              
-                            <input class="form-control qty_input border-0 rounded-0 bg-secondary text-center" type="number" value="0" min="1" id="gbp-amount" name="gbp-amount" placeholder="Total (GBP)">
-                            <!-- GBP incrementer -->
-                            <div class="input-group-append">
-                                <button class="increment-qty btn text-light border-white rounded-0" data-item_id="">
-                                    <span class="icon">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Buy buttons -->
-                    <div class="row pt-4">
-                        <div class="col-12">
-                            <button type="button" class="btn rounded-0 text-uppercase w-100 token-pg-btn">
-                                Buy {{ api_token.name }}
-                            </button>
-                        </div>
+                <!-- Buy button -->
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <button type="submit" class="btn rounded-0 text-uppercase w-100 token-pg-btn">
+                            Buy {{ api_data.0.name }}
+                        </button>
                     </div>
                 </div>
-            {% endif %}
-        {% endfor %}
+            </form>
+        </div>
 
         <!-- Up to 568px If coming from token page display back button -->
         {% if request.META.HTTP_REFERER == url %}
@@ -140,7 +103,7 @@
                             <span class="icon">
                                 <i class="fas fa-chevron-left"></i>
                             </span>
-                            <span>Back to {{ db_token.name }}`s page</span>
+                            <span>Back to {{ api_data.0.name }}`s page</span>
                         </a>
                     </div>
                 </div>
@@ -159,7 +122,7 @@
                             <span class="icon">
                                 <i class="fas fa-angle-left"></i>
                             </span>
-                            <span class="text-uppercase">Back to {{ db_token.name }}`s page</span>
+                            <span class="text-uppercase">Back to {{ api_data.0.name }}`s page</span>
                         </a>
                     </div>
                 </div>
@@ -184,9 +147,6 @@
 
 {% block postloadjs %}
     {{ block.super }}
-    <!-- Quantity input script -->
-    {% include 'home/includes/crypto_quantity_input_script.html' %}
-
     <!-- Unlike the index html that has a separate external js file, in this page I had to use an internal script in order to use Django template in the filter function -->
     <script type="text/javascript">
         /* Create new instance of Websocket class and pass it the URL defined in routing.py */
@@ -198,7 +158,7 @@
             console.log(ws_tokens);
 
             /* Filter through the consumer data to only extract the token matching the URL id */
-            let newDataBuyTokenPg = ws_tokens.filter(ws_token => ws_token.id == "{{ db_token.id }}");
+            let newDataBuyTokenPg = ws_tokens.filter(ws_token => ws_token.id == "{{ api_data.0.id }}");
             console.log(newDataBuyTokenPg);
             
             /* Append extracted token to the appropriate container */
@@ -213,5 +173,11 @@
                 </div>
             `;
         }
+
+        // On change, display to the user token amount equivalent to GBP input.
+        document.getElementById('gbp-amount').addEventListener('change', () => {
+            let tokenAmount = document.querySelector('.token-amount')
+            tokenAmount.innerText = (document.getElementById('gbp-amount').value / "{{ api_data.0.current_price }}");
+        })
     </script>
 {% endblock %}

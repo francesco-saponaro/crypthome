@@ -55,7 +55,7 @@
                         </td>
                         <!-- Buy button -->
                         <td class="align-middle">
-                            <a href="{% url 'buy_token' api_token.id %}" class="btn rounded-0 text-uppercase">Buy</a>
+                            <a href="{% url 'buy_token_page' api_token.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
                         <!-- Token info -->
                         <td class="align-middle text-end">{{ api_token.current_price }}</td>
@@ -85,7 +85,7 @@
                         </td>
                         <!-- Buy button -->
                         <td class="align-middle">
-                            <a href="{% url 'buy_token' api_token.id %}" class="btn rounded-0 text-uppercase">Buy</a>
+                            <a href="{% url 'buy_token_page' api_token.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
                         <!-- Token info -->
                         <td class="align-middle text-end">£{{ api_token.current_price }}

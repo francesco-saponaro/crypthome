@@ -26,11 +26,19 @@
 
 {% block content %}
     <div class="container py-5">
-        <!-- Page sub title -->
         <div class="row">
+            <!-- Page sub title -->
             <div class="col-12 col-md-6 mb-4 px-4 px-sm-3">
                 <h4 class="text-muted">Add a product</h4>
                 <hr>
+            </div>
+            <!-- Back buttons -->
+            <div class="col-12 order-first col-md-6 order-md-last text-end">
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
+                    <span class="icon">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                </a>
             </div>
         </div>
 

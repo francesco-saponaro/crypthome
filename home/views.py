@@ -1,6 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, redirect, reverse, \
+    HttpResponse
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Position
+from profiles.models import UserProfile
+from .models import BuyToken
 
 # Install and import "requests" library to get data from the API
 import requests
@@ -16,7 +20,10 @@ def index(request):
            %20ripple&order=market_cap_desc&per_page=100&page=1&sparkline=false'
     data = requests.get(url).json()
 
-    context = {'api_data': data}
+    context = {
+        'api_data': data,
+        'dont_show_bag': True,
+        }
 
     return render(request, 'home/index.html', context)
 
@@ -66,15 +73,15 @@ def crypto_query(request):
 
 # Product page view
 def token_page(request, token_id):
-    # Get coins data from Coingecko API
-    url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
-           bitcoin%2C%20ethereum%2C%20cardano%2C%20dogecoin%2C%20polkadot%2C\
-           %20ripple&order=market_cap_desc&per_page=100&page=1&sparkline=false'
-    data = requests.get(url).json()
+    # Get targeted coin data from Coingecko API
+    url = f'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
+        {token_id}&order=market_cap_desc&per_page=100&page=1&sparkline=\
+            false'
+    token = requests.get(url).json()
 
     # Get detailed coin data for the targeted token from Coingecko API
-    coins_url = f'https://api.coingecko.com/api/v3/coins/{token_id}'
-    coins_data = requests.get(coins_url).json()
+    token_detail_url = f'https://api.coingecko.com/api/v3/coins/{token_id}'
+    token_detail_data = requests.get(token_detail_url).json()
 
     # Get description value from detailed coin data and split it in two parts
     # for the JS text-hiding function.
@@ -86,7 +93,7 @@ def token_page(request, token_id):
     # and were tested with a regex validator.
     # ("<(?:a\b[^>]*>|/a>)", "")
     # First part.
-    coins_desc = coins_data["description"]["en"][:950]\
+    coins_desc = token_detail_data["description"]["en"][:950]\
         .replace('<a href="https://www.coingecko.com/en?hashing_algorithm=SHA-256">', "")\
         .replace('<a href="https://www.coingecko.com/en/coins/litecoin">', "")\
         .replace('<a href="https://www.coingecko.com/en/coins/peercoin">', "")\
@@ -120,7 +127,7 @@ def token_page(request, token_id):
         .replace("</a>", "")
 
     # Second part.
-    coins_desc_second = coins_data["description"]["en"][950:]\
+    coins_desc_second = token_detail_data["description"]["en"][950:]\
         .replace('<a href="https://www.coingecko.com/en?hashing_algorithm=SHA-256">', "")\
         .replace('<a href="https://www.coingecko.com/en/coins/litecoin">', "")\
         .replace('<a href="https://www.coingecko.com/en/coins/peercoin">', "")\
@@ -153,13 +160,9 @@ def token_page(request, token_id):
         .replace('<a href="https://www.coingecko.com/buzz/how-to-use-an-ethereum-wallet">', "")\
         .replace("</a>", "")
 
-    # Get targeted token object from position model
-    token = get_object_or_404(Position, pk=token_id)
-
     context = {
-        'api_data': data,
-        'db_token': token,
-        'coins_api_data': coins_data,
+        'api_data': token,
+        'api_detailed_data': token_detail_data,
         'coins_api_desc': coins_desc,
         'coins_api_desc_second': coins_desc_second,
         }
@@ -167,31 +170,66 @@ def token_page(request, token_id):
     return render(request, 'home/token_page.html', context)
 
 
-# Buy token view
-def buy_token(request, token_id):
-    # Get coins data from Coingecko API
-    url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
-           bitcoin%2C%20ethereum%2C%20cardano%2C%20dogecoin%2C%20polkadot%2C\
-           %20ripple&order=market_cap_desc&per_page=100&page=1&sparkline=false'
-    data = requests.get(url).json()
-
-    # Get targeted token object from position model
-    token = get_object_or_404(Position, pk=token_id)
+# Buy token page view
+def buy_token_page(request, token_id):
+    # Get targeted coin data from Coingecko API
+    url = f'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
+        {token_id}&order=market_cap_desc&per_page=100&page=1&sparkline=\
+            false'
+    token = requests.get(url).json()
 
     # Gee this token page url with token id, needed on template for "Back
     # to token page" button conditional.
-    url = f"https://8000-bronze-stingray-bewdyfh1.ws-eu13.gitpod.io/token_page/{token.id}/"
-    print(url)
+    url = f"https://8000-bronze-stingray-bewdyfh1.ws-eu13.gitpod.io/token_page/{token[0]['id']}/"
 
     context = {
-        'api_data': data,
-        'db_token': token,
+        'api_data': token,
         'url': url,
         }
 
-    return render(request, 'home/buy_token.html', context)
+    return render(request, 'home/buy_token_page.html', context)
+
+
+# Buy token view
+@require_POST
+def buy_token(request, token_id):
+    try:
+        # Get targeted coin data from Coingecko API
+        url = f'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
+            {token_id}&order=market_cap_desc&per_page=100&page=1&sparkline=\
+                false'
+        token = requests.get(url).json()
+        # Get name to pass in success message.
+        token_name = token[0]['name']
+
+        # Get user profile
+        profile = UserProfile.objects.get(user=request.user)
+
+        # Get instance of BuyToken model, fill it and save it.
+        position = BuyToken()
+        position.user_profile = profile
+        position.token_symbol = token[0]['symbol']
+        position.token_price = token[0]['current_price']
+        position.gbp_amount = request.POST.get('gbp-amount')
+        position.token_amount = int(request.POST.get('gbp-amount')) / \
+            token[0]['current_price']
+        position.current_total = token[0]['current_price'] * \
+            position.token_amount
+        position.save()
+
+        # Send success message and redirect to home page.
+        messages.success(request, f'Order successfully processed! \
+        You bought {position.token_amount} {token_name} for \
+            £{position.gbp_amount}. Check your Portfolio page \
+                to track your position.')
+        return redirect(reverse('home'))
+    except Exception as e:
+        messages.error(request, 'Sorry, your purchase cannot be \
+            processed right now. Please try again later.')
+        return HttpResponse(content=e, status=400)
 
 
 # Portfolio view
+@login_required
 def portfolio(request, **kwargs):
     return render(request, 'home/portfolio.html')

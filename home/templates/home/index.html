@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+<!-- Filter to format numbers on template -->
+{% load humanize %}
 
 {% block extra_title %}
     home page
@@ -58,9 +60,9 @@
                             <a href="{% url 'buy_token_page' api_token.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
                         <!-- Token info -->
-                        <td class="align-middle text-end">{{ api_token.current_price }}</td>
+                        <td class="align-middle text-end">{{ api_token.current_price|floatformat:2|intcomma }}</td>
                         <td class="align-middle text-end">{{ api_token.price_change_percentage_24h|floatformat:2 }}</td>
-                        <td class="align-middle text-end">{{ api_token.market_cap }}</td>
+                        <td class="align-middle text-end">{{ api_token.market_cap|intcomma }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -88,9 +90,9 @@
                             <a href="{% url 'buy_token_page' api_token.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
                         <!-- Token info -->
-                        <td class="align-middle text-end">£{{ api_token.current_price }}
+                        <td class="align-middle text-end">£{{ api_token.current_price|floatformat:2|intcomma }}
                             <br>
-                            <span class="x-small">MCap £{{ api_token.market_cap }}</span>
+                            <span class="x-small">MCap £{{ api_token.market_cap|intcomma }}</span>
                         </td>
                     </tr>
                 {% endfor %}

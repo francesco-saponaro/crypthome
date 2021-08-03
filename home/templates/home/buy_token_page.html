@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+<!-- Filter to format numbers on template -->
+{% load humanize %}
 
 {% block extra_title %}
     Buy {{ api_data.0.name }}
@@ -14,7 +16,7 @@
             </div>
             <!-- Available equity -->
             <div class="col-7">
-                <h4 class="mb-0 section-title-h float-end">Available equity: £10000</h4>
+                <h4 class="mb-0 section-title-h float-end">Available equity: £{{ 10000|intcomma }} </h4>
             </div>            
         </div>
     </div>
@@ -57,7 +59,7 @@
             <div class="row pb-3 buy-token-row text-center">
                 <div class="col-6">
                     <p class="slategrey mb-1">Price</p>
-                    <p class="buy-data mb-0">£{{ api_data.0.current_price }}</p>
+                    <p class="buy-data mb-0">£{{ api_data.0.current_price|intcomma }}</p>
                 </div>
                 <div class="col-6">
                     <p class="slategrey mb-1">24h %</p>
@@ -74,7 +76,7 @@
                     <!-- GBP amount input group -->
                     <div class="input-group">
                         <!-- GBP amount Input -->
-                        <input class="form-control qty_input border-white rounded-0 bg-secondary text-center" type="number" id="gbp-amount" name="gbp-amount" placeholder="{{ api_data.0.name }} amount">
+                        <input class="form-control qty_input border-white rounded-0 bg-secondary text-center" type="number" id="gbp-amount" name="gbp-amount" placeholder="GBP amount">
                     </div>
 
                     <!-- Token amount equivalent to display for user -->

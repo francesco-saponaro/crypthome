@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse, \
-    HttpResponse
+    HttpResponse, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -193,43 +193,91 @@ def buy_token_page(request, token_id):
 # Buy token view
 @require_POST
 def buy_token(request, token_id):
-    try:
-        # Get targeted coin data from Coingecko API
-        url = f'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
-            {token_id}&order=market_cap_desc&per_page=100&page=1&sparkline=\
-                false'
-        token = requests.get(url).json()
-        # Get name to pass in success message.
-        token_name = token[0]['name']
+    # If user is logged in buy token otherwise send error message
+    # and reload page.
+    if request.user.is_authenticated:
+        try:
+            # If GBP amount is not empty or 0 buy token otherwise send
+            # error message and reload page.
+            if request.POST.get('gbp-amount') != '' and \
+               request.POST.get('gbp-amount') != "0":
+                # Get targeted coin data from Coingecko API
+                url = f'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
+                    {token_id}&order=market_cap_desc&per_page=100&page=1&sparkline=\
+                        false'
+                token = requests.get(url).json()
+                # Get name to pass in success message.
+                token_name = token[0]['name']
 
-        # Get user profile
-        profile = UserProfile.objects.get(user=request.user)
+                # Get user profile
+                profile = UserProfile.objects.get(user=request.user)
 
-        # Get instance of BuyToken model, fill it and save it.
-        position = BuyToken()
-        position.user_profile = profile
-        position.token_symbol = token[0]['symbol']
-        position.token_price = token[0]['current_price']
-        position.gbp_amount = request.POST.get('gbp-amount')
-        position.token_amount = int(request.POST.get('gbp-amount')) / \
-            token[0]['current_price']
-        position.current_total = token[0]['current_price'] * \
-            position.token_amount
-        position.save()
+                # Get instance of BuyToken model, fill it and save it.
+                position = BuyToken()
+                position.user_profile = profile
+                position.token_symbol = token[0]['symbol']
+                position.token_price = token[0]['current_price']
+                position.gbp_amount = request.POST.get('gbp-amount')
+                position.token_amount = int(request.POST.get('gbp-amount')) / \
+                    token[0]['current_price']
+                position.save()
 
-        # Send success message and redirect to home page.
-        messages.success(request, f'Order successfully processed! \
-        You bought {position.token_amount} {token_name} for \
-            £{position.gbp_amount}. Check your Portfolio page \
-                to track your position.')
-        return redirect(reverse('home'))
-    except Exception as e:
-        messages.error(request, 'Sorry, your purchase cannot be \
-            processed right now. Please try again later.')
-        return HttpResponse(content=e, status=400)
+                # Send success message and redirect to home page.
+                messages.success(request, f'Order successfully processed! \
+                You bought {position.token_amount} {token_name} for \
+                    £{position.gbp_amount}. Check your Portfolio page \
+                        to track your position.')
+                return redirect(reverse('portfolio'))
+            else:
+                messages.error(request, 'The GBP amount cannot be empty or 0')
+                return redirect(reverse('buy_token_page', args=[token_id]))
+        except Exception as e:
+            messages.error(request, 'Sorry, your purchase cannot be \
+                processed right now. Please try again later.')
+            return HttpResponse(content=e, status=400)
+    else:
+        messages.error(request, 'You must create a profile to be \
+            able to purchase a token')
+        return redirect(reverse('buy_token_page', args=[token_id]))
+
+
+# Delete product view.
+@login_required
+def sell_token(request, position_id):
+    # Get position by its id and delete it.
+    position = get_object_or_404(BuyToken, pk=position_id)
+    position.delete()
+    messages.success(request, 'Position sold!')
+    return redirect(reverse('portfolio'))
 
 
 # Portfolio view
 @login_required
 def portfolio(request, **kwargs):
-    return render(request, 'home/portfolio.html')
+    # Get coins data from Coingecko API.
+    # Needed to calculate current total.
+    url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
+           bitcoin%2C%20ethereum%2C%20cardano%2C%20dogecoin%2C%20polkadot%2C\
+           %20ripple&order=market_cap_desc&per_page=100&page=1&sparkline=false'
+    data = requests.get(url).json()
+
+    # Get current user profile
+    profile = UserProfile.objects.get(user=request.user)
+    # Filter positions by current user and order them descending.
+    positions = BuyToken.objects.filter(user_profile=profile).order_by('-date')
+
+    context = {
+        'positions': positions,
+        'data': data,
+        }
+
+    return render(request, 'home/portfolio.html', context)
+
+
+
+
+
+
+#order = get_object_or_404(Order, order_number=order_number)
+#merch = Merch.objects.all()
+#merch = merch.filter(queries)

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+<!-- Filter to format numbers on template -->
+{% load humanize %}
 
 {% block extra_title %}
     search result
@@ -56,9 +58,9 @@
                             <!-- Buy button -->
                             <a href="{% url 'buy_token' result.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
-                        <td class="align-middle text-end">{{ result.current_price }}</td>
+                        <td class="align-middle text-end">{{ result.current_price|floatformat:2|intcomma }}</td>
                         <td class="align-middle text-end">{{ result.price_change_percentage_24h|floatformat:2 }}</td>
-                        <td class="align-middle text-end">{{ result.market_cap }}</td>
+                        <td class="align-middle text-end">{{ result.market_cap|intcomma }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -84,9 +86,9 @@
                             <!-- Buy button -->
                             <a href="{% url 'buy_token' result.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
-                        <td class="align-middle text-end">£{{ result.current_price }}
+                        <td class="align-middle text-end">£{{ result.current_price|floatformat:2|intcomma }}
                             <br>
-                            <span class="x-small">MCap £{{ result.market_cap }}</span>
+                            <span class="x-small">MCap £{{ result.market_cap|intcomma }}</span>
                         </td>
                     </tr>
                 {% endfor %}

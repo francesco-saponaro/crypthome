@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+<!-- Filter to format numbers on template -->
+{% load humanize %}
 
 {% block extra_title %}
     {{ db_token }}
@@ -31,13 +33,13 @@
                         <p class="mb-0">
                             <span class="token-pg-h">Price</span> 
                             <br> 
-                            <span class="token-pg-data">£{{ api_data.0.current_price }}</span>
+                            <span class="token-pg-data">£{{ api_data.0.current_price|intcomma }}</span>
                         </p>
                         <!-- Market cap -->
                         <p class="mb-0">
                             <span class="token-pg-h">Market Cap</span> 
                             <br> 
-                            <span class="token-pg-data">£{{ api_data.0.market_cap }}</span>
+                            <span class="token-pg-data">£{{ api_data.0.market_cap|intcomma }}</span>
                         </p>
                         <!-- 24h % -->
                         <p class="mb-0 text-end">
@@ -125,19 +127,19 @@
                         <!-- Total supply -->
                         <div class="col-6 text-center">
                             <p class="token-pg-small-h slategrey text-center">Total Supply ({{ api_detailed_data.symbol|upper }})</p>
-                            <p class="token-pg-small-data">{{ api_detailed_data.market_data.total_supply }}</p>
+                            <p class="token-pg-small-data">{{ api_detailed_data.market_data.total_supply|intcomma }}</p>
                         </div>
                         <!-- Circulating supply -->
                         <div class="col-6 text-center">
                             <p class="token-pg-small-h slategrey text-center">Circulating Supply ({{ api_detailed_data.symbol|upper }})</p>
-                            <p class="token-pg-small-data">{{ api_detailed_data.market_data.circulating_supply }}</p>
+                            <p class="token-pg-small-data">{{ api_detailed_data.market_data.circulating_supply|intcomma }}</p>
                         </div>
                     </div>
                         <div class="row">
                         <!-- All time high -->
                         <div class="col-6 text-center">
                             <p class="token-pg-small-h slategrey text-center">All Time High</p>
-                            <p class="token-pg-small-data">£{{ api_detailed_data.market_data.ath.gbp }}</p>
+                            <p class="token-pg-small-data">£{{ api_detailed_data.market_data.ath.gbp|intcomma }}</p>
                         </div>
                         <!-- All time high % -->
                         <div class="col-6 text-center">

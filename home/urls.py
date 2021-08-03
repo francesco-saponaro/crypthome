@@ -11,4 +11,6 @@ urlpatterns = [
          name='buy_token_page'),
     path('buy_token/<token_id>/', views.buy_token,
          name='buy_token'),
+    path('sell_token/<position_id>/', views.sell_token,
+         name='sell_token'),
 ]

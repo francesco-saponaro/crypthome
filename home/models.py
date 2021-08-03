@@ -21,9 +21,6 @@ class Position(models.Model):
 
 # Model to buy tokens.
 class BuyToken(models.Model):
-    # This first field is non editable as it will be automatically
-    # generated.
-    order_number = models.CharField(max_length=32, null=False, editable=False)
     # It has a related name of "token_bought" so we can access the user orders
     # by calling something like "user.userprofile.token_bought".
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE,
@@ -36,21 +33,8 @@ class BuyToken(models.Model):
                                       null=False, default=0)
     gbp_amount = models.DecimalField(max_digits=20, decimal_places=2,
                                      null=False, default=0)
-    token_amount = models.DecimalField(max_digits=10, decimal_places=2,
+    token_amount = models.DecimalField(max_digits=30, decimal_places=4,
                                        null=False, default=0)
-    current_total = models.DecimalField(max_digits=20, decimal_places=2,
-                                        null=False, default=0)
-
-    # Method to generate a random, unique order number using UUID.
-    def _generate_order_number(self):
-        return uuid.uuid4().hex.upper()
-
-    # Override the original save method to set the order number
-    # if it hasnt been set up already.
-    def save(self, *args, **kwargs):
-        if not self.order_number:
-            self.order_number = self._generate_order_number()
-        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.order_number
+        return self.token_symbol + "/gbp"

@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+<!-- Filter to format numbers on template -->
+{% load humanize %}
+<!-- Custom filter created in position_tools.py -->
+{% load position_tools %}
 
 {% block extra_title %}
     portfolio
@@ -14,7 +18,7 @@
             </div>
             <!-- Portfolio value -->
             <div class="col-6">
-                <h4 class="mb-0 section-title-h float-end">Value: £10000</h4>
+                <h4 class="mb-0 section-title-h float-end">Value: £{{ 10000|intcomma }}</h4>
             </div>            
         </div>
     </div>
@@ -121,46 +125,48 @@
                         <h4 class="mb-0 section-title-h">Open orders:</h4>
                     </div>
                 </div>
-                <!-- Table -->
-                <table class="table table-borderless mt-3">
-                    <!-- Table body -->
-                    <tbody class="crypto-tbody order-tbody text-center text-light small-table">
-                        <tr>
-                            <td class="text-start align-middle">
-                                <p class="mb-0">BTC/GBP</p>
-                            </td>
-                            <td class="align-middle">
-                                <p class="mb-0"><span class="text-muted">Amount:</span> 5/2000</p>
-                                <p class="mb-0"><span class="text-muted">Price</span> 1.80</p>
-                            </td>
-                            <td class="align-middle">
-                                £130000
-                            </td>
-                            <td class="align-middle">
-                                <!-- Sell button -->
-                                <a href="" class="btn rounded-0 text-uppercase sell-btn">Sell</a>
-                            </td>
-                            <td class="align-middle text-end">
-                                <p class="mb-0">10/05/87</p>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>            
-        </div>
-
-        <!-- Divider -->
-        <div class="row"><div class="col"><hr class="bg-light border-2 border-top border-light"></div></div>
-
-        <!-- Order history -->
-        <div class="row">
-            <div class="col-12">
-                <!-- Title -->
-                <div class="row">
-                    <div class="col-12">
-                        <h4 class="mb-0 section-title-h">Order history:</h4>
+                {% if positions %}
+                    <!-- Table -->
+                    <table class="table table-borderless mt-3">
+                        <!-- Table body -->
+                        <tbody class="crypto-tbody order-tbody text-center text-light small-table">
+                            {% for position in positions %}
+                                <tr>
+                                    <td class="text-start align-middle">
+                                        <p class="mb-0">{{ position.token_symbol|upper }}/GBP</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        <p class="mb-0"><span class="text-muted small">Amount:</span> <span class="small">{{ position.token_amount|floatformat:2 }}/{{ position.gbp_amount|floatformat:2|intcomma }}</span></p>
+                                        <p class="mb-0"><span class="text-muted small">Bought at</span> <span class="small">{{ position.token_price|floatformat:2|intcomma }}</span></p>
+                                    </td>
+                                    <!-- Calculate current value of position by multiplicating amount of token bought by api token current price-->
+                                    <td class="align-middle">
+                                        <p class="text-muted small mb-0">Current value:</p>
+                                        {% for token in data %}
+                                            {% if position.token_symbol == token.symbol %}
+                                                £{{ position.token_amount | calc_current_total:token.current_price|floatformat:2|intcomma }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td class="align-middle">
+                                        <!-- Sell button -->
+                                        <a href="{% url 'sell_token' position.id %}" class="btn rounded-0 text-uppercase sell-btn">Sell</a>
+                                    </td>
+                                    <td class="align-middle text-end">
+                                        <p class="mb-0 text-muted small">{{ position.date }}</p>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <!-- No open orders message -->
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="mt-3 mb-5 section-title-h text-muted">You don't have any open orders yet</h5>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>            
         </div>
 {% endblock %}

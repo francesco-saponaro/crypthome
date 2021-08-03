@@ -374,8 +374,8 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 /* Bootstrap toasts */
 .message-container {
     position: fixed;
-    top: 93px;
-    right: 12px;
+    top: 5px;
+    right: 5px;
     z-index: 99999999999;
 }
 
@@ -394,7 +394,6 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 }
 
 /* Allauth form formatting */
-
 .allauth-form-inner-content p {
     margin-top: 1.5rem; /* mt-4 */
     color: #6c757d; /* text-secondary */
@@ -524,11 +523,6 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     .sub-title {
         text-align: center;
     }
-
-    .message-container {
-        top: 53px;
-        right: 12px;
-    }
 }
 
 @media (max-width: 900px) {
@@ -643,6 +637,10 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     .sub-title {
         font-size: 19px;
     }
+
+    .sell-btn {
+        font-size: smaller;
+    }
 }
 
 @media (max-width: 660px) {
@@ -710,11 +708,6 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 @media (max-width: 600px) {
     .small-nav ul li .nav-link {
         font-size: 12px;
-    }
-
-    .message-container {
-        top: 47px;
-        right: 12px;
     }
 }
 

@@ -838,6 +838,10 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     .portfolio, .watchlist {
         display:none;
     }
+
+    .allowance {
+        font-size:19px;
+    }
 }
 
 @media (max-width: 450px) {

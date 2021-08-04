@@ -20,9 +20,9 @@ socket.onmessage = function(event) {
                 <!-- Buy button -->
                 <a href="buy_token_page/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
             </td>
-            <td class="align-middle text-end ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">${ws_token.price}</td>
+            <td class="align-middle text-end price ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">${ws_token.price}</td>
             <td class="align-middle text-end">${ws_token.price_change.toFixed(2)}</td>
-            <td class="align-middle text-end">${ws_token.market_cap}</td>
+            <td class="align-middle text-end price">${ws_token.market_cap}</td>
         </tr>`
     );
 
@@ -41,8 +41,8 @@ socket.onmessage = function(event) {
                 <!-- Buy button -->
                 <a href="buy_token_page/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
             </td>
-            <td class="align-middle text-end price ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">£${ws_token.price}
-                <br><span class="x-small text-light">MCap £${ws_token.market_cap}</span>
+            <td class="align-middle text-end ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">£<span class="price">${ws_token.price}</span>
+                <br><span class="x-small text-light">MCap £<span class="price">${ws_token.market_cap}</span></span>
             </td>
         </tr>`
     );
@@ -54,4 +54,9 @@ socket.onmessage = function(event) {
     /* Replace all array items dividing commas with an empty string for correct table display */
     document.querySelector(".small-table").innerHTML = document.querySelector(".small-table").innerHTML.replace(/,/g, "");
     document.querySelector(".large-table").innerHTML = document.querySelector(".large-table").innerHTML.replace(/,/g, "");
+
+    /* Convert token price amd Mcap from websocket into locale string format */
+    document.querySelectorAll('.price').forEach(price => {
+        price.innerText = parseFloat(price.innerText).toLocaleString();
+    })
 }

@@ -58,9 +58,9 @@
                             <!-- Buy button -->
                             <a href="{% url 'buy_token' result.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
-                        <td class="align-middle text-end">{{ result.current_price|floatformat:2|intcomma }}</td>
+                        <td class="align-middle text-end price">{{ result.current_price|floatformat:2|intcomma }}</td>
                         <td class="align-middle text-end">{{ result.price_change_percentage_24h|floatformat:2 }}</td>
-                        <td class="align-middle text-end">{{ result.market_cap|intcomma }}</td>
+                        <td class="align-middle text-end price">{{ result.market_cap|intcomma }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -86,9 +86,9 @@
                             <!-- Buy button -->
                             <a href="{% url 'buy_token' result.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
-                        <td class="align-middle text-end">£{{ result.current_price|floatformat:2|intcomma }}
+                        <td class="align-middle text-end">£<span class="price">{{ result.current_price|floatformat:2|intcomma }}</span>
                             <br>
-                            <span class="x-small">MCap £{{ result.market_cap|intcomma }}</span>
+                            <span class="x-small">MCap £<span class="price">{{ result.market_cap|intcomma }}</span></span>
                         </td>
                     </tr>
                 {% endfor %}
@@ -136,9 +136,9 @@
                         <!-- Buy button -->
                         <a href="buy_token/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
                     </td>
-                    <td class="align-middle text-end ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">${ws_token.price}</td>
+                    <td class="align-middle text-end price ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">${ws_token.price}</td>
                     <td class="align-middle text-end">${ws_token.price_change.toFixed(2)}</td>
-                    <td class="align-middle text-end">${ws_token.market_cap}</td>
+                    <td class="align-middle text-end price">${ws_token.market_cap}</td>
                 </tr>`
             );
 
@@ -157,8 +157,8 @@
                         <!-- Buy button -->
                         <a href="buy_token/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
                     </td>
-                    <td class="align-middle text-end price ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">£${ws_token.price}
-                        <br><span class="x-small text-light">MCap £${ws_token.market_cap}</span>
+                    <td class="align-middle text-end ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">£<span class="price">${ws_token.price}</span>
+                        <br><span class="x-small text-light">MCap £<span class="price">${ws_token.market_cap}</span></span>
                     </td>
                 </tr>`
             );
@@ -170,6 +170,11 @@
             /* Replace all array items dividing commas with an empty string for correct table display */
             document.querySelector(".small-table").innerHTML = document.querySelector(".small-table").innerHTML.replace(/,/g, "");
             document.querySelector(".large-table").innerHTML = document.querySelector(".large-table").innerHTML.replace(/,/g, "");
+
+            /* Convert token price amd Mcap from websocket into locale string format */
+            document.querySelectorAll('.price').forEach(price => {
+                price.innerText = parseFloat(price.innerText).toLocaleString();
+            })
         }
     </script>
 {% endblock %}

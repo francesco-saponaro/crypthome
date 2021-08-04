@@ -25,19 +25,6 @@
 {% endblock %}
 
 {% block content %}
-    <!-- Back button -->
-    <div class="container-fluid ps-3 ps-sm-5 mt-4 portfolio-btn-container">
-        <div class="row">
-            <div class="col-12 float-start">
-                <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
-                    <span class="icon">
-                        <i class="fas fa-chevron-left"></i>
-                    </span>
-                </a>
-            </div>
-        </div>
-    </div>
-
     <div class="container-fluid token-pg-container pb-3">
         <!-- Stat chart -->
         <div class="row">
@@ -119,10 +106,16 @@
         <!-- Open orders -->
         <div class="row">
             <div class="col-12">
-                <!-- Title -->
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 d-flex justify-content-between align-items-center">
+                        <!-- Title -->
                         <h4 class="mb-0 section-title-h">Open orders:</h4>
+                        <!-- Back button -->
+                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
+                            <span class="icon">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
+                        </a>
                     </div>
                 </div>
                 {% if positions %}

@@ -4,7 +4,10 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from profiles.models import UserProfile
-from .models import BuyToken
+from .models import BuyToken, Allowance
+# Import decimal in order to be able multiply the current_price
+# variable if its a decimal.
+from decimal import Decimal
 
 # Install and import "requests" library to get data from the API
 import requests
@@ -178,9 +181,28 @@ def buy_token_page(request, token_id):
             false'
     token = requests.get(url).json()
 
-    # Gee this token page url with token id, needed on template for "Back
+    # Get this token page url with token id, needed on template for "Back
     # to token page" button conditional.
-    url = f"https://8000-bronze-stingray-bewdyfh1.ws-eu13.gitpod.io/token_page/{token[0]['id']}/"
+    url = f"https://8000-bronze-stingray-bewdyfh1.ws-eu14.gitpod.io/token_page/{token[0]['id']}/"
+
+    # If user is logged in calculate it's allowance and pass it on view.
+    if request.user.is_authenticated:
+        # Get user profile to be passed into allowance object.
+        profile = UserProfile.objects.get(user=request.user)
+        # Get or create allowance object by the user profile, we are
+        # using get or create, to create a user_allowance field to
+        # populate the view, in case the user has not bought anything yet.
+        allowance, _ = Allowance.objects.get_or_create(user=profile)
+        # Get the allowance field to be passed into view.
+        current_allowance = allowance.user_allowance
+
+        context = {
+            'api_data': token,
+            'url': url,
+            'current_allowance': current_allowance,
+            }
+
+        return render(request, 'home/buy_token_page.html', context)
 
     context = {
         'api_data': token,
@@ -201,7 +223,7 @@ def buy_token(request, token_id):
             # error message and reload page.
             if request.POST.get('gbp-amount') != '' and \
                request.POST.get('gbp-amount') != "0":
-                # Get targeted coin data from Coingecko API
+                # Get targeted coin data from Coingecko API for math calculation.
                 url = f'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
                     {token_id}&order=market_cap_desc&per_page=100&page=1&sparkline=\
                         false'
@@ -209,25 +231,52 @@ def buy_token(request, token_id):
                 # Get name to pass in success message.
                 token_name = token[0]['name']
 
-                # Get user profile
+                # Get user profile to be passed in Allowance and
+                # BuyToken objects instances.
                 profile = UserProfile.objects.get(user=request.user)
 
-                # Get instance of BuyToken model, fill it and save it.
-                position = BuyToken()
-                position.user_profile = profile
-                position.token_symbol = token[0]['symbol']
-                position.token_price = token[0]['current_price']
-                position.gbp_amount = request.POST.get('gbp-amount')
-                position.token_amount = int(request.POST.get('gbp-amount')) / \
-                    token[0]['current_price']
-                position.save()
+                # Either get an instance of the Allowance model saved in
+                # database by the user field or create a new one with
+                # the user profile parameter as user.
+                current_allowance, _ = Allowance.objects.\
+                    get_or_create(user=profile)
 
-                # Send success message and redirect to home page.
-                messages.success(request, f'Order successfully processed! \
-                You bought {position.token_amount} {token_name} for \
-                    £{position.gbp_amount}. Check your Portfolio page \
-                        to track your position.')
-                return redirect(reverse('portfolio'))
+                # If user allowance isn't less than the input GBP amount
+                # fill and save model, deduct the allowance by the
+                # GBP amount and send a success message.
+                if not current_allowance.user_allowance < int(request.POST.get('gbp-amount')):
+                    # Get instance of BuyToken model, fill it and save it.
+                    position = BuyToken()
+                    position.user_profile = profile
+                    position.token_id = token[0]['id']
+                    position.token_symbol = token[0]['symbol']
+                    position.token_price = token[0]['current_price']
+                    position.gbp_amount = request.POST.get('gbp-amount')
+                    position.token_amount = int(request.POST.get('gbp-amount')) / \
+                        token[0]['current_price']
+                    position.save()
+
+                    # Either get an instance of the Allowance model saved in
+                    # database by the user field or create a new one with
+                    # the user profile parameter as user.
+                    # Then deduct allowance field minus the gbp amount spent.
+                    # The "_" is a boolean variable which determined
+                    # whether the object was created or not.
+                    current_allowance.user_allowance -= \
+                        int(request.POST.get('gbp-amount'))
+                    current_allowance.save()
+
+                    # Send success message and redirect to home page.
+                    messages.success(request, f'Order successfully processed! \
+                    You bought {position.token_amount} {token_name} for \
+                        £{position.gbp_amount}. Check your Portfolio page \
+                            to track your position.')
+                    return redirect(reverse('portfolio'))
+                else:
+                    messages.error(request, 'You don`t have enough funds in your \
+                        account. Please buy a smaller amount or sell some \
+                            of your positions.')
+                    return redirect(reverse('buy_token_page', args=[token_id]))
             else:
                 messages.error(request, 'The GBP amount cannot be empty or 0')
                 return redirect(reverse('buy_token_page', args=[token_id]))
@@ -244,24 +293,48 @@ def buy_token(request, token_id):
 # Delete product view.
 @login_required
 def sell_token(request, position_id):
-    # Get position by its id and delete it.
-    position = get_object_or_404(BuyToken, pk=position_id)
-    position.delete()
-    messages.success(request, 'Position sold!')
-    return redirect(reverse('portfolio'))
+    try:
+        # Get instance of BuyToken object by its id.
+        position = get_object_or_404(BuyToken, pk=position_id)
+
+        # Get targeted coin data from Coingecko API, needed to get
+        # current_price.
+        url = f'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
+            {position.token_id}&order=market_cap_desc&per_page=100&page=1&sparkline=\
+                false'
+        token = requests.get(url).json()
+
+        # Get user profile to be passed into allowance object.
+        profile = UserProfile.objects.get(user=request.user)
+        # Get object by the user profile.
+        current_allowance = get_object_or_404(Allowance, user=profile)
+        # Increase allowance field by the multiplication of the position
+        # object token_amount field times the token api current_price.
+        current_allowance.user_allowance += (position.token_amount *
+                                             Decimal(token[0]
+                                                     ['current_price']))
+        current_allowance.save()
+
+        # Finally delete position.
+        position.delete()
+        messages.success(request, 'Position sold!')
+        return redirect(reverse('portfolio'))
+    except Exception as e:
+        messages.error(request, 'Sorry, there was an issue with your request\
+            . Please try again later.')
+        return HttpResponse(content=e, status=400)
 
 
 # Portfolio view
 @login_required
 def portfolio(request, **kwargs):
-    # Get coins data from Coingecko API.
-    # Needed to calculate current total.
+    # Get coins data from Coingecko API. Needed to calculate current total.
     url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
            bitcoin%2C%20ethereum%2C%20cardano%2C%20dogecoin%2C%20polkadot%2C\
            %20ripple&order=market_cap_desc&per_page=100&page=1&sparkline=false'
     data = requests.get(url).json()
 
-    # Get current user profile
+    # Get user profile to be passed into filter method.
     profile = UserProfile.objects.get(user=request.user)
     # Filter positions by current user and order them descending.
     positions = BuyToken.objects.filter(user_profile=profile).order_by('-date')
@@ -269,15 +342,7 @@ def portfolio(request, **kwargs):
     context = {
         'positions': positions,
         'data': data,
+        'dont_show_bag': True,
         }
 
     return render(request, 'home/portfolio.html', context)
-
-
-
-
-
-
-#order = get_object_or_404(Order, order_number=order_number)
-#merch = Merch.objects.all()
-#merch = merch.filter(queries)

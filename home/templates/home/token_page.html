@@ -203,12 +203,12 @@
                         <p class="mb-0">
                             <span class="token-pg-h">Price</span> 
                             <br> 
-                            <span class="token-pg-data ${newDataTokenPg[0].direction === "higher" ? "higher" : newDataTokenPg[0].direction === "lower" ? "lower" : "same"}">£${newDataTokenPg[0].price}</span>
+                            <span class="token-pg-data ${newDataTokenPg[0].direction === "higher" ? "higher" : newDataTokenPg[0].direction === "lower" ? "lower" : "same"}">£${newDataTokenPg[0].price.toLocaleString()}</span>
                         </p>
                         <p class="mb-0">
                             <span class="token-pg-h">Market Cap</span> 
                             <br> 
-                            <span class="token-pg-data">£${newDataTokenPg[0].market_cap}</span>
+                            <span class="token-pg-data">£${newDataTokenPg[0].market_cap.toLocaleString()}</span>
                         </p>
                         <p class="mb-0 text-end">
                             <span class="token-pg-h">24%</span> 

@@ -16,7 +16,7 @@
             </div>
             <!-- Available equity -->
             <div class="col-7">
-                <h4 class="mb-0 section-title-h float-end">Available equity: £{{ 10000|intcomma }} </h4>
+                <h4 class="mb-0 section-title-h allowance float-end">Available equity: £{% if current_allowance %}{{ current_allowance|intcomma }}{% else %}10000{% endif %} </h4>
             </div>            
         </div>
     </div>
@@ -157,7 +157,6 @@
         /* Add data coming from the consumer to a variable */
         socket.onmessage = function(event) {
             let ws_tokens = JSON.parse(event.data);
-            console.log(ws_tokens);
 
             /* Filter through the consumer data to only extract the token matching the URL id */
             let newDataBuyTokenPg = ws_tokens.filter(ws_token => ws_token.id == "{{ api_data.0.id }}");
@@ -167,7 +166,7 @@
             document.querySelector(".buy-token-row").innerHTML = `
                 <div class="col-6">
                     <p class="slategrey mb-1">Price</p>
-                    <p class="buy-data mb-0 ${newDataBuyTokenPg[0].direction === "higher" ? "higher" : newDataBuyTokenPg[0].direction === "lower" ? "lower" : "same"}">£${newDataBuyTokenPg[0].price}</p>
+                    <p class="buy-data mb-0 ${newDataBuyTokenPg[0].direction === "higher" ? "higher" : newDataBuyTokenPg[0].direction === "lower" ? "lower" : "same"}">£${newDataBuyTokenPg[0].price.toLocaleString()}</p>
                 </div>
                 <div class="col-6">
                     <p class="slategrey mb-1">24h %</p>

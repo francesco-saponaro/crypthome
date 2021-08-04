@@ -60,9 +60,9 @@
                             <a href="{% url 'buy_token_page' api_token.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
                         <!-- Token info -->
-                        <td class="align-middle text-end">{{ api_token.current_price|floatformat:2|intcomma }}</td>
+                        <td class="align-middle text-end price">{{ api_token.current_price|floatformat:2|intcomma }}</td>
                         <td class="align-middle text-end">{{ api_token.price_change_percentage_24h|floatformat:2 }}</td>
-                        <td class="align-middle text-end">{{ api_token.market_cap|intcomma }}</td>
+                        <td class="align-middle text-end price">{{ api_token.market_cap|intcomma }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -90,9 +90,9 @@
                             <a href="{% url 'buy_token_page' api_token.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
                         <!-- Token info -->
-                        <td class="align-middle text-end">£{{ api_token.current_price|floatformat:2|intcomma }}
+                        <td class="align-middle text-end">£<span class="price">{{ api_token.current_price|floatformat:2|intcomma }}</span>
                             <br>
-                            <span class="x-small">MCap £{{ api_token.market_cap|intcomma }}</span>
+                            <span class="x-small">MCap £<span class="price">{{ api_token.market_cap|intcomma }}</span></span>
                         </td>
                     </tr>
                 {% endfor %}

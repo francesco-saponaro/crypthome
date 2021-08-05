@@ -340,10 +340,6 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     font-size: 10px;
 }
 
-.buy-token-btn-container {
-    height:25px;
-}
-
 /* Product form */
 .btn-file {
     position: relative;
@@ -613,6 +609,11 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     .token-pg-small-h {
         margin-bottom: 5px;
     }
+
+    .portfolio-header-row {
+        display:flex;
+        align-items: center;
+    }
 }
 
 @media (max-width: 725px) {
@@ -832,15 +833,15 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     .buy-crypto-container {
         width:80%;
     }
+
+    .allowance {
+        font-size:19px;
+    }
 }
 
 @media (max-width: 490px) {
     .portfolio, .watchlist {
         display:none;
-    }
-
-    .allowance {
-        font-size:19px;
     }
 }
 
@@ -851,6 +852,10 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 
     .cta a {
         font-size:12px;
+    }
+
+    .allowance {
+        font-size:17px;
     }
 }
 

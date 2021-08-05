@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse, \
-    HttpResponse, get_object_or_404
+    HttpResponse, HttpResponseRedirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -334,15 +334,49 @@ def portfolio(request, **kwargs):
            %20ripple&order=market_cap_desc&per_page=100&page=1&sparkline=false'
     data = requests.get(url).json()
 
-    # Get user profile to be passed into filter method.
+    # Get user profile to be passed into filter method and allowance
+    # object.
     profile = UserProfile.objects.get(user=request.user)
     # Filter positions by current user and order them descending.
     positions = BuyToken.objects.filter(user_profile=profile).order_by('-date')
 
+    # Create a list containing all positions values. In order to then pass
+    # them into the portfolio_value variable below.
+    total_positions_value = [position.token_amount * Decimal(token['current_price']) for position in positions for token in data if position.token_id == token['id']]
+
+    # Get or create allowance object by the user profile, we are
+    # using get or create to create a user_allowance field to in the variable
+    # below, in case the user has not bought anything yet.
+    allowance, _ = Allowance.objects.get_or_create(user=profile)
+    # Add the user allowance to the sum of all positions values in the list.
+    # Then pass the variable in the template.
+    portfolio_value = allowance.user_allowance + sum(total_positions_value)
+
+    # Add user allowance to a variable to be passed in the template.
+    # Needed to populate cash available section.
+    user_allowance = allowance.user_allowance
+
     context = {
         'positions': positions,
         'data': data,
+        'user_allowance': user_allowance,
+        'portfolio_value': portfolio_value,
         'dont_show_bag': True,
         }
 
     return render(request, 'home/portfolio.html', context)
+
+
+# Add funds view
+@login_required
+def add_funds(request):
+    # Get user profile to be passed into allowance object.
+    profile = UserProfile.objects.get(user=request.user)
+    # Get object by the user profile.
+    current_allowance = get_object_or_404(Allowance, user=profile)
+    # Increase allowance field by £10000
+    current_allowance.user_allowance += 10000
+    current_allowance.save()
+
+    messages.success(request, 'You have added £10,000 to your allowance!')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

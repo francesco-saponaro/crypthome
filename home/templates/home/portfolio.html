@@ -11,21 +11,30 @@
 
 {% block sub_header %}
     <div class="container-fluid">
-        <div class="row section-title py-2 px-sm-4">
+        <div class="row section-title py-2 px-sm-4 portfolio-header-row">
             <!-- Title -->
-            <div class="col-6">
+            <div class="col-6 col-md-4">
                 <h3 class="text-uppercase mb-0 section-title-h">My Portfolio</h3>
             </div>
-            <!-- Portfolio value -->
-            <div class="col-6">
-                <h4 class="mb-0 section-title-h float-end">Value: £{{ 10000|intcomma }}</h4>
-            </div>            
+            <!-- Medium screen Cash available -->
+            <div class="col-4 d-none d-md-block">
+                <h4 class="mb-0 section-title-h allowance text-center"><span class="text-muted">Cash:</span> £{{ user_allowance|floatformat:2|intcomma }}</h4>
+            </div>
+            <!-- Medium screen Portfolio value -->
+            <div class="col-4 d-none d-md-block">
+                <h4 class="mb-0 section-title-h allowance float-end"><span class="text-muted">Value:</span> £{{ portfolio_value|floatformat:2|intcomma }}</h4>
+            </div>
+            <!-- Small screen Cash and Portfolio values -->
+            <div class="col-6 d-block d-md-none text-end">
+                <h4 class="mb-0 section-title-h allowance"><span class="text-muted">Cash:</span> £{{ user_allowance|floatformat:2|intcomma }}</h4>
+                <h4 class="mb-0 section-title-h allowance"><span class="text-muted">Value:</span> £{{ portfolio_value|floatformat:2|intcomma }}</h4>
+            </div>        
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid token-pg-container pb-3">
+    <div class="container-fluid token-pg-container pt-md-3 pb-3">
         <!-- Stat chart -->
         <div class="row">
             <div class="col-12">
@@ -110,10 +119,11 @@
                     <div class="col-12 d-flex justify-content-between align-items-center">
                         <!-- Title -->
                         <h4 class="mb-0 section-title-h">Open orders:</h4>
-                        <!-- Back button -->
-                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
+                        <!-- Add funds button -->
+                        <a href="{% url 'add_funds' %}" class="btn bg-main text-light border-white rounded-0 back-btn float-end">
+                            Add 10k
                             <span class="icon">
-                                <i class="fas fa-chevron-left"></i>
+                                <i class="fas fa-money-bill-wave"></i>
                             </span>
                         </a>
                     </div>
@@ -136,7 +146,7 @@
                                     <td class="align-middle">
                                         <p class="text-muted small mb-0">Current value:</p>
                                         {% for token in data %}
-                                            {% if position.token_symbol == token.symbol %}
+                                            {% if position.token_id == token.id %}
                                                 £{{ position.token_amount | calc_current_total:token.current_price|floatformat:2|intcomma }}
                                             {% endif %}
                                         {% endfor %}

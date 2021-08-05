@@ -16,7 +16,7 @@
             </div>
             <!-- Available equity -->
             <div class="col-7">
-                <h4 class="mb-0 section-title-h allowance float-end">Available equity: £{% if current_allowance %}{{ current_allowance|intcomma }}{% else %}10000{% endif %} </h4>
+                <h4 class="mb-0 section-title-h allowance float-end"><span class="text-muted">Available equity:</span> £{% if current_allowance %}{{ current_allowance|intcomma }}{% else %}10000{% endif %} </h4>
             </div>            
         </div>
     </div>
@@ -26,33 +26,34 @@
 
     <!-- If there is data coming from the API -->
     {% if api_data %}
-        <!-- Up to 568px If coming from token page display back button, otherwise display go back to previous url page button -->
-        {% if request.META.HTTP_REFERER == url %}
-            <div class="container-fluid ps-5 mt-4 d-none d-md-block buy-token-btn-container">
-                <div class="row">
-                    <div class="col-12 float-start">
-                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 tokenpg-back-btn">
+        <div class="container-fluid px-5 my-4">
+            <div class="row">
+                <div class="col-12">
+                    <!-- From 568px If coming from token page display back button, otherwise display go back to previous url page button -->
+                    {% if request.META.HTTP_REFERER == url %}
+                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 tokenpg-back-btn float-start d-none d-md-block">
                             <span class="icon">
                                 <i class="fas fa-chevron-left"></i>
                             </span>
                             <span>Back to {% if request.META.HTTP_REFERER == url %} {{ api_data.0.name }}`s {% else %} previous {% endif %} page</span>
                         </a>
-                    </div>
-                </div>
-            </div>
-        {% else %}
-            <div class="container-fluid ps-3 ps-sm-5 mt-4 buy-token-btn-container">
-                <div class="row">
-                    <div class="col-12 float-start">
-                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn">
+                    {% else %}
+                        <a href="{{ request.META.HTTP_REFERER }}" class="btn bg-main text-light border-white rounded-0 back-btn float-start">
                             <span class="icon">
                                 <i class="fas fa-chevron-left"></i>
                             </span>
                         </a>
-                    </div>
+                    {% endif %}
+                    <!-- Add funds button -->
+                    <a href="{% url 'add_funds' %}" class="btn bg-main text-light border-white rounded-0 back-btn float-end">
+                        Add 10k
+                        <span class="icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </span>
+                    </a>
                 </div>
             </div>
-        {% endif %}
+        </div>
 
         <div class="container-fluid buy-crypto-container {% if request.META.HTTP_REFERER == url %} mt-5 mt-md-3 {% else %} mt-3 {% endif %} mb-3">
             <!-- Token data -->

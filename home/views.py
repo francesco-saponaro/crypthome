@@ -421,3 +421,13 @@ def add_funds(request):
 
     messages.success(request, 'You have added £10,000 to your allowance!')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+# Handle 404 errors.
+def handler404(request, exception):
+    return render(request, '404.html')
+
+
+# Handle 500 errors.
+def handler500(request):
+    return render(request, '500.html')

@@ -161,7 +161,6 @@
 
             /* Filter through the consumer data to only extract the token matching the URL id */
             let newDataBuyTokenPg = ws_tokens.filter(ws_token => ws_token.id == "{{ api_data.0.id }}");
-            console.log(newDataBuyTokenPg);
             
             /* Append extracted token to the appropriate container */
             document.querySelector(".buy-token-row").innerHTML = `
@@ -174,12 +173,12 @@
                     <p class="buy-data mb-0">${newDataBuyTokenPg[0].price_change.toFixed(2)}%</p>
                 </div>
             `;
-        }
+        };
 
         // On change, display to the user token amount equivalent to GBP input.
         document.getElementById('gbp-amount').addEventListener('change', () => {
-            let tokenAmount = document.querySelector('.token-amount')
+            let tokenAmount = document.querySelector('.token-amount');
             tokenAmount.innerText = (document.getElementById('gbp-amount').value / "{{ api_data.0.current_price }}");
-        })
+        });
     </script>
 {% endblock %}

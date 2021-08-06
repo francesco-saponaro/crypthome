@@ -63,7 +63,7 @@
                     </p>
                     {% if product.category %}
                         <p class="small mt-1 mb-0">
-                            <a href="{% url 'all_merch' %}?category={{ item.category.name }}" class="text-muted">
+                            <a href="{% url 'all_merch' %}?category={{ product.category.name }}" class="text-muted">
                                 <i class="fas fa-tag me-1"></i>{{ product.category.friendly_name }}
                             </a>
                         </p>

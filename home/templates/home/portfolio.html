@@ -63,37 +63,20 @@
                 var chart = am4core.create("chartdiv", am4charts.PieChart);
 
                 // Add data
-                chart.data = [ {
-                "country": "Lithuania",
-                "litres": 501.9
-                }, {
-                "country": "Czechia",
-                "litres": 301.9
-                }, {
-                "country": "Ireland",
-                "litres": 201.1
-                }, {
-                "country": "Germany",
-                "litres": 165.8
-                }, {
-                "country": "Australia",
-                "litres": 139.9
-                }, {
-                "country": "Austria",
-                "litres": 128.3
-                }
-                ];
+                chart.data = {{ tokens_list|safe }};
 
                 // Add and configure Series
                 var pieSeries = chart.series.push(new am4charts.PieSeries());
-                pieSeries.dataFields.value = "litres";
-                pieSeries.dataFields.category = "country";
+                pieSeries.dataFields.value = "gbp_amount";
+                pieSeries.dataFields.category = "token";
                 pieSeries.slices.template.stroke = am4core.color("#fff");
                 pieSeries.slices.template.strokeOpacity = 1;
                 pieSeries.labels.template.fill = am4core.color("white");
                 pieSeries.labels.template.fontSize = 12;
                 pieSeries.alignLabels = false;
                 pieSeries.labels.template.bent = true;
+                // To show only txt without percentage on labels.
+                pieSeries.labels.template.text = "{category}";
 
                 // This creates initial animation
                 pieSeries.hiddenState.properties.opacity = 1;

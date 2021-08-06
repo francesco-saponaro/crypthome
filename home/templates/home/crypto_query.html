@@ -11,7 +11,7 @@
     <!-- Call to action -->
     <div class="container-fluid">
         <div class="row bg-black text-center">
-            <div class="col-12 cta crypto-cta d-block d-md-flex justify-content-center">
+            <div class="col-12 cta crypto-cta d-block d-md-flex justify-content-center align-items-center">
                 <h4 class="body-white text-uppercase me-md-5 mb-md-0">Free delivery on merch orders over £{{ free_delivery_threshold }}!</h4> 
                 <a href="{% url 'all_merch' %}" class="btn rounded-0 text-uppercase">View Collection</a>
             </div>            
@@ -24,9 +24,20 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Intro marquee -->
+    <div class="container-fluid">
+        <div class="row section-title py-2 px-sm-4">
+            <div class="col-12">
+                <marquee behavior="scroll" direction="left" scrollamount="11" class="mb-0">This is a demo crypto trading platform. Buy and sell crypto, manage your balance and positions from your portfolio page. Explore tokens history, chart, data and purpose on their detailed page. Have fun!</marquee>
+            </div>
+        </div>
+    </div>
+    
     <div class="container-fluid mt-3 mb-5">
         <!-- If the query has been found in the data coming from the API, Iterate through it, create a table and display it's data-->
         {% if results %}
+            <!-- Dynamic price update time -->
+            <div class="update-time mb-2 small"></div>
             <!-- Table large screens -->
             <table class="table table-borderless d-none d-sm-table">
                 <!-- Table head -->
@@ -56,7 +67,7 @@
                         </td>
                         <td class="align-middle">
                             <!-- Buy button -->
-                            <a href="{% url 'buy_token' result.id %}" class="btn rounded-0 text-uppercase">Buy</a>
+                            <a href="{% url 'buy_token_page' result.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
                         <td class="align-middle text-end price">{{ result.current_price|floatformat:2|intcomma }}</td>
                         <td class="align-middle text-end">{{ result.price_change_percentage_24h|floatformat:2 }}</td>
@@ -84,7 +95,7 @@
                         </td>
                         <td class="align-middle">
                             <!-- Buy button -->
-                            <a href="{% url 'buy_token' result.id %}" class="btn rounded-0 text-uppercase">Buy</a>
+                            <a href="{% url 'buy_token_page' result.id %}" class="btn rounded-0 text-uppercase">Buy</a>
                         </td>
                         <td class="align-middle text-end">£<span class="price">{{ result.current_price|floatformat:2|intcomma }}</span>
                             <br>
@@ -134,7 +145,7 @@
                     </td>
                     <td class="align-middle">
                         <!-- Buy button -->
-                        <a href="buy_token/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
+                        <a href="/buy_token_page/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
                     </td>
                     <td class="align-middle text-end price ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">${ws_token.price}</td>
                     <td class="align-middle text-end">${ws_token.price_change.toFixed(2)}</td>
@@ -155,7 +166,7 @@
                     </td>
                     <td class="align-middle">
                         <!-- Buy button -->
-                        <a href="buy_token/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
+                        <a href="/buy_token_page/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
                     </td>
                     <td class="align-middle text-end ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">£<span class="price">${ws_token.price}</span>
                         <br><span class="x-small text-light">MCap £<span class="price">${ws_token.market_cap}</span></span>
@@ -174,7 +185,12 @@
             /* Convert token price amd Mcap from websocket into locale string format */
             document.querySelectorAll('.price').forEach(price => {
                 price.innerText = parseFloat(price.innerText).toLocaleString();
-            })
-        }
+            });
+
+            /* Display new date object everytime the websocket send data */
+            let date = new Date();
+            let dateString = date.toLocaleString();
+            document.querySelector('.update-time').innerText = `Price last update: ${dateString}`;
+        };
     </script>
 {% endblock %}

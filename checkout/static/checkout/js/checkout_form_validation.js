@@ -14,7 +14,7 @@ document.getElementById('submit-button').addEventListener('click', () => {
             }
         } else if(field.validity.valid && document.getElementById(`remove_${field.name}`)) {
             field.classList.remove('invalid-field');
-            document.getElementById(`remove_${field.name}`).remove()
+            document.getElementById(`remove_${field.name}`).remove();
         }
     });
     // On clicking submit button also add a "change" event to listen to
@@ -29,8 +29,8 @@ document.getElementById('submit-button').addEventListener('click', () => {
                 }
             } else if(field.validity.valid && document.getElementById(`remove_${field.name}`)) {
                 field.classList.remove('invalid-field');
-                document.getElementById(`remove_${field.name}`).remove()
+                document.getElementById(`remove_${field.name}`).remove();
             }
-        })
+        });
     });
 });

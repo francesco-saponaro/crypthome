@@ -9,6 +9,9 @@ from .models import BuyToken, Allowance
 # variable if its a decimal.
 from decimal import Decimal
 
+from django.db.models import Count
+from django.db.models import Sum
+
 # Install and import "requests" library to get data from the API
 import requests
 
@@ -356,11 +359,49 @@ def portfolio(request, **kwargs):
     # Needed to populate cash available section.
     user_allowance = allowance.user_allowance
 
+    # Add positions's tokens gbp amount into a list of dictionaries
+    # to populate the dashboard.
+    # AmCharts only works with lists of dictionaries.
+    tokens_list = []
+    tokens_dict = {}
+    for token in positions:
+        # Store object symbol and gbp_amount fields in a variable.
+        token_id = token.token_symbol.upper()
+        print(token_id)
+        gbp_amount = int(token.gbp_amount)
+
+        # Initialize the dictionary
+        # If the token_id variable is not in the dictionary set it
+        # with a value of 0 on the first occurrence.
+        if token_id not in tokens_dict:
+            tokens_dict[token_id] = 0
+            print(tokens_dict)
+        # And for next iterations append its gbp_amount value.
+        tokens_dict[token_id] += gbp_amount
+    print(tokens_dict)
+
+    # Convert the dictionary into separate dictionaries and
+    # append them to a list as AmCharts requires.
+    for token in tokens_dict.keys():
+        temp_token_dict = {
+            'token': token,
+            'gbp_amount': tokens_dict[token]
+        }
+        tokens_list.append(temp_token_dict)
+
+    # Also add remaining allowance to chart.
+    gbp_dict = {
+        'token': "GBP",
+        'gbp_amount': int(user_allowance)
+        }
+    tokens_list.append(gbp_dict)
+
     context = {
         'positions': positions,
         'data': data,
         'user_allowance': user_allowance,
         'portfolio_value': portfolio_value,
+        'tokens_list': tokens_list,
         'dont_show_bag': True,
         }
 

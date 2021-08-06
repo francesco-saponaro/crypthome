@@ -279,10 +279,10 @@
         // Submit form on clicking update-link
         document.querySelectorAll('.update-link').forEach((updateLink) => {
             updateLink.addEventListener('click', (e) => {
-                let form = updateLink.previousElementSibling
+                let form = updateLink.previousElementSibling;
                 form.submit();
-            })
-        })
+            });
+        });
 
         // Remove item and reload on click
         document.querySelectorAll('.remove-item').forEach((removeItem) => {
@@ -299,8 +299,8 @@
                  .done(function() {
                     location.reload();
                  });
-            })
-        })
+            });
+        });
     </script>
 {% endblock %}
 

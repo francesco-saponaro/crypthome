@@ -48,13 +48,13 @@ class OrderForm(forms.ModelForm):
             # Add regex validation to certain fields.
             if field == 'full_name':
                 self.fields[field].widget.attrs['pattern'] = "(?=^.{0,40}$)^[a-zA-Z-]+\s[a-zA-Z-]+$"
-                self.fields[field].widget.attrs['title'] = "Please add Name and Surname."
+                self.fields[field].widget.attrs['title'] = "Please add Name and Surname. Ensure only one space between the two."
             if field == 'email':
                 self.fields[field].widget.attrs['pattern'] = "\w+@\w+\.\w{2,10}"
-                self.fields[field].widget.attrs['title'] = "Please add a correct email format."
+                self.fields[field].widget.attrs['title'] = "Please add correct email format."
             if field == 'phone_number':
                 self.fields[field].widget.attrs['pattern'] = "\d+"
-                self.fields[field].widget.attrs['title'] = "Please add a phone number. Only digits allowed."
+                self.fields[field].widget.attrs['title'] = "Please add phone number. Only digits allowed."
             if field == 'country':
                 self.fields[field].widget.attrs['title'] = "Please select a country from the list."
             # Add class to all inputs

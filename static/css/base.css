@@ -56,7 +56,7 @@ body {
 /* Hero section */
 .hero-section img {
     position:absolute;
-    top:72px;
+    top:200px;
     left:0;
     width:100%;
     height:100%;
@@ -66,7 +66,7 @@ body {
 
 .overlay {
     position:absolute;
-    top:72px;
+    top:200px;
     left:0;
     width:100%;
     height:100%;
@@ -153,8 +153,8 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 
 /* Call to action */
 .crypto-cta {
-    margin-top:1rem;
-    margin-bottom:1rem;
+    margin-top:0.5rem;
+    margin-bottom:0.5rem;
 }
 
 .crypto-cta a {
@@ -582,14 +582,7 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 }
 
 @media (max-width: 768px) {
-    .hero-section img {
-        top:59px;
-    }
-
-    .overlay {
-        top:59px;
-    }
-
+    
     .crypto-cta h4 {
         margin-bottom: 10px;
     }
@@ -719,14 +712,6 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 
     .sub-title {
         font-size: 15px;
-    }
-
-    .hero-section img {
-        top:48px;
-    }
-
-    .overlay {
-        top:48px;
     }
 
     .cta h4 {

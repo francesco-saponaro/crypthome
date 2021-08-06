@@ -1,5 +1,5 @@
 let index = 0;
-slideShow()
+slideShow();
 
 function slideShow() {
     // Grab all image containers
@@ -11,7 +11,9 @@ function slideShow() {
     // Increase index variable by 1 and then check if index value is higher than slides array length
     // If it is reset index value to 1, in order to restart the loop from first image
     index++;
-    if (index > slides.length) {index = 1};
+    if (index > slides.length) {
+        index = 1;
+    }
 
     // Display slide iteration equalling the index value -1
     // -1 because the array index is zero-based

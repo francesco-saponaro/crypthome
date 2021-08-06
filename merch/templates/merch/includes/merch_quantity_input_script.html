@@ -1,5 +1,4 @@
 <script type="text/javascript">
-
     // Disable buttons fuction
     function HandleEnableDisable(itemId) {
         // Grab all quantity inputs by their item_id and for each check their value
@@ -9,7 +8,7 @@
             parseInt(input.value) < 2 ? input.previousElementSibling.firstElementChild.setAttribute('disabled', '') : input.previousElementSibling.firstElementChild.removeAttribute('disabled');
             // If value above 98 disable its incrementer
             parseInt(input.value) > 98 ? input.nextElementSibling.firstElementChild.setAttribute('disabled', '') : input.nextElementSibling.firstElementChild.removeAttribute('disabled');
-        })
+        });
     }
 
     // Grab all quantity input elements on both product detail and bag pages
@@ -18,15 +17,15 @@
     qtyInputs.forEach((input) => {
         let itemId = input.dataset.item_id;
         HandleEnableDisable(itemId);
-    })
+    });
 
     // Listen to change event on current built in up and down number box arrows of current quantity input and call the function, to prevent user to go above 99 or below 2 by using them
     qtyInputs.forEach((input) => {
         input.addEventListener('change', () => {
             let itemId = input.dataset.item_id;
-            HandleEnableDisable(itemId)
+            HandleEnableDisable(itemId);
         });
-    })
+    });
 
     // Grab incremement_qty elements on both product detail and bag pages
     let incrementers = document.querySelectorAll('.increment-qty');
@@ -44,10 +43,10 @@
             let itemId = incrementer.dataset.item_id;
             HandleEnableDisable(itemId);
         });
-    })
+    });
     
     // Grab incremement_qty elements on both product detail and bag pages
-    let decrementers = document.querySelectorAll('.decrement-qty')
+    let decrementers = document.querySelectorAll('.decrement-qty');
     // Decrement quantity on current input element
     decrementers.forEach((decrementer) => {
         decrementer.addEventListener('click', (e) => {
@@ -60,7 +59,7 @@
             siblingInput.value = parseInt(siblingInput.value) - 1;
             // Call disable button function on current decrementer
             let itemId = decrementer.dataset.item_id;
-            HandleEnableDisable(itemId)
+            HandleEnableDisable(itemId);
         });
-    })
+    });
 </script>

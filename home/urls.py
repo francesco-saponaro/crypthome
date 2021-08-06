@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('query/', views.crypto_query, name='crypto_query'),
+    path('crypto_query/', views.crypto_query, name='crypto_query'),
     path('portfolio/', views.portfolio, kwargs={'navbar': 'portfolio'},
          name='portfolio'),
     path('token_page/<token_id>/', views.token_page, name='token_page'),

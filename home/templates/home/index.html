@@ -11,7 +11,7 @@
     <!-- Call to action -->
     <div class="container-fluid">
         <div class="row bg-black text-center">
-            <div class="col-12 cta crypto-cta d-block d-md-flex justify-content-center">
+            <div class="col-12 cta crypto-cta d-block d-md-flex justify-content-center align-items-center">
                 <h4 class="body-white text-uppercase me-md-5 mb-md-0">Free delivery on merch orders over £{{ free_delivery_threshold }}!</h4> 
                 <a href="{% url 'all_merch' %}" class="btn rounded-0 text-uppercase">View Collection</a>
             </div>            
@@ -24,9 +24,20 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Intro marquee -->
+    <div class="container-fluid">
+        <div class="row section-title py-2 px-sm-4">
+            <div class="col-12">
+                <marquee behavior="scroll" direction="left" scrollamount="11" class="mb-0">This is a demo crypto trading platform. Buy and sell crypto, manage your balance and positions from your portfolio page. Explore tokens history, chart, data and purpose on their detailed page. Have fun!</marquee>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid mt-3 mb-5">
     <!-- If there is data coming from the API, Iterate through it, create a table and display it's data-->
         {% if api_data %}
+            <!-- Dynamic price update time -->
+            <div class="update-time mb-2 small"></div>
             <!-- Table large screens -->
             <table class="table table-borderless d-none d-sm-table">
                 <!-- Table head -->

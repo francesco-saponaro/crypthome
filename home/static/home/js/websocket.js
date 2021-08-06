@@ -58,5 +58,10 @@ socket.onmessage = function(event) {
     /* Convert token price amd Mcap from websocket into locale string format */
     document.querySelectorAll('.price').forEach(price => {
         price.innerText = parseFloat(price.innerText).toLocaleString();
-    })
-}
+    });
+
+    /* Display new date object everytime the websocket send data */
+    let date = new Date();
+    let dateString = date.toLocaleString();
+    document.querySelector('.update-time').innerText = `Price last update: ${dateString}`;
+};

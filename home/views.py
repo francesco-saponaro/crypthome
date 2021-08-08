@@ -3,18 +3,15 @@ from django.shortcuts import render, redirect, reverse, \
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
 from profiles.models import UserProfile
 from .models import BuyToken, Allowance
 # Import decimal in order to be able multiply the current_price
 # variable if its a decimal.
 from decimal import Decimal
 
-from django.db.models import Count
-from django.db.models import Sum
-
 # Install and import "requests" library to get data from the API
 import requests
-
 import re
 
 
@@ -186,7 +183,7 @@ def buy_token_page(request, token_id):
 
     # Get this token page url with token id, needed on template for "Back
     # to token page" button conditional.
-    url = f"https://8000-bronze-stingray-bewdyfh1.ws-eu14.gitpod.io/token_page/{token[0]['id']}/"
+    url = f"https://8000-bronze-stingray-bewdyfh1.ws-eu13.gitpod.io/token_page/{token[0]['id']}/"
 
     # If user is logged in calculate it's allowance and pass it on view.
     if request.user.is_authenticated:
@@ -226,7 +223,8 @@ def buy_token(request, token_id):
             # error message and reload page.
             if request.POST.get('gbp-amount') != '' and \
                request.POST.get('gbp-amount') != "0":
-                # Get targeted coin data from Coingecko API for math calculation.
+                # Get targeted coin data from Coingecko API for math
+                # calculation.
                 url = f'https://api.coingecko.com/api/v3/coins/markets?vs_currency=gbp&ids=\
                     {token_id}&order=market_cap_desc&per_page=100&page=1&sparkline=\
                         false'
@@ -247,7 +245,8 @@ def buy_token(request, token_id):
                 # If user allowance isn't less than the input GBP amount
                 # fill and save model, deduct the allowance by the
                 # GBP amount and send a success message.
-                if not current_allowance.user_allowance < int(request.POST.get('gbp-amount')):
+                if not current_allowance.user_allowance < int(
+                       request.POST.get('gbp-amount')):
                     # Get instance of BuyToken model, fill it and save it.
                     position = BuyToken()
                     position.user_profile = profile
@@ -255,7 +254,8 @@ def buy_token(request, token_id):
                     position.token_symbol = token[0]['symbol']
                     position.token_price = token[0]['current_price']
                     position.gbp_amount = request.POST.get('gbp-amount')
-                    position.token_amount = int(request.POST.get('gbp-amount')) / \
+                    position.token_amount = int(
+                        request.POST.get('gbp-amount')) / \
                         token[0]['current_price']
                     position.save()
 
@@ -345,7 +345,9 @@ def portfolio(request, **kwargs):
 
     # Create a list containing all positions values. In order to then pass
     # them into the portfolio_value variable below.
-    total_positions_value = [position.token_amount * Decimal(token['current_price']) for position in positions for token in data if position.token_id == token['id']]
+    total_positions_value = [position.token_amount * Decimal(
+        token['current_price']) for position in positions
+        for token in data if position.token_id == token['id']]
 
     # Get or create allowance object by the user profile, we are
     # using get or create to create a user_allowance field to in the variable
@@ -411,16 +413,21 @@ def portfolio(request, **kwargs):
 # Add funds view
 @login_required
 def add_funds(request):
-    # Get user profile to be passed into allowance object.
-    profile = UserProfile.objects.get(user=request.user)
-    # Get object by the user profile.
-    current_allowance = get_object_or_404(Allowance, user=profile)
-    # Increase allowance field by £10000
-    current_allowance.user_allowance += 10000
-    current_allowance.save()
+    try:
+        # Get user profile to be passed into allowance object.
+        profile = UserProfile.objects.get(user=request.user)
+        # Get object by the user profile.
+        current_allowance = get_object_or_404(Allowance, user=profile)
+        # Increase allowance field by £10000
+        current_allowance.user_allowance += 10000
+        current_allowance.save()
 
-    messages.success(request, 'You have added £10,000 to your allowance!')
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        messages.success(request, 'You have added £10,000 to your allowance!')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    except Exception as e:
+        messages.error(request, 'Sorry, there was an issue with your request\
+            . Please try again later.')
+        return HttpResponse(content=e, status=400)
 
 
 # Handle 404 errors.

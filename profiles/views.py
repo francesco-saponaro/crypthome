@@ -1,13 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from .models import UserProfile
 from .forms import UserProfileForm
-
 from checkout.models import Order
 
 
+# Profile view.
 @login_required
 def profile(request, **kwargs):
     # Get profile of current user.
@@ -31,7 +31,7 @@ def profile(request, **kwargs):
         form = UserProfileForm(instance=profile)
     # Use related name "orders" on the Order model to get the
     # current user's orders.
-    orders = profile.orders.all()
+    orders = profile.orders.all().order_by('-date')
 
     template = 'profiles/profile.html'
     context = {
@@ -43,23 +43,38 @@ def profile(request, **kwargs):
     return render(request, template, context)
 
 
+# Profile's order history view.
+@login_required
 def order_history(request, order_number):
+    # Get profile of current user.
+    profile = get_object_or_404(UserProfile, user=request.user)
     # Get the order by the order number.
     order = get_object_or_404(Order, order_number=order_number)
 
-    messages.info(request, (
-        f'This is a past confirmation for order number {order_number}. '
-        'A confirmation email was sent on the order date.'
-    ))
+    # If the order being accessed belongs to logged in user.
+    if order in profile.orders.all():
+        messages.info(request, (
+            f'This is a past confirmation for order number {order_number}. '
+            'A confirmation email was sent on the order date.'
+        ))
 
-    # I will use the checkout success template since it has already
-    # has a nice order confirmation.
-    # But i will also add a from profile variable to check if the user
-    # got there via the order history view.
-    template = 'checkout/checkout_success.html'
-    context = {
-        'order': order,
-        'from_profile': True,
-    }
+        # I will use the checkout success template since it has already
+        # has a nice order confirmation.
+        # But i will also add a from profile variable to check if the user
+        # got there via the order history view.
+        template = 'checkout/checkout_success.html'
+        context = {
+            'order': order,
+            'from_profile': True,
+        }
 
-    return render(request, template, context)
+        return render(request, template, context)
+    # Otherwise inform the user they are trying to access another user
+    # order, and redirect them to their profile page.
+    else:
+        messages.error(request, (
+            'The order history you tried to access belongs to another\
+                user.'
+        ))
+
+        return redirect(reverse('profile'))

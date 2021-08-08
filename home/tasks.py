@@ -3,6 +3,7 @@ from channels.layers import get_channel_layer
 from celery import shared_task
 from .models import Position
 from django.forms.models import model_to_dict
+
 # Install and import "requests" library to get data from the API.
 import requests
 

@@ -3,13 +3,13 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.db.models.functions import Lower
+
 from .models import Merch, Category
 from .forms import ProductForm
 
 
 # All merch view
 def all_merch(request):
-
     # Get all merch objects to be rendered on the template.
     merch = Merch.objects.all()
     # Set query and category to None initially to not get
@@ -108,14 +108,13 @@ def all_merch(request):
     return render(request, 'merch/all_merch.html', context)
 
 
+# Product detail view.
 def product_detail(request, product_id):
-
     # Get targeted product.
     product = get_object_or_404(Merch, pk=product_id)
 
     context = {
         'product': product,
-        'dont_show_bag': True,
     }
 
     return render(request, 'merch/product_detail.html', context)

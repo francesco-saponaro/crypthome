@@ -11,13 +11,15 @@
     <div class="container-fluid">
         <div class="row section-title py-2 px-sm-4">
             <!-- Title -->
-            <div class="col-5">
+            <div class="col-{% if request.user.is_authenticated %}5{% else %}12{% endif %}">
                 <h3 class="text-uppercase mb-0 section-title-h">Buy {{ api_data.0.name }}</h3>
             </div>
-            <!-- Available equity -->
-            <div class="col-7">
-                <h4 class="mb-0 section-title-h allowance float-end"><span class="text-muted">Available equity:</span> £{% if current_allowance %}{{ current_allowance|intcomma }}{% else %}10000{% endif %} </h4>
-            </div>            
+            {% if request.user.is_authenticated %}
+                <!-- Available equity -->
+                <div class="col-7">
+                    <h4 class="mb-0 section-title-h allowance float-end"><span class="text-muted">Available equity:</span> £{% if current_allowance %}{{ current_allowance|intcomma }}{% else %}10000{% endif %} </h4>
+                </div>
+            {% endif %}    
         </div>
     </div>
 {% endblock %}
@@ -43,13 +45,15 @@
                             </span>
                         </a>
                     {% endif %}
-                    <!-- Add funds button -->
-                    <a href="{% url 'add_funds' %}" class="btn bg-main text-light border-white rounded-0 back-btn float-end">
-                        Add 10k
-                        <span class="icon">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </span>
-                    </a>
+                    {% if request.user.is_authenticated %}
+                        <!-- Add funds button -->
+                        <a href="{% url 'add_funds' %}" class="btn bg-main text-light border-white rounded-0 back-btn float-end">
+                            Add 10k
+                            <span class="icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </span>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

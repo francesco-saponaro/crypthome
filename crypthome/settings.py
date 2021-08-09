@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-z&=l6nfy7qe#dwmslhm8hf#\
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['crypthome.herokuapp.com', 'localhost']
 
 
 # Application definition.
@@ -136,16 +136,17 @@ CELERY_BROKER_URL = 'redis://localhost:6379'
 # Database.
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse('DATABASE_URL')
     }
-}
-
-#DATABASES = {
-#    'default': dj_database_url.parse('postgres://#hurxmdelcbrelu:be4f0a707ef163821cf8bddefec62554fb680a4fd6813e9a29bf28e81b99c432@ec2-63-33-14-215.eu-west-1.compute.#amazonaws.com:5432/d86auck6a0b04a')
-#}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Configure channel layers.
 # Channel layers its a cue of messages that it receives from its clients

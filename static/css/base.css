@@ -108,6 +108,15 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
+.small-nav {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.small-nav .list-inline-item {
+    margin-right: 0;
+}
+
 .dropdown-item {
     color:#f8f9fa;
 }

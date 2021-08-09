@@ -120,9 +120,6 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
-# logs emails to console
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 WSGI_APPLICATION = 'crypthome.wsgi.application'
 ASGI_APPLICATION = 'crypthome.asgi.application'
 

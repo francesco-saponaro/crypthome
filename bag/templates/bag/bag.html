@@ -39,7 +39,7 @@
                                 <div class="col-12 col-sm-6 mb-2">
                                     <div>
                                     {% if item.product.image %}
-                                        <img class="img-fluid rounded w-100" src="/media/{{ item.product.image }}" alt="{{ item.product.name }}">
+                                        <img class="img-fluid rounded w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                                     {% else %}
                                         <img class="img-fluid rounded w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
                                     {% endif %}
@@ -157,7 +157,7 @@
                                     <td class="p-3 w-25">
                                         <div>
                                         {% if item.product.image %}
-                                            <img class="img-fluid rounded w-100" src="/media/{{ item.product.image }}" alt="{{ item.product.name }}">
+                                            <img class="img-fluid rounded w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                                         {% else %}
                                             <img class="img-fluid rounded w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
                                         {% endif %}

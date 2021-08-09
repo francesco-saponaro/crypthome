@@ -61,21 +61,21 @@
                         <!-- Token website -->
                         <li class="list-inline-item pe-2">
                             <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ api_detailed_data.links.homepage.0 }}" target="_blank">
-                                <img src="/media/{{ api_data.0.id }}-logo.svg" alt="" class="mb-1">
+                                <img src="{{ MEDIA_URL }}{{ api_data.0.id }}-logo.svg" alt="" class="mb-1">
                                 {{ api_data.0.name }} Website
                             </a>
                         </li>
                         <!-- Reddit -->
                         <li class="list-inline-item pe-2">
                             <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ api_detailed_data.links.subreddit_url }}" target="_blank">
-                                <img src="/media/reddit-logo.svg" alt="" class="mb-1">
+                                <img src="{{ MEDIA_URL }}reddit-logo.svg" alt="" class="mb-1">
                                 {{ api_data.0.name }} Subreddit
                             </a>
                         </li>
                         <!-- Github -->
                         <li class="list-inline-item">
                             <a class="token-pg-link text-light d-flex flex-column align-items-center" href="{{ api_detailed_data.links.repos_url.github.0 }}" target="_blank">
-                                <img src="/media/github-logo.svg" alt="" class="mb-1">
+                                <img src="{{ MEDIA_URL }}github-logo.svg" alt="" class="mb-1">
                                 {{ api_data.0.name }} Github repo
                             </a>
                         </li>

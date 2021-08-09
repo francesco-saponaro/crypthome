@@ -699,12 +699,6 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
     }
 }
 
-@media (max-width: 600px) {
-    .small-nav ul li .nav-link {
-        font-size: 12px;
-    }
-}
-
 @media (max-width: 576px) {
     .logo-font {
         font-size:38px;

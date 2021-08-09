@@ -183,7 +183,7 @@ def buy_token_page(request, token_id):
 
     # Get this token page url with token id, needed on template for "Back
     # to token page" button conditional.
-    url = f"https://8000-bronze-stingray-bewdyfh1.ws-eu13.gitpod.io/token_page/{token[0]['id']}/"
+    url = f"https://crypthome.herokuapp.com/token_page/{token[0]['id']}/"
 
     # If user is logged in calculate it's allowance and pass it on view.
     if request.user.is_authenticated:

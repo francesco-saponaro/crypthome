@@ -835,10 +835,10 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 
 @media (max-width: 420px) {
     .small-nav {
-        padding-right: 5px;
-        padding-left: 5px;
+        padding-right: 7px;
+        padding-left: 7px;
     }
-    
+
     .section-title-h {
         font-size:15px;
     }

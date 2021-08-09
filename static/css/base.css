@@ -112,6 +112,12 @@ body {
     margin-right: 0;
 }
 
+.small-nav .dropdown:focus {
+    background: -webkit-linear-gradient(right, #09793b, #00d4ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .dropdown-item {
     color:#f8f9fa;
 }

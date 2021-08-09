@@ -108,11 +108,6 @@ body {
     -webkit-text-fill-color: transparent;
 }
 
-.small-nav {
-    padding-right: 5px;
-    padding-left: 5px;
-}
-
 .small-nav .list-inline-item {
     margin-right: 0;
 }
@@ -839,6 +834,11 @@ input[name='q']::-ms-input-placeholder, input[name='token-amount']::-ms-input-pl
 }
 
 @media (max-width: 420px) {
+    .small-nav {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+    
     .section-title-h {
         font-size:15px;
     }

@@ -104,10 +104,6 @@ body {
     color:#ffc107;
 }
 
-.nav-link:focus-visible {
-    color:#ffc107;
-}
-
 .small-nav .list-inline-item {
     margin-right: 0;
 }

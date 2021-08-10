@@ -12,6 +12,7 @@ import requests
 # function.
 channel_layer = get_channel_layer()
 
+
 # The shared_task decorator connects this task to celery.
 @shared_task
 def get_crypto_data():

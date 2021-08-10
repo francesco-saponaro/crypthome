@@ -127,7 +127,7 @@ ASGI_APPLICATION = 'crypthome.asgi.application'
 # A broker is needed to pass Django tasks to the Celery workers.
 # When the broker gets a task from the Django app, it puts it in a
 # cue, then it starts sending this tasks to the workers.
-CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BROKER_URL = os.environ['REDIS_URL']
 
 
 # Database.
@@ -154,7 +154,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': [('127.0.0.1', 6379)],
+            'hosts': [os.environ.get('REDIS_URL', 6379)],
         }
     }
 }

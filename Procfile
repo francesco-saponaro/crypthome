@@ -1,1 +1,1 @@
-web: gunicorn crypthome.wsgi:application
+web: daphne crypthome.asgi:application

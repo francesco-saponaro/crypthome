@@ -97,22 +97,10 @@ body {
 }
 
 .nav-link:hover {
-    background: -webkit-linear-gradient(right, #09793b, #00d4ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.nav-link:focus {
-    background: -webkit-linear-gradient(right, #09793b, #00d4ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.small-nav .nav-link:hover {
     color:#ffc107;
 }
 
-.small-nav .nav-link:focus {
+.nav-link:focus {
     color:#ffc107;
 }
 

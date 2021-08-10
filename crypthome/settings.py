@@ -127,7 +127,7 @@ ASGI_APPLICATION = 'crypthome.asgi.application'
 # A broker is needed to pass Django tasks to the Celery workers.
 # When the broker gets a task from the Django app, it puts it in a
 # cue, then it starts sending this tasks to the workers.
-CELERY_BROKER_URL = os.environ.get('REDIS_URL')
+CELERY_BROKER_URL = os.environ['REDIS_URL']
 
 
 # Database.

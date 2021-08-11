@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
 """
 
 import os
-import django
 
 from django.core.asgi import get_asgi_application
 
@@ -19,7 +18,6 @@ from home.routing import ws_urlpatterns
 
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crypthome.settings')
-django.setup()
 
 # Instance of ProtocolTypeRouter class.
 # First Django channels check the type of connection, either HTTP or

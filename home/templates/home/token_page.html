@@ -179,7 +179,7 @@
             let ws_tokens = JSON.parse(event.data);
 
             /* Filter through the consumer data to only extract the token matching the URL id */
-            let newDataTokenPg = ws_tokens.filter(ws_token => ws_token.id == "{{ api_data.0.id }}");
+            let newDataTokenPg = ws_tokens.filter(ws_token => ws_token.tokenid == "{{ api_data.0.id }}");
            
             /* Append extracted token to the appropriate container */
             document.querySelector(".header-container").innerHTML = `

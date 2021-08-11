@@ -10,7 +10,7 @@ socket.onmessage = function(event) {
         `<tr>
             <td class="align-middle">${ws_token.rank}</td>
             <td class="align-middle text-start">
-                <a href="token_page/${ws_token.id}/" class="text-light link">
+                <a href="token_page/${ws_token.tokenid}/" class="text-light link">
                     <img src=${ws_token.image} height="30"> 
                     ${ws_token.name}
                     <span class="text-uppercase fw-bold symbol">${ws_token.symbol}</span>
@@ -18,7 +18,7 @@ socket.onmessage = function(event) {
             </td>
             <td class="align-middle">
                 <!-- Buy button -->
-                <a href="buy_token_page/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
+                <a href="buy_token_page/${ws_token.tokenid}/" class="btn rounded-0 text-uppercase">Buy</a>
             </td>
             <td class="align-middle text-end price ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">${ws_token.price}</td>
             <td class="align-middle text-end">${ws_token.price_change.toFixed(2)}</td>
@@ -31,7 +31,7 @@ socket.onmessage = function(event) {
         `<tr>
             <td class="align-middle"><img src=${ws_token.image} height="30"></td>
             <td class="text-start">
-                <a href="token_page/${ws_token.id}/" class="text-light link">
+                <a href="token_page/${ws_token.tokenid}/" class="text-light link">
                     ${ws_token.name}
                     <br><span class="bg-dark btn-sm">${ws_token.rank}</span>
                     <span class="text-uppercase fw-bold x-small">${ws_token.symbol}  ${ws_token.price_change.toFixed(2)}%</span>
@@ -39,7 +39,7 @@ socket.onmessage = function(event) {
             </td>
             <td class="align-middle">
                 <!-- Buy button -->
-                <a href="buy_token_page/${ws_token.id}/" class="btn rounded-0 text-uppercase">Buy</a>
+                <a href="buy_token_page/${ws_token.tokenid}/" class="btn rounded-0 text-uppercase">Buy</a>
             </td>
             <td class="align-middle text-end ${ws_token.direction === "higher" ? "higher" : ws_token.direction === "lower" ? "lower" : "same"}">£<span class="price">${ws_token.price}</span>
                 <br><span class="x-small text-light">MCap £<span class="price">${ws_token.market_cap}</span></span>

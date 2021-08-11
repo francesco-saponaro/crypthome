@@ -1,3 +1,3 @@
-web: daphne crypthome.asgi:application --port $PORT --bind 0.0.0.0
-celeryworker: celery worker --app=crypthome.taskapp --loglevel=info
+web: daphne -p $PORT -b 0.0.0.0 crypthome.asgi:application
+worker: celery worker --app=crypthome.celery.app -l DEBUG
 channelsworker: python manage.py runworker -v2

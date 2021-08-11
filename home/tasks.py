@@ -33,7 +33,7 @@ def get_crypto_data():
         # whether the object was created or not.
         p, _ = Position.objects.get_or_create(name=token['name'])
 
-        p.id = token['id']
+        p.tokenid = token['id']
         p.symbol = token['symbol']
         p.image = token['image']
 

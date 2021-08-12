@@ -36,6 +36,15 @@
     <div class="container-fluid mt-3 mb-5">
         <!-- If the query has been found in the data coming from the API, Iterate through it, create a table and display it's data-->
         {% if results %}
+            <div class="row">
+                <!-- Sorting results info -->
+                <div class="col-12">
+                    <p class="text-muted mb-2 text-start">
+                        <span class="small"><a href="{% url 'home' %}">All Cryptocurrencies</a> |</span>
+                        {{ results|length }} Tokens found for <strong>"{{ query }}"</strong>
+                    </p>
+                </div>
+            </div>
             <!-- Dynamic price update time -->
             <div class="update-time mb-2 small"></div>
             <!-- Table large screens -->

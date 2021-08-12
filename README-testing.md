@@ -22,66 +22,110 @@ This is a page dedicated to the project's testing process.
 ![Automated Pythone tests](/testing-screenshots/automated-python-tests.png) 
 
 ## Client stories testing
-The website flow is designed so that every page available to the user is accessible through the Navbar or slider menu, which interchange depending on screen size. The "Register" and "Log in" links interchange with the "Profile" and "Log out" links depending on if the user is logged in or not.  
-Defensive programming was implemented to:
-* Make sure logged in or logged out users are not able to access other user`s accounts and pages by pasting their URL. On trying to do so they will be redirected to the Home page.
-* Make sure users dont log in without authentication by pasting the right URL. On trying to do so they will be redirected to the Home page.
-* In the case of a 404 or 500 error the user will be redirected to a page informing him of the error and with a link to go back to the Home page.
+The website is divided in two major sections: Crypthome and Crypthomerch.   
+The flow is designed so that every page available to the user is accessible through the Navbar, which changes layout depending on screen size.  
+The nav link in fact move at the top of the page on screens smaller than 1000px and the portfolio link disappears on screens smaller than 500px. The portfolio link however, can also be found in the "My Account" dropdown. 
+The Crypthome and Crypthomerch links and logos interchange with each other depending on which of the two section is the user.
+The "Register" and "Log in" links interchange with the "Portfolio", "Profile" and "Log out" links depending on if the user is logged in or not.  
 ### As a user i want:
-* I want to browse through all recipes, to find inspiration for a meal.
-    * As soon as the user land in the home page he will see all available recipes displayed in panels and paginated.
-    * By clicking on the desired recipe he will be redirected to the recipe page.  
-* I want to browse recipes by:
-    * Recipe name
-    * Ingredient
-    * Meal type
-    * Difficulty
-    * Prep time
-    * Calories
-    * Country
-    * Dietary requirements
-    * Allergens
-    * High protein
-        * By clicking the "search" button on the top left of the page, selecting your parameters and clickin the "apply" button.
-        * The "search" button is available on every page but the "profile" and "dashboard" pages.
-* I want to log in to do a quick search for a recipe, to find inspiration for a meal when I am short of time.
-    * The "Quick search" dropdown menu page is located in the Navbar or Side menu depending on screen sizes.
-* I want to see the available stats, to see what users are most interested in or who is most active.
-    * The "Dashboard" page link is located in the Navbar or Side menu depending on screen sizes.
-* I want to register to add, edit and delete my own recipes.
-    * The "Register" page link is available whenever logged out and located in the Navbar or Side menu depending on screen sizes.
-* I want to log in to add, edit or delete a recipe.
-    * The "Log in" page link is available whenever logged out and located in the Navbar or Side menu depending on screen sizes.
-* I want to log in to add a recipe.
-    * The "Add recipe" page button is located on the right side of the screen and available on all pages but the "Dashboard" page, whenever logged in.
-    * By clicking on the button, filling the form and clicking the "Add recipe" button.
-* I want to log in to edit my own recipes.
-    * The "Edit recipe" page button is located on each of the user's recipe panel whenever logged in.
-    * By clicking on the button, editing the form and clicking the "Edit recipe" button.
-* I want to log in to delete my own recipes.
-    * The "Delete recipe" button is located on each of the user's recipe panel whenever logged in.
-    * By clicking on the button, and clicking the Modal's "Confirm" button.
-* I want to log in to like and unlike another user's recipe, to connect with the community and to add the recipe on my favourites bookmarked recipes section in my profile page.
-    * The "Like" button is located, in the form of a "Heart" icon, on each recipe panel whenever logged in.
-    * By clicking on the icon the user can like and unlike the recipe, on each click it will be redirected to the current page.
-* I want to log in to access my profile, to see if my recipes have more likes or comments or to go through my favourite recipes for inspiration.
-    * The "Profile" page link is available whenever logged in and located in the Navbar or Side menu depending on screen sizes.
-    * By clicking on the link, and clicking on either the "Your recipes" panel or the "Your favourite recipes" panel.
-* I want to log in to comment on other users recipes, to connect with the community.
-    * The "Comment" link is located on each recipe panel and at the top of each recipe page, whenever logged in.
-    * By clicking on the icon the user is redirected to that recipe page comments section, where it'll be able leave a comment 
-    * The comments section is also accessible by manually going to a recipe page and scrolling to the bottom.
-* I want to log in to see a specific recipe comments
-    * The "Comment" link is located on each recipe panel and at the top of each recipe page, whenever logged in.
-    * By clicking on the icon the user is redirected to that recipe page comments section, where it'll be able to see all comments.
-    * The comments section is also accessible by manually going to a recipe page and scrolling to the bottom.
-* I want to log in to remove a comment I posted.
-    * The "Delete comment" icon is located on the right side of each of the user's comment panel.
-* I want to log in to see which recipes are most liked or commented.
-    * The "Like" and "Comment" counts are located beside their respective icons.
-* I want to log in to see if any users liked my recipes or if any users commented on my recipes and who they were.
-    * The "Profile" page link is available whenever logged in and located in the Navbar or Side menu depending on screen sizes.
-    * By clicking on the link, and clicking on either the "Your recipes" panel or the "Your favourite recipes" panel.
+* I want to learn about cryptocurrencies history and purpose, to find out what is behind the latest mass interest.
+* I want to learn to trade cryptocurrencies, to one day profit from it.
+* I want to learn how to interpret cryptocurrencies data and charts, to learn how to trade them.
+* I want to check cryptocurrencies latest data and charts, to plan my next trading move.
+    * Home page![Home Page](/testing-screenshots/home-page.png)
+    * Home page table price update![Home Page price update](/testing-screenshots/home-page-price-update.png)
+    * Token page![Token Page](/testing-screenshots/token-page.png) 
+    * Token page price update![Token Page price update](/testing-screenshots/token-page-price-update.png)
+    * Token page "buy token" button![Token page buy token button](/testing-screenshots/token-page-buy-bitcoin-link.png) 
+    * Token page website link![Token page website link](/testing-screenshots/token-page-website-link.png) 
+    * Token website page![Token page website link2](/testing-screenshots/token-page-website-link2.png) 
+    * Token page Reddit link![Token page Reddit link](/testing-screenshots/token-page-reddit-link.png) 
+    * Token Reddit page![Token page Reddit link2](/testing-screenshots/token-page-reddit-page.png) 
+    * Token page Github link![Token page Github link](/testing-screenshots/token-page-github-link.png) 
+    * Token Github page![Token page Github link2](/testing-screenshots/token-page-github-link2.png) 
+    * Token page Chart link![Token page Chart link](/testing-screenshots/token-page-github-link.png) 
+    * Token Coingecko Chart page![Token page Chart link2](/testing-screenshots/token-page-chart-link2.png)  
+* I want to register and/or login to practice trading cryptocurrencies, to one day open a real account.
+* I want to register and/or login to buy a token, to learn how to trade.
+* I want to register and/or login to sell a token, to take profit on my position.
+* I want to register and/or login to check and manage my portfolio, to make sure my strategy is working and/or come out with a new plan.
+    * Buy token page![Buy token page](/testing-screenshots/buy-token-page.png)
+    * Buy token page price update![Buy token page price update](/testing-screenshots/buy-token-page-price-update.png)
+    * Buy token page "Add10k" to allowance button![Buy token page "Add10k" to allowance button](/testing-screenshots/buy-token-page-add10ktoallowance-button.png)
+    * Buy token page "Buy token" button![Buy token page "Buy token" button](/testing-screenshots/buy-token-page-buy-button.png)
+    * Successful token purchase message and Portfolio page redirect![Buy token page](/testing-screenshots/token-bought-and-redirect-to-portfolio-and-cashandvaluevalueschnaged.png)
+    * Successful "available equity" value deduction upon purchase![Available equity](/testing-screenshots/amount-over-allowance-and-availableequityamountchanged.png)
+    * Token purchase failure message when attempting to buy more than allowance value![Amount over allowance](/testing-screenshots/amount-over-allowance-message.png)
+    * Portfolio page, with graph chart of portfolio allocation, cash available to spend and total portfolio value![Portfolio page](/testing-screenshots/chart-value-cash-display-and-values.png)
+    * Portfolio page open positions table![bought-positions-table](/testing-screenshots/bought-positions-table.png)
+    * Open positions table sell button![bought-positions-table-sell-button](/testing-screenshots/bought-positions-table-sell-button.png)
+    * Successful position selling message and change of cash available value![position-sold-message-and-cash-value-change](/testing-screenshots/position-sold-message-and-cash-value-change.png)
+    * Crypto search bar![search-bar](/testing-screenshots/search-bar.png)
+    * Crypto search result![search-result](/testing-screenshots/search-result.png)
+    * Crypto search result price update![Crypto search result price update](/testing-screenshots/search-result-price-update.png)
+* I want to buy merchandise, to express my interest in cryptocurrencies or to gift to my friends.
+* I want to register and/or login to check my profile page to change my delivery details.
+* I want to register and/or login to check details of my past merchandise purchases.
+    * Crypthomerch home page![Crypthomerch home page](/testing-screenshots/crypthomerch-home-page.png)
+    * Crypthomerch accordion![Crypthomerch accordion](/testing-screenshots/crypthomerch-home-page-accordion.png)
+    * Crypthomerch accordion selection![Buy token page](/testing-screenshots/crypthomerch-home-page-accordion-selection.png)
+    * Crypthomerch accordion selection result![Buy token page](/testing-screenshots/crypthomerch-home-page-selection-result.png)
+    * All products page![All products page](/testing-screenshots/all-products-page.png)
+    * All clothing result![All clothing result](/testing-screenshots/all-clothing-result.png)
+    * Tag selection![Tag selection](/testing-screenshots/tag-selection.png)
+    * Tag selection result![Tag selection result](/testing-screenshots/tag-selection-result.png)
+    * Filter selection![Filter selection](/testing-screenshots/merch-filter-selection.png)
+    * Filter selection result![Filter selection result](/testing-screenshots/merch-filter-result.png)
+    * Product detail page (with image)![Product detail page (with image)](/testing-screenshots/product-with-image-page.png)
+    * Product detail page (no image)![Product detail page (no image)](/testing-screenshots/product-with-no-image-page.png)
+    * Product full size image target_blank redirect![Product full size image target_blank redirect](/testing-screenshots/target-blank-full-size-image-link.png)
+    * Add to bag success message![Add to bag success message](/testing-screenshots/add-to-bag-message.png)
+    * Shopping bag page![Shopping bag page](/testing-screenshots/shopping-bag-page.png)
+    * Successfully updated shopping bag message![Successfully updated shopping bag message](/testing-screenshots/update-shopping-bag-message.png)
+    * Successfully removed from shopping bag message![Successfully removed from shopping bag message](/testing-screenshots/remove-from-shopping-bag-message.png)
+    * Shopping bag totals![Shopping bag totals](/testing-screenshots/shopping-bag-totals.png)
+    * Checkout page![Checkout page](/testing-screenshots/checkout-page.png)
+    * Checkout page validation![Checkout page validation](/testing-screenshots/checkout-page-validation.png)
+    * Checkout authentication step![Checkout authentication step](/testing-screenshots/checkout-authentication-step.png)
+    * Checkout failed authentication![Checkout failed authentication](/testing-screenshots/failed-authentication.png)
+    * Successful checkout attempt![Successful checkout attempt](/testing-screenshots/successful-checkout-attempt.png)
+    * Checkout loading spinner![Checkout loading spinner](/testing-screenshots/checkout-loading-spinner.png)
+    * Successful checkout page and message![Successful checkout page and message](/testing-screenshots/successful-checkout-page-and-message.png)
+    * Profile page![Profile page](/testing-screenshots/profile-page.png)
+    * Profile page update![Profile page update](/testing-screenshots/profile-page-update.png)
+    * Merch search bar![Merch search bar](/testing-screenshots/merch-search-bar.png)
+    * Merch search result![Merch search result](/testing-screenshots/merch-search-result.png)
+    * Empty shopping bag![Empty shopping bag](/testing-screenshots/empty-shopping-bag.png)
+    * Add product with no image![Add product with no image](/testing-screenshots/add-product-with-no-image.png)
+    * Add product with image![Add product with image](/testing-screenshots/add-product-with-image.png)
+
+    * Edit product page![Edit product page](/testing-screenshots/product-editing-page.png)
+    * Add/edit product pages image widget![Add/edit product pages image widget](/testing-screenshots/add-image-widget.png)
+
+    * Successfully remove product![Successfully remove product](/testing-screenshots/remove-product.png)
+    * Sign out page![Sign out page](/testing-screenshots/sign-out-page.png)
+    * Sign out message![Sign out message](/testing-screenshots/sign-out-message.png)
+    * Sign in with wrong credentials![Sign in with wrong credentials](/testing-screenshots/sign-in-wrong-credentials.png)
+    * Successful sign in message![Successful sign in message](/testing-screenshots/sign-in-message.png)
+    * Password reset![Password reset](/testing-screenshots/reset-password.png)
+    * Sign up page![Sign up page](/testing-screenshots/sign-up-page.png)
+    * Sign up verify address step![Sign up verify address step](/testing-screenshots/register-verify-email-address.png)
+    * Address verified message![Address verified message](/testing-screenshots/address-verified-message.png)
+
+## Defensive programming tests
+* Attempt to access Portfolio page while logged out![Attempt to access Portfolio page while logged out](/testing-screenshots/defensive-portfolio2.png)
+* Attempt to access Profile page while logged out![Attempt to access Profile page while logged out](/testing-screenshots/defensive-profile.png)
+* Attempt to access Add product functionality while logged out![Attempt to access Add product functionality while logged out](/testing-screenshots/defensive-add-product2.png)
+* Attempt to access Edit product functionality while logged out![Attempt to access Edit product functionality while logged out](/testing-screenshots/defensive-edit.png)
+* Attempt to access Remove product functionality while logged out![Attempt to access Remove product functionality while logged out](/testing-screenshots/defensive-delete.png)
+* Attempt to access Add/Edit/Delete functionalities while not a superuser![Attempt to access Add/Edit/Delete functionalities while not a superuser](/testing-screenshots/defensive-add-edit-delete-not-superuser.png)
+* Attempt to edit non existing product![Attempto edit non existing product](/testing-screenshots/404-when-editing-nonexistent.png)
+* Attempt to remove non existing product![Attempto remove non existing product](/testing-screenshots/404-when-removing-nonexistent.png)
+
+* Attempt to access order history while logged out![Attempt to access order history while logged out](/testing-screenshots/logged-out-history.png)
+* Attempt to access another user order history![Attempt to access another user order history](/testing-screenshots/defensive-order-history.png)
+
+* 404 page![404 page](/testing-screenshots/404-page.png)
 
 ## Lighthouse
 * Passed all audits.

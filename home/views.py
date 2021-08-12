@@ -69,6 +69,7 @@ def crypto_query(request):
     context = {
         'results': results,
         'results_id': results_id,
+        'query': query,
         }
 
     return render(request, 'home/crypto_query.html', context)

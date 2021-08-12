@@ -1,5 +1,4 @@
 # Crypthome
-# UX
 ## Project Goals
 The purpose of this website is to allow users to learn about cryptocurrencies and learn how to trade them by being able to explore data and history on a selected token details page, demo buy and sell tokens, and manage positions via the portfolio page.  
 The user will also be able to purchase crypto merchandise via the e-commerce Crypthomerch section, therefore also bringing monetary incentive to the website owner. 
@@ -69,7 +68,7 @@ The PostgreSQL database contains 8 models:
     * Allows users to create an account and log in to take advantage of all features. 
 * Log out
     * Allows users to log out to protect their profile.
-* Every minute cryptocurrencies data tables
+* Cryptocurrencies data tables updated every minute
     * Allows users to have quick access to a token's basic data and buy button, it updates every minute with new actual data.
     * The price turns either green, red or white depending on if it's direction since previous minute. 
     * It has a date object updating every minute, telling the user exactly when the price was last updated.
@@ -172,33 +171,33 @@ Heroku will now receive the code from Github and start building the app using th
 * The deployed site was now available and automatically updated whenever I pushed changes to the Github repository.
 * My deployed website can be found [here](https://recipe-cookbook-fran.herokuapp.com/).
 
-# Credits
-## Code
-### HTML
+## Credits
+### Code
+#### HTML
 * The pattern "regex" on both the mailing list and modals email input was taken from [Geek for geeks](https://www.geeksforgeeks.org/html-dom-input-email-pattern-property/)
-### JavaScript
+#### JavaScript
 * The Maps JavaScript code was researched through The Google Maps and Places API pages and various Youtube instructional videos
 * The "selectItem" function in the script.js file was taken from [Traversy Media](https://www.traversymedia.com/)
 * The "clearValue" function was taken from [Traversy Media](https://www.traversymedia.com/)
 * The "sendMail" function was taken from [EmailJS](https://www.emailjs.com/docs/) through [Code Institute](https://codeinstitute.net/)
 
 
-## Content
-### Text 
+### Content
+#### Text 
 * The Main Page Hero section text and the Tab content items text was sourced at [Tokyo Ramen Tours](https://www.tokyoramentours.com/post/ramen-types-big-4)
 * The Regional Ramen pages text wa sourced at [Gurunavi](https://gurunavi.com/en/japanfoodie/2018/02/regional-ramen.html)
-### Quiz
+#### Quiz
 * The Quiz questions were partly sourced at [All the tests](https://www.allthetests.com/knowledge-trivia-tests/food-drinks/other-food-drinks/quiz23/1182521396/do-you-know-ramen-noodles)
 
-## Media 
-### Video
+### Media 
+#### Video
 * The video was sourced at [Pexels](https://www.pexels.com/video/person-using-chopsticks-getting-food-4224218/) - Video by alleksana from Pexels  
-### Icons
+#### Icons
 * The favicon was sourced at <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> 
 * The Main and Regional page menu Icon was sourced at <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> 
 *  The Map Markers Icon was sourced at <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a>
 * The Quiz Home page Icon was sourced at <a href="https://www.freepik.com/vectors/icons">rawpixel.com - www.freepik.com</a>
-### Images
+#### Images
 * The Images of the Form submission Modals and Quiz results Modals were sourced at <a href='https://www.freepik.com/vectors/food'>Food vector created by catalyststuff - www.freepik.com</a>
 * The Main Page Tab content Images were sourced at [Tokyo Ramen Tours](https://www.tokyoramentours.com/post/ramen-types-big-4)
 * The Regional Ramen dish images were sourced at [Gurunavi](https://gurunavi.com/en/japanfoodie/2018/02/regional-ramen.html)

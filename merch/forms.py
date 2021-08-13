@@ -26,3 +26,14 @@ class ProductForm(forms.ModelForm):
         self.fields['category'].choices = friendly_names
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'border-black rounded-0 box-shadow'
+
+        for field in self.fields:
+            # Add title and regex validation to certain fields.
+            if field == 'name' or 'description' or 'price':
+                self.fields[field].widget.attrs['title'] = \
+                    "Please fill in this field"
+            if field == 'image_url':
+                self.fields[field].widget.attrs['pattern'] = \
+                    "^https?://(?:[a-z0-9\-]+\.)+[a-z]{2,6}(?:/[^/#?]+)+\.(?:jpg|gif|png)$"
+                self.fields[field].widget.attrs['title'] = \
+                    "Please add valid URL format."

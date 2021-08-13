@@ -1,0 +1,79 @@
+<script type="text/javascript">
+    // On clicking the submit button, grab all form's required fields
+    // and for each of them check if is not valid. 
+    // If not valid add "invalid-field" class and if it doesnt already
+    // have the error message span element, add it.
+    // Else if valid and has the error message span element, remove invalid
+    // class and span element.
+    document.getElementById('product-submit-btn').addEventListener('click', () => {
+        let requiredField = document.querySelectorAll('[required]');
+        requiredField.forEach((field) => {
+            if(!field.validity.valid) {
+                field.classList.add('invalid-field');
+                if(!document.getElementById(`remove_${field.name}`)) {
+                    field.insertAdjacentHTML("afterEnd", `<span id="remove_${field.name}" class='text-danger invalid-text'>${field.title}</span>`);
+                }
+            } else if(field.validity.valid && document.getElementById(`remove_${field.name}`)) {
+                field.classList.remove('invalid-field');
+                document.getElementById(`remove_${field.name}`).remove();
+            }
+        });
+
+        // For the image URL field, if it's not empty, check if the value matches the regex pattern.
+        // If it doesnt add "invalid-field" class and if it doesnt already have the error message span element, add it.
+        // Else If not empty and matches the pattern, remove the invalid class and, if it has the error span element remove it.
+        // Else if empty, remove the invalid class and, if it has the error span element remove it.
+        let url = document.getElementsByName("image_url")[0];
+        let urlPattern = document.getElementsByName("image_url")[0].pattern;
+        var re = new RegExp(urlPattern);
+        if(url.value != '' && re.test(url.value) == false) {
+            url.classList.add('invalid-field');
+            if(!document.getElementById(`remove_${url.name}`)) {
+                url.insertAdjacentHTML("afterEnd", `<span id="remove_${url.name}" class='text-danger invalid-text'>${url.title}</span>`);
+            }
+        } else if(url.value != '' && re.test(url.value)) {
+            url.classList.remove('invalid-field');
+            if(document.getElementById(`remove_${url.name}`)) {
+                document.getElementById(`remove_${url.name}`).remove();
+            }
+        } else if(url.value == '' && document.getElementById(`remove_${url.name}`)) {
+            url.classList.remove('invalid-field');
+            document.getElementById(`remove_${url.name}`).remove();
+        }
+        // On clicking submit button also add a "change" event to listen to
+        // validation.
+        document.querySelector('.form').addEventListener('change', () => {
+            // Required fields
+            let requiredField = document.querySelectorAll('[required]');
+            requiredField.forEach((field) => {
+                if(!field.validity.valid) {
+                    field.classList.add('invalid-field');
+                    if(!document.getElementById(`remove_${field.name}`)) {
+                        field.insertAdjacentHTML("afterEnd", `<span id="remove_${field.name}" class='text-danger invalid-text'>${field.title}</span>`);
+                    }
+                } else if(field.validity.valid && document.getElementById(`remove_${field.name}`)) {
+                    field.classList.remove('invalid-field');
+                    document.getElementById(`remove_${field.name}`).remove();
+                }
+            });
+            // Image URL field
+            let url = document.getElementsByName("image_url")[0];
+            let urlPattern = document.getElementsByName("image_url")[0].pattern;
+            var re = new RegExp(urlPattern);
+            if(url.value != '' && re.test(url.value) == false) {
+                url.classList.add('invalid-field');
+                if(!document.getElementById(`remove_${url.name}`)) {
+                    url.insertAdjacentHTML("afterEnd", `<span id="remove_${url.name}" class='text-danger invalid-text'>${url.title}</span>`);
+                }
+            } else if(url.value != '' && re.test(url.value)) {
+                url.classList.remove('invalid-field');
+                if(document.getElementById(`remove_${url.name}`)) {
+                    document.getElementById(`remove_${url.name}`).remove();
+                }
+            } else if(url.value == '' && document.getElementById(`remove_${url.name}`)) {
+                url.classList.remove('invalid-field');
+                document.getElementById(`remove_${url.name}`).remove();
+            }
+        });
+    });
+</script>

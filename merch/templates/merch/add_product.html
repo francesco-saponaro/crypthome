@@ -62,7 +62,7 @@
                             Cancel
 						</a>
                         <!-- Add product button -->
-						<button type="submit" class="btn atb-btn text-light rounded-0 text-uppercase">
+						<button type="submit" id="product-submit-btn" class="btn atb-btn text-light rounded-0 text-uppercase">
 							Add Product
 						</button>                
                     </div>
@@ -72,9 +72,11 @@
     </div>
 {% endblock %}
 
-<!-- Image field script -->
 {% block postloadjs %}
     {{ block.super }}
+    <!-- Product form validation script -->
+    {% include 'merch/includes/product_form_validation.html' %}
+    <!-- Image field script -->
     <script type="text/javascript">
         $('#new-image').change(function() {
             var file = $('#new-image')[0].files[0];

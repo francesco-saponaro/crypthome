@@ -61,7 +61,7 @@ The "Register" and "Log in" links interchange with the "Portfolio", "Profile" an
     * Open positions table sell button![bought-positions-table-sell-button](/testing-screenshots/bought-positions-table-sell-button.png)
     * Successful position selling message and change of cash available value![position-sold-message-and-cash-value-change](/testing-screenshots/position-sold-message-and-cash-value-change.png)
     * Crypto search bar![search-bar](/testing-screenshots/search-bar.png)
-    * Crypto search result![search-result](/testing-screenshots/search-result.png)
+    * Crypto search result![search-result](/testing-screenshots/search-results.png)
     * Crypto search result price update![Crypto search result price update](/testing-screenshots/search-result-price-update.png)
 * I want to buy merchandise, to express my interest in cryptocurrencies or to gift to my friends.
 * I want to register and/or login to check my profile page to change my delivery details.
@@ -96,12 +96,13 @@ The "Register" and "Log in" links interchange with the "Portfolio", "Profile" an
     * Merch search bar![Merch search bar](/testing-screenshots/merch-search-bar.png)
     * Merch search result![Merch search result](/testing-screenshots/merch-search-result.png)
     * Empty shopping bag![Empty shopping bag](/testing-screenshots/empty-shopping-bag.png)
+
     * Add product with no image![Add product with no image](/testing-screenshots/add-product-with-no-image.png)
     * Add product with image![Add product with image](/testing-screenshots/add-product-with-image.png)
-
     * Edit product page![Edit product page](/testing-screenshots/product-editing-page.png)
     * Add/edit product pages image widget![Add/edit product pages image widget](/testing-screenshots/add-image-widget.png)
-
+    * Add/edit forms required fields validation![Add/edit forms required fields validation](/testing-screenshots/add-edit-product-form-required-validation.png)
+    * Add/edit forms Image url field validation![Add/edit forms Image url field validation](/testing-screenshots/add-edit-product-form-imageurl-validation.png)
     * Successfully remove product![Successfully remove product](/testing-screenshots/remove-product.png)
     * Sign out page![Sign out page](/testing-screenshots/sign-out-page.png)
     * Sign out message![Sign out message](/testing-screenshots/sign-out-message.png)
@@ -121,7 +122,6 @@ The "Register" and "Log in" links interchange with the "Portfolio", "Profile" an
 * Attempt to access Add/Edit/Delete functionalities while not a superuser![Attempt to access Add/Edit/Delete functionalities while not a superuser](/testing-screenshots/defensive-add-edit-delete-not-superuser.png)
 * Attempt to edit non existing product![Attempto edit non existing product](/testing-screenshots/404-when-editing-nonexistent.png)
 * Attempt to remove non existing product![Attempto remove non existing product](/testing-screenshots/404-when-removing-nonexistent.png)
-
 * Attempt to access order history while logged out![Attempt to access order history while logged out](/testing-screenshots/logged-out-history.png)
 * Attempt to access another user order history![Attempt to access another user order history](/testing-screenshots/defensive-order-history.png)
 
@@ -150,3 +150,5 @@ After many attempts to fix it I had to delete both my Sqlite3 and PostgreSQL dat
 * On the coins_desc variable of the home.views, unfortunately I couldn't use a single regex to remove all anchor tags of the text coming from the API. For each tag I had to copy exaxt matched string to replace.  
 I have taken this regex from stack overflow '("<(?:a\b[^>]*>|/a>)", "")' but was not working. Even the tutors were not able to find the issue as the regex are valid and were tested with a regex validator.
 * Upon testing the "fail authentication" payment scenario with stripe, I get the "Devtools failed to load source map" warning, however it doesn't affect the code.
+* Once the app starts idling after 30 minutes, the app changes from up to down, and exits with status 0 and therefore the price stops being updated automatically.  
+After researching on Stack Overflow, I have discovered that, If on the Heroku free tier, then this is expected behavior. It should restart on the next web request to it, so it is definitely not an issue and unnoticeable unless the user stays on the same page for 30 minutes. But the latest terms for the free tier don't let you keep it on 24/7 even if that many requests come in.

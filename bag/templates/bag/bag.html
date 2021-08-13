@@ -40,6 +40,8 @@
                                     <div>
                                     {% if item.product.image %}
                                         <img class="img-fluid rounded w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                    {% elif not item.product.image and item.product.image_url %}
+                                        <img class="w-100" src="{{ item.product.image_url }}" alt="{{ item.product.name }}">
                                     {% else %}
                                         <img class="img-fluid rounded w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
                                     {% endif %}
@@ -161,6 +163,8 @@
                                         <div>
                                         {% if item.product.image %}
                                             <img class="img-fluid rounded w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                        {% elif not item.product.image and item.product.image_url %}
+                                            <img class="w-100" src="{{ item.product.image_url }}" alt="{{ item.product.name }}">
                                         {% else %}
                                             <img class="img-fluid rounded w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
                                         {% endif %}

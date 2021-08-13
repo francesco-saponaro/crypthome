@@ -154,22 +154,31 @@ The PostgreSQL database contains 8 models:
 * [PostgreSQL](https://www.postgresql.org/)
     * PostgreSQL was used as the relational database.
 
-
-
-## Deployment DEPLOYMENT SECTION AS TO INSTRUCT A THIRD PARTY
-This project was developed using Gitpod, a [Github repository](https://github.com/francesc-droid/recipe-cookbook) was created and regular commits were pushed to the repository through Git commands.
+## Deployment
+This project was developed using Gitpod, a [Github repository](https://github.com/francesco-saponaro/crypthome) was created and regular commits were pushed to the repository through Git commands.
 
 The project was deployed to [Heroku](https://www.heroku.com/) using the following steps:
-* Set environment variables and made sure they were in the gitignore file and not being tracked.
-* Created requirements.txt for dependencies and Procfile to tell which file is required to run the app: pip3 freeze --local requirements.txt echo web: python app.py > Procfile. I made sure you remove the blank line from the Procfile as it might cause problems when running the app on Heroku.
-* Created new Heroku app from the Heroku website by clicking "Create new app".
-* Connected my app from my Github repository by clicking on the Github icon in my app's "Deploy" section, then clicked "Search" and once it found my repo I clicked "connect".
-* Before I clicked "Enable automatic deployment" I needed to tell Heroku which hidden environment variables were required (the ones hidden in the env.py file), so I clicked on the "Settings" tab and then on "Reveal config vars" and added all required hidden variables.
-* Went back to "Deploy" tab, clicked on "Enable automatic deployment" and then directly below it clicked on "Deploy branch"
-Heroku will now receive the code from Github and start building the app using the required packages.
-* After a minute or so the message "Your app was successfully deployed" appeared, I then clicked on the "View" button below that message to launch my app.
-* The deployed site was now available and automatically updated whenever I pushed changes to the Github repository.
-* My deployed website can be found [here](https://recipe-cookbook-fran.herokuapp.com/).
+* Created an heroku app.
+* On the resources tab I have installed the "Heroku Postgres" and "Heroku redis" add ons, both with the "Hobby dev - free" plan. The first will serve as the production server and the second serves as the message broker.
+* To use Postgres I had to install "dj_database_url" and "psyco-pg2" on Gitpod and then freeze the requirements with the "pip3 freeze > requirements.txt" command.
+* On settings.py I have imported "dj_database_url", commented out the the "sqlite3" "DATABASES" variable and replace the default database with a call to "dj_database_url.parse()" and give it the database url from Heroku, which I got from the environment variable in the Heroku settings tab. 
+* I ran migrations with "python3 manage.py migrate", to apply all migrations to my new database.
+* To import all my "products" and "categories" data from the old database, I reconnected to the old database, ran the "python3 manage.py dumpdata merch.Category > categories.json" and the "python3 manage.py dumpdata merch.Merch > merch.json" commands to dump their data into a json file. 
+To load these files in Postgres, I reconnected to Postgres and ran the "python3 manage.py loaddata categories.json" and "python3 manage.py loaddata merch.json" , making sure to load categories first, as the products depend from them.
+* I re created a superuser by running the "python3 manage.py createsuperuser" command.
+* On settings.py I added a conditional so that when the app is running on Heroku the Postgres will be used and if in development it will run with the sqlite3 database.
+* I created a "Procfile" to tell Heroku to create a web dyno, which will run Daphne and the Celery worker and beat and serve our Django app.   
+The exact setup looks like this:    
+    web: daphne -p $PORT -b 0.0.0.0 crypthome.asgi:application  
+    worker: celery -A crypthome worker -l info -B
+* I temporarily disabled collectstatic by running the "heroku config:set DISABLE_COLLECTSTATIC=1 --app crypthome", so that Heroku wouldn't try to collect static files, which will be stored in Amazon Web Services instead.
+* Lastly I added the hostname of my Heroku app to the "ALLOWED_HOSTS" list in settings.py.
+* To deploy I first added, committed and then pushed my changes to github, and then ran the "git push heroku master" command. Heroku received the code from Github and started building the app using the required packages from requirements.txt.
+* I then set up the app to deploy automatically to Heroku everytime I push to Github, by going to the "deploy" tab in Heroku, pressing the "connect to github" button, finding my repository and clicking "connect". With that done I clicked on "enable automatic deploys" just below.
+* I generated a secret key for my Heroku app through secret key generator website, and added it as an environment variable in the "config vars" section in Heroku settings.    
+With that created, I replaced the secret key in settings.py with the call to get it from the environment instead.
+* In settings.py I also set the "DEBUG" variable to true only if there is a variable called "DEVELOPMENT" in the environment.
+* My deployed website can be found [here](https://crypthome.herokuapp.com/).
 
 ## Credits
 ### Code

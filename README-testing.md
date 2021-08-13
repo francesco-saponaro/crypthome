@@ -147,7 +147,10 @@ The "Register" and "Log in" links interchange with the "Portfolio", "Profile" an
 * The nav links move to the top of the screen from 1000px downwards.
 
 ## Bugs discovered
-* I had great trouble deploying Celery, hence the many repeated commit messages towards the end of the projcts. However after plenty of research I managed to deploy it successfully.
+* I had great trouble deploying Celery, hence the many repeated commit messages towards the end of the projcts. However after plenty of research online I managed to deploy it successfully. There were three main issues:
+    * In the Procfile had to remove Gunicorn and install Daphne instead (as it is an asynchronous application) and pass it my "application" variable from asgi.py. 
+    * In the asgi file I also had to import the "get_asgi_application" method at the very top before all other imports.
+    * In the Procfile I had to pass the celery worker and beat, but I had to do it in one line as Heroku can only run two dynos at the time apparently. So by adding -B to the worker command, I managed to add the beat to it, therefore having the worker and beat in one command.
 * Upon changing a model field of the Position model in home.models and running the "makemigrations" command, I have been unable to either migrate or access the model in Admin, and kept getting an OperationalError. Somehow the field changed but there was a model instance in the database with the old field, therefore giving an error.   
 After many attempts to fix it I had to delete both my Sqlite3 and PostgreSQL databases, reinstall them, rerun migrations and load the data again. This fixed the issue.
 * On the coins_desc variable of the home.views, unfortunately I couldn't use a single regex to remove all anchor tags of the text coming from the API. For each tag I had to copy exaxt matched string to replace.  

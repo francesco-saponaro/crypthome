@@ -15,6 +15,7 @@ import stripe
 import json
 
 
+# THE 3 FUNCTIONS BELOW WERE TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 # We expect the POST method only in this view.
 # Before we call the confirmCardPayment method in the stripe
 # javascript, we make a post request to this view.

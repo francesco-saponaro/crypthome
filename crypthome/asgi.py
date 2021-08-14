@@ -19,6 +19,8 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 
 from home.routing import ws_urlpatterns
 
+
+# PART THIS VARIABLE SET UP WAS TAKEN FROM THE YOUTUBE "PYPLANE" CHANNEL
 # Instance of ProtocolTypeRouter class.
 # First Django channels check the type of connection, either HTTP or
 # websocket. If it is a websocket connection it'll be passed to the

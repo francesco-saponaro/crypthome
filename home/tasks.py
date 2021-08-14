@@ -37,6 +37,7 @@ def get_crypto_data():
         p.symbol = token['symbol']
         p.image = token['image']
 
+        # THIS CONDITIONAL WAS TAKEN FROM THE YOUTUBE "PYPLANE" CHANNEL
         # Compare the price in database with current price in data and
         # create a new variable with a value dependent on their price
         # difference.

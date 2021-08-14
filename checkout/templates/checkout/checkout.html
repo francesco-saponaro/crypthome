@@ -172,6 +172,7 @@
 {% block postloadjs %}
     {{ block.super }}
     <!-- Must use the json script filter in order to render django template variables and access them in an external javascript file -->
+    <!-- THIS CODE WAS TAKEN FROM CODE INSTITUTE'S MINI PROJECT -->
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
     <!-- Stripe script -->

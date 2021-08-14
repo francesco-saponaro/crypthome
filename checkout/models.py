@@ -10,6 +10,7 @@ from merch.models import Merch
 from profiles.models import UserProfile
 
 
+# THE 2 MODELS BELOW WERE TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 # Order model.
 class Order(models.Model):
     # This first field is non editable as it will be automatically

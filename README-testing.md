@@ -16,6 +16,7 @@ This is a page dedicated to the project's testing process.
         * Some models give errors like the following: "Instance of 'ForeignKey' has no 'price' member". I don't understand what is causing this error, as all foreign keys have the member and the code works fine.
         * I cannot divide the lines in the AUTH_PASSWORD_VALIDATORS list as i did on all other lines too long. Somehow if I do, no matter where I place the trailing slash, the code stops working.
         * Same issue as above occurs with some of the replace methods in home.views, there are a few in which if I place a trailing slash the code stops working.
+        * In the asgi.py file I get a "module not imported at top of file error", however I had to import them below the get_asgi_application() method in order for the code to work.
 
 ## Automated Python testing
 * I had great trouble testing for views that require authentication. I am afraid I haven't been able to research or practice the TestCase class, however I kept all tests that passed and the rest will be tested manually nonetheless.

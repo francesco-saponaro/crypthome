@@ -7,6 +7,8 @@ from checkout.webhook_handler import StripeWH_Handler
 
 import stripe
 
+
+# THIS FUNCTION WAS TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 # Anytime stripe sends us a webhook this view will be
 # executed and itll let us handle it however we need to.
 # This decorator will make this view require a POST request.

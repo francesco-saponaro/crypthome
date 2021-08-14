@@ -2,6 +2,7 @@ from django import forms
 from .models import UserProfile
 
 
+# THIS FORM WAS TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 class UserProfileForm(forms.ModelForm):
     class Meta:
         # Telling the form which model is associated with.

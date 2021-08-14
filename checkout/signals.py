@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from .models import OrderLineItem
 
 
+# THESE TWO FUNCTIONS WERE TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 # Receiver decorator to execute this function anytime
 # the post_save signal is sent from the OrderLineItem model.
 @receiver(post_save, sender=OrderLineItem)

@@ -12,6 +12,7 @@ def view_bag(request):
     return render(request, 'bag/bag.html')
 
 
+# THE 3 FUNCTIONS BELOW WERE TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 # Add to bag view
 def add_to_bag(request, item_id):
     """ Add a quantity of the specified product to the shopping bag """

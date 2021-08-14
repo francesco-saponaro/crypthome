@@ -6,6 +6,7 @@ from django.dispatch import receiver
 from django_countries.fields import CountryField
 
 
+# THIS CLASS WAS TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 # User profile model for maintaining default
 # merch delivery information and order history.
 class UserProfile(models.Model):

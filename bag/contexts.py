@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from merch.models import Merch
 
 
+# THIS FUNCTION WAS TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 # Custom context processor to be on all templates.
 def bag_contents(request):
 

@@ -2,6 +2,7 @@ from django.forms.widgets import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 
 
+# THE CLASS BELOW WAS TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 # Class inheriting built in widgets that handle image fields.
 class CustomClearableFileInput(ClearableFileInput):
     # Override label and text with our own value.

@@ -2,6 +2,7 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 
+# THE CONSUMER PROCESS WAS STUDIED ON THE PYPLANE YOUTUBE CHANNEL
 # Instance of AsyncWebsocketConsumer class.
 # We are accepting the incoming Websocket connection.
 # We want to add the incoming connection to a group of channels.

@@ -4,8 +4,8 @@ The purpose of this website is to allow users to learn about cryptocurrencies an
 The user will also be able to purchase crypto merchandise via the e-commerce Crypthomerch section, therefore also bringing monetary incentive to the website owner. 
 ### Note for the assessor
 Although a profile is not needed to explore the website and buy merchandise from Crypthomerch, most of Crypthome features like demo buying and selling tokens, and access to the portfolio page are available once registered and logged in.  
-If you would like to test run the website and have fun with the features without having to create an account, you can use this account which has plenty of positions and history on its name:  
-**USERNAME: fran, PASSWORD: codeinstitute**.  
+If you would like to test run the website and have fun with the features without having to create an account, you can use this superuser account which has plenty of positions and history on its name:  
+**USERNAME: fran, EMAIL:francescosaponaro5@gmail.com, PASSWORD: codeinstitute**.
 Enjoy :)
 
 ## User Stories
@@ -52,6 +52,8 @@ Bootstrap framework was chosen due to its consistent design, responsiveness feat
 [Link to Wireframes](/wireframes/crypthome-wireframes.pdf)
 
 ## Database schema
+The database Conceptual Data Model can be found here [Conceptual Data Model](/schema/conceptual-data-model.pdf) 
+
 The PostgreSQL database contains 8 models:
 * Order - Stores users merchandise orders. Has a foreign key with the UserProfile, in order to access a user's orders.
 * OrderLineItem - Stores order items. Has a foreign key to the Order and product models to access all their fields.
@@ -181,32 +183,44 @@ With that created, I replaced the secret key in settings.py with the call to get
 * My deployed website can be found [here](https://crypthome.herokuapp.com/).
 
 ## Credits
+### Content
+#### Crypthome text and data
+* All data, text and token logos in the Crypthome section are coming straight from [Coingecko's API](https://www.coingecko.com/en/api)
+### Media 
+#### Icons
+* The Token pages token icons, and reddit icon were taken from <a href="https://worldvectorlogo.com/" title="World vector logo">World vector logo</a> 
+#### Images
+* The Background image was sourced at [Pexels](https://www.pexels.com/photo/green-and-white-round-ornament-5980889/) - Photo by Karolina Grabowska from Pexels 
+* The images from the Crypthomerch slideshow were taken from [CryptoHaven's Pinterest page](https://www.pinterest.co.uk/cryptohaveninc/_created/)
+* The Cryphtomerch product images were taken from [Crypto Cove](https://cryptocove.io/)
 ### Code
 #### HTML
-* The pattern "regex" on both the mailing list and modals email input was taken from [Geek for geeks](https://www.geeksforgeeks.org/html-dom-input-email-pattern-property/)
+* The overall Crypthomerch template structure was highly inspired from Code Institute's Boutique ado mini project.
+* The "Widget-custom-cleareable-file-input.html" file was taken from Code Institute's Boutique ado mini project.
+#### CSS
+* The Stripe and loading spinner classes were taken from Code Institute's Boutique ado mini project.
 #### JavaScript
-* The Maps JavaScript code was researched through The Google Maps and Places API pages and various Youtube instructional videos
-* The "selectItem" function in the script.js file was taken from [Traversy Media](https://www.traversymedia.com/)
-* The "clearValue" function was taken from [Traversy Media](https://www.traversymedia.com/)
-* The "sendMail" function was taken from [EmailJS](https://www.emailjs.com/docs/) through [Code Institute](https://codeinstitute.net/)
-
-
-### Content
-#### Text 
-* The Main Page Hero section text and the Tab content items text was sourced at [Tokyo Ramen Tours](https://www.tokyoramentours.com/post/ramen-types-big-4)
-* The Regional Ramen pages text wa sourced at [Gurunavi](https://gurunavi.com/en/japanfoodie/2018/02/regional-ramen.html)
-#### Quiz
-* The Quiz questions were partly sourced at [All the tests](https://www.allthetests.com/knowledge-trivia-tests/food-drinks/other-food-drinks/quiz23/1182521396/do-you-know-ramen-noodles)
-
-### Media 
-#### Video
-* The video was sourced at [Pexels](https://www.pexels.com/video/person-using-chopsticks-getting-food-4224218/) - Video by alleksana from Pexels  
-#### Icons
-* The favicon was sourced at <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> 
-* The Main and Regional page menu Icon was sourced at <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a> 
-*  The Map Markers Icon was sourced at <a href="https://www.flaticon.com/authors/flat-icons" title="Flat Icons">Flat Icons</a>
-* The Quiz Home page Icon was sourced at <a href="https://www.freepik.com/vectors/icons">rawpixel.com - www.freepik.com</a>
-#### Images
-* The Images of the Form submission Modals and Quiz results Modals were sourced at <a href='https://www.freepik.com/vectors/food'>Food vector created by catalyststuff - www.freepik.com</a>
-* The Main Page Tab content Images were sourced at [Tokyo Ramen Tours](https://www.tokyoramentours.com/post/ramen-types-big-4)
-* The Regional Ramen dish images were sourced at [Gurunavi](https://gurunavi.com/en/japanfoodie/2018/02/regional-ramen.html)
+* The "Remove item from shopping bag" script was taken from Code Institute's Boutique ado mini project.
+* The "Image field" script was taken from Code Institute's Boutique ado mini project.
+* The "Sort selector box" script was taken from Code Institute's Boutique ado mini project.
+* The "Countryfield color" script was taken from Code Institute's Boutique ado mini project.
+* The "toggleText" function was taken from W3schools.
+* The Stat chart structure in the Portfolio page comes straight from the [amCharts](https://www.amcharts.com/) documentation.
+* The structure of the "stripe_element" js file was taken from the Stripe documentation.
+* The "json script" variable encryption was taken from Code Institute's Boutique ado mini project.
+#### Python/Django
+* The "bag_tools" filter was taken from Code Institute's Boutique ado mini project.
+* The "bag_content" function was taken from Code Institute's Boutique ado mini project.
+* All views in the "bag" app were taken from Code Institute's Boutique ado mini project.
+* All models in the "checkout" app were taken from Code Institute's Boutique ado mini project.
+* The signals.py file was taken from Code Institute's Boutique ado mini project.
+* All views in the "checkout" app were taken from Code Institute's Boutique ado mini project.
+* The "webhook" and "webhook_handler" files were taken from Code Institute's Boutique ado mini project.
+* The "DATABASES" variable conditional was taken from Code Institute's Boutique ado mini project.
+* The "USE_AWS" conditional content was taken from Code Institute's Boutique ado mini project.
+* All models in the "merch" app were taken from Code Institute's Boutique ado mini project.
+* All views in the "merch" app were taken from Code Institute's Boutique ado mini project.
+* The UserProfile form and model in the "profile" app were taken from Code Institute's Boutique ado mini project.
+* The "asgi.py" application variable set up was taken from [PyPlane](https://www.youtube.com/channel/UCQtHyVB4O4Nwy1ff5qQnyRw) Youtube channel.
+* The consumer process in "consumers.py" was studied from [PyPlane](https://www.youtube.com/channel/UCQtHyVB4O4Nwy1ff5qQnyRw) Youtube channel.
+* The price direction conditional in "tasks.py" was taken from [PyPlane](https://www.youtube.com/channel/UCQtHyVB4O4Nwy1ff5qQnyRw) Youtube channel.

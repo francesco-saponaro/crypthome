@@ -8,6 +8,7 @@ from .models import Merch, Category
 from .forms import ProductForm
 
 
+# THE 4 FUNCTIONS BELOW WERE TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 # All merch view
 def all_merch(request):
     # Get all merch objects to be rendered on the template.

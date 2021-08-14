@@ -1,6 +1,7 @@
 from django.db import models
 
 
+# THE 2 CLASSES BELOW WERE TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 # Categories model.
 class Category(models.Model):
 

@@ -13,6 +13,7 @@ import time
 # we can listen for.
 
 
+# THIS CLASS WAS TAKEN FROM CODE INSTITUTE'S MINI PROJECT
 # Handle stripe webhooks.
 class StripeWH_Handler:
 

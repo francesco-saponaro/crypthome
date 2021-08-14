@@ -1,3 +1,4 @@
+// THIS FUNCTION WAS TAKEN FROM W3SCHOOLS
 function toggleText() {
     // Get all required elements from the page
     let dots = document.getElementById("dots");
